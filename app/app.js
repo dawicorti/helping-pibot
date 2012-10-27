@@ -1,12 +1,17 @@
-define(['game'], function(game) {
+define(['game', 'level'], function(game, Level) {
 
-    var App = function() {
 
-        this.onDOMReady = function() {
+    var App = function() {};
+
+    _.extend(App.prototype, {
+
+        onDOMReady: function() {
             game.initialize();
-        };
+            var level1 = new Level();
+            game.navigator.setCurrentMode(level1);
+        },
         
-        this.run = function() {
+        run: function() {
             var that = this;
             // Thanks StackOverflow (3989095) !
             if ( document.addEventListener ) {
@@ -33,10 +38,9 @@ define(['game'], function(game) {
                 window.attachEvent( "onload", that.onDOMReady);
 
             }        
-        };
+        }
 
-        _.bindAll(this);
-    };
+    });
 
     return App;
 });

@@ -1,38 +1,51 @@
 define(['settings'], function(settings) {
 
     var Navigator = function() {
+        this.initNavigator();
+    };
 
-        var root = null;
-
-        this.init = function() {
-            _.bindAll(this);
+    _.extend(Navigator.prototype, {
+        
+        initNavigator: function() {
             this.initRoot();
             this.initBackground();
-        };
+        },
 
-        this.initRoot = function() {
-            root = Raphael(
+        initRoot: function() {
+            this.root = Raphael(
                 (window.innerWidth - this.width()) / 2,
                 (window.innerHeight - this.height()) / 2,
                 this.width(), this.height()
             );
-        };
+        },
 
-        this.initBackground = function() {
-            var background = root.rect(0, 0, this.width(), this.height());
+        initBackground: function() {
+            var background = this.root.rect(0, 0, this.width(), this.height());
             background.attr({fill: settings.BACKGROUND})
-        };
+        },
 
-        this.width = function() {
+        update: function(delta) {
+            if (_.isObject(this.currentMode)) {
+                this.currentMode.update(delta);
+            }
+        },
+
+        setCurrentMode: function(mode) {
+            if (_.isObject(this.currentMode)) {
+                this.currentMode.unload();
+            }
+            this.currentMode = mode;
+            this.currentMode.load();
+        },
+
+        width: function() {
             return settings.RESOLUTION[0];
-        };
+        },
 
-        this.height = function() {
+        height: function() {
             return settings.RESOLUTION[1];
-        };
-
-        this.init();
-    };
+        }
+    });
 
     return Navigator;
 });
