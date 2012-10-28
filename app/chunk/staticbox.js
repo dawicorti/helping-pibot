@@ -23,7 +23,7 @@ define(['game', 'actor'], function(game, Actor) {
                 pos, group, this.createBody(world, pos, size)
             );
             this.size = size;
-            this.render();
+            console.log(size);
         },
 
         render: function() {
@@ -45,12 +45,15 @@ define(['game', 'actor'], function(game, Actor) {
             bodyDef.position.Set(pos.x, pos.y);
             var body = world.CreateBody(bodyDef);
             var box = new b2PolygonShape()
-            box.SetAsBox(size.width / 2.0, size.height / 2.0);
-
+            box.SetAsBox(
+                size.width / 2.0,
+                size.height / 2.0
+            );
             var fixtureDef = new b2FixtureDef();
             fixtureDef.shape = box;
             fixtureDef.density = 1;
-            fixtureDef.friction = 1;
+            fixtureDef.friction = 0.5;
+            fixtureDef.restitution = 0.2;
             body.CreateFixture(fixtureDef);
             return body;
         }

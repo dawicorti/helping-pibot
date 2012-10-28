@@ -3,7 +3,7 @@ define(function() {
         
         RESOLUTION: [window.innerWidth, window.innerWidth / 3],
         
-        GAME_LOOP_PERIOD: 16, 
+        GAME_LOOP_PERIOD: 40, 
 
         GRAVITY: -9.8,
 

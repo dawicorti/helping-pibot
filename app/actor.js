@@ -14,6 +14,7 @@ define(['game'], function(game) {
             this.pos = pos;
             this.body = body;
             this.body.GetPosition();
+            this.lastAngle = 0;
         },
 
         show: function() {
@@ -24,12 +25,18 @@ define(['game'], function(game) {
             this.group.hide();
         },
 
+        normalRelativeAngle: function(newAngle) {
+            var radAngle = newAngle - this.lastAngle;
+            this.lastAngle = newAngle;
+            return -(radAngle * 180 / Math.PI);
+        },
+
         update: function(delta) {
             this.pos = this.body.GetPosition();
             var rootPoint = this.camera.getRootPoint(this.pos);
             var config = this.camera.getRootPoint(this.pos);
-            var angle = -Math.floor((this.body.GetAngle() * 90) / Math.PI);
-            config.transform = 'R' + angle + ',' + rootPoint.x + ',' + rootPoint.y; 
+            var angle = this.normalRelativeAngle(this.body.GetAngle());
+            config.transform = 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y; 
             this.group.animate(config, delta);
         }
 

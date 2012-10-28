@@ -22,7 +22,6 @@ define(['game', 'actor'], function(game, Actor) {
                 this, world, camera,
                 pos, group, this.createBody(world, pos)
             );
-            this.render();
         },
 
         render: function() {
@@ -49,8 +48,9 @@ define(['game', 'actor'], function(game, Actor) {
             dynamicBox.SetAsBox(0.5, 0.5);
             var fixtureDef = new b2FixtureDef();
             fixtureDef.shape = dynamicBox;
-            fixtureDef.density = 1;
-            fixtureDef.friction = 0.3;
+            fixtureDef.density = 10000;
+            fixtureDef.friction = 0.5;
+            fixtureDef.restitution = 0.2;
             body.CreateFixture(fixtureDef);
             return body;
         }
