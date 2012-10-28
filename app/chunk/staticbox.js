@@ -44,11 +44,9 @@ define(['game', 'actor'], function(game, Actor) {
             var bodyDef = new b2BodyDef();
             bodyDef.position.Set(pos.x, pos.y);
             var body = world.CreateBody(bodyDef);
-            var box = new b2PolygonShape();
-            box.SetAsBox(
-                size.width / 2.0,
-                size.height / 2.0
-            );
+            var box = new b2PolygonShape()
+            box.SetAsBox(size.width / 2.0, size.height / 2.0);
+
             var fixtureDef = new b2FixtureDef();
             fixtureDef.shape = box;
             fixtureDef.density = 1;

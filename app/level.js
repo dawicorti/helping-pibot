@@ -1,8 +1,8 @@
 define(
     [
         'settings', 'mode', 'game', 'camera', 
-        'chunk/rigidbox', 'chunk/staticbox'
-    ], function(settings, Mode, game, Camera, RigidBox, StaticBox) {
+        'chunk/rigidbox', 'chunk/staticbox', 'generated/robot'
+    ], function(settings, Mode, game, Camera, RigidBox, StaticBox, drawRobot) {
 
     // Box2D aliases
     var b2World = Box2D.Dynamics.b2World;
@@ -25,13 +25,23 @@ define(
             // test
             this.ground = new StaticBox(
                 this.world, this.camera,
-                {x: 0, y: 0.5}, this.group,
-                {width: 100, height: 1}
+                {x: 0, y: -25}, this.group,
+                {width: 100, height: 50}
             );
-
+            // this.group.push(drawRobot(game.root));
             this.boxes = [];
 
-            for(x = 5; x <= 15; x+= 2) {
+            this.gBoxes = [];
+
+            for(x = 3; x <= 12; x += 3) {
+                this.gBoxes.push(new StaticBox(
+                    this.world, this.camera,
+                    {x: x, y: 4}, this.group,
+                    {width: 1, height: 1}
+                ));                
+            }
+
+            for(x = 5; x <= 15; x += 2) {
                 for(y = 10; y < 30; y += 2) {
                     this.boxes.push(new RigidBox(
                         this.world,

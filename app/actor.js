@@ -26,10 +26,11 @@ define(['game'], function(game) {
 
         update: function(delta) {
             this.pos = this.body.GetPosition();
-            if(this.body.GetAngle() != 0) {
-                console.log(this.body.GetAngle());
-            }
-            this.group.animate(this.camera.getRootPoint(this.pos), delta);
+            var rootPoint = this.camera.getRootPoint(this.pos);
+            var config = this.camera.getRootPoint(this.pos);
+            var angle = -Math.floor((this.body.GetAngle() * 90) / Math.PI);
+            config.transform = 'R' + angle + ',' + rootPoint.x + ',' + rootPoint.y; 
+            this.group.animate(config, delta);
         }
 
     });

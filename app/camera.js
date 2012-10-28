@@ -18,7 +18,7 @@ define(['game'], function(game) {
             */
             targetOffset = {
                 x: this.getRootDistance(worldPoint.x - this.target.x),
-                y: -this.getRootDistance(worldPoint.y - this.target.y)
+                y: this.getRootDistance(this.target.y - worldPoint.y)
             }
             rootTargetPoint = {
                 x: game.navigator.width() / 2,

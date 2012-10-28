@@ -45,6 +45,7 @@ define(['game', 'actor'], function(game, Actor) {
             bodyDef.position.Set(pos.x, pos.y);
             var body = world.CreateBody(bodyDef);
             var dynamicBox = new b2PolygonShape();
+            console.log()
             dynamicBox.SetAsBox(0.5, 0.5);
             var fixtureDef = new b2FixtureDef();
             fixtureDef.shape = dynamicBox;
