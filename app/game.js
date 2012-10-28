@@ -1,5 +1,8 @@
 define(['navigator', 'settings'], function(Navigator, settings) {
     
+    var Navigator = require('navigator');
+    var settings = require('settings');
+
     var Game = function() {};
     
     _.extend(Game.prototype, {

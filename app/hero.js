@@ -1,4 +1,7 @@
-define(['game', 'actor'], function(game, Actor) {
+define(function(require) {
+
+    var game = require('game');
+    var Actor = require('actor');
 
     var Hero = function(world, camera, pos, group) {
         this.init(world, camera, pos, group);

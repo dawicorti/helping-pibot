@@ -1,4 +1,6 @@
-define(['game'], function(game) {
+define(function(game) {
+
+    var game = require('game');
 
     /*
         A mode is the current controller/view in the root window

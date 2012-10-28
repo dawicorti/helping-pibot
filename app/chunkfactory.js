@@ -1,4 +1,8 @@
-define(['chunk/staticbox', 'chunk/rigidbox'], function(StaticBox, RigidBox) {
+define(function(require) {
+
+    var StaticBox = require('chunk/staticbox');
+    var RigidBox = require('chunk/rigidbox');
+
 
     var CHUNK_TYPES = {
         'staticbox': StaticBox,

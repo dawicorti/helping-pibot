@@ -1,4 +1,6 @@
-define(['game'], function(game) {
+define(function(require) {
+
+    var game = require('game');
 
     var Camera = function(target, fieldWidth) {
         this.init(target, fieldWidth);

@@ -1,4 +1,7 @@
-define(['game', 'actor'], function(game, Actor) {
+define(function(require) {
+
+    var game = require('game');
+    var Actor = require('actor');
 
     // Box2D aliases
     var b2BodyDef = Box2D.Dynamics.b2BodyDef;

@@ -1,4 +1,6 @@
-define(['settings'], function(settings) {
+define(function(require) {
+
+    var settings = require('settings');
 
     var Navigator = function() {
         this.initNavigator();

@@ -1,5 +1,7 @@
 define(['game', 'level'], function(game, Level) {
 
+    var game = require('game');
+    var Level = require('level');
 
     var App = function() {};
 

@@ -1,8 +1,10 @@
-define(
-    [
-        'settings', 'mode', 'game', 'camera', 'chunkfactory'
-    ], function(settings, Mode, game, Camera, ChunkFactory) {
+define(function(require) {
 
+    var settings = require('settings');
+    var Mode = require('mode');
+    var Game = require('game');
+    var Camera = require('camera');
+    var ChunkFactory = require('chunkfactory');
     // Box2D aliases
     var b2World = Box2D.Dynamics.b2World;
     var b2Vec2 = Box2D.Common.Math.b2Vec2;
