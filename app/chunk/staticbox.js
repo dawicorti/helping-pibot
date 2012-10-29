@@ -26,7 +26,6 @@ define(function(require) {
                 pos, group, this.createBody(world, pos, size)
             );
             this.size = size;
-            console.log(size);
         },
 
         render: function() {

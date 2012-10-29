@@ -56,6 +56,19 @@ define(function(require) {
             fixtureDef.restitution = 0.2;
             body.CreateFixture(fixtureDef);
             return body;
+        },
+
+        update: function(delta) {
+            this.pos = this.body.GetPosition();
+            var rootPoint = this.camera.getRootPoint(this.pos);
+            var angle = this.normalRelativeAngle(this.body.GetAngle());
+            var config = this.camera.getRootPoint({
+                x: this.pos.x - 0.5,
+                y: this.pos.y + 0.5
+            });
+            config.transform = 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y;
+            this.group.animate(config, 1);
+
         }
 
     });

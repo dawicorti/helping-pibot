@@ -13,8 +13,9 @@ define(['game'], function(game) {
             this.camera = camera;
             this.pos = pos;
             this.body = body;
-            this.body.GetPosition();
             this.lastAngle = 0;
+            this.bufferTr = {x: 0, y: 0};
+            this.oldPoint = this.camera.getRootPoint(this.pos);
         },
 
         show: function() {
@@ -34,10 +35,9 @@ define(['game'], function(game) {
         update: function(delta) {
             this.pos = this.body.GetPosition();
             var rootPoint = this.camera.getRootPoint(this.pos);
-            var config = this.camera.getRootPoint(this.pos);
             var angle = this.normalRelativeAngle(this.body.GetAngle());
-            config.transform = 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y; 
-            this.group.animate(config, delta);
+            var transform = 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y;
+            this.group.animate({transform: transform}, 1);
         }
 
     });

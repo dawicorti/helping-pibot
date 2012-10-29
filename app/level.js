@@ -5,6 +5,8 @@ define(function(require) {
     var Game = require('game');
     var Camera = require('camera');
     var ChunkFactory = require('chunkfactory');
+    var Hero = require('hero');
+
     // Box2D aliases
     var b2World = Box2D.Dynamics.b2World;
     var b2Vec2 = Box2D.Common.Math.b2Vec2;
@@ -26,20 +28,24 @@ define(function(require) {
             this.world = new b2World(new b2Vec2(0, settings.GRAVITY), true);
             this.chunks = [];
             this.chunkFactory = new ChunkFactory(this.world, this.camera, this.group);
-            // test
-            for(x = 3; x <= 12; x += 3) {
-                this.chunkFactory.newChunk(
-                    'staticbox', {x: x, y: 4}, this.onChunkCreated, {width: 1, height: 1}
-                );
-            }
+
             this.chunkFactory.newChunk(
-                'staticbox', {x: 0, y: 0}, this.onChunkCreated, {width: 100, height: 1}
+                'staticbox', {x: 4.9, y: 0}, this.onChunkCreated, {width: 10, height: 1}
             );
-            for(x = 5; x <= 15; x += 2) {
-                for(y = 10; y < 30; y += 2) {
-                    this.chunkFactory.newChunk('rigidbox', {x: x, y: y}, this.onChunkCreated);
-                }
-            }
+
+            this.chunkFactory.newChunk(
+                'staticbox', {x: 10.5, y: -1.1}, this.onChunkCreated, {width: 1, height: 1}
+            );
+            this.chunkFactory.newChunk(
+                'staticbox', {x: 21.1, y: 0}, this.onChunkCreated, {width: 20, height: 1}
+            );
+
+            this.chunkFactory.newChunk(
+                'rigidbox', {x: 10.5, y: 8}, this.onChunkCreated
+            );
+
+            //this.hero = new Hero(this.world, this.camera, {x: 0, y: 0}, this.group);
+
         },
 
         onChunkCreated: function(chunk) {

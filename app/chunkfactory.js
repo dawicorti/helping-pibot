@@ -22,6 +22,7 @@ define(function(require) {
         },
 
         newChunk: function(chunkName, pos, next, options) {
+            console.log('in factory : ' + pos.x)
             var chunk = new CHUNK_TYPES[chunkName](
                 this.world, this.camera, pos, this.group, options
             );
