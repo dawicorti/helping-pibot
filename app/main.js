@@ -1,7 +1,8 @@
 require(
     {
         paths: {
-            app: 'app'
+            svg: '/svg',
+            text: '/lib/require-text'
         }
     }, ['app'], function(App) {
         var app = new App();

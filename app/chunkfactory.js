@@ -1,8 +1,7 @@
 define(function(require) {
 
-    var StaticBox = require('chunk/staticbox');
-    var RigidBox = require('chunk/rigidbox');
-
+    var StaticBox = require('chunks/staticbox');
+    var RigidBox = require('chunks/rigidbox');
 
     var CHUNK_TYPES = {
         'staticbox': StaticBox,

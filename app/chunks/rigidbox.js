@@ -1,7 +1,7 @@
 define(function(require) {
 
     var game = require('game');
-    var Actor = require('actor');
+    var Chunk = require('chunk');
 
     // Box2D aliases
     var b2BodyDef = Box2D.Dynamics.b2BodyDef;
@@ -16,12 +16,12 @@ define(function(require) {
         this.init(world, camera, pos, group)
     };
 
-    _.extend(RigidBox.prototype, Actor.prototype);
+    _.extend(RigidBox.prototype, Chunk.prototype);
 
     _.extend(RigidBox.prototype, {
 
         init: function(world, camera, pos, group) {
-            Actor.prototype.init.call(
+            Chunk.prototype.init.call(
                 this, world, camera,
                 pos, group, this.createBody(world, pos)
             );

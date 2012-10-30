@@ -1,10 +1,10 @@
 define(['game'], function(game) {
 
-    var Actor = function(world, camera, pos, group, body) {
+    var Chunk = function(world, camera, pos, group, body) {
         this.init(world, camera, pos, group, body);
     };
 
-    _.extend(Actor.prototype, {
+    _.extend(Chunk.prototype, {
 
         init: function(world, camera, pos, group, body) {
             this.group = game.root.set();
@@ -42,6 +42,6 @@ define(['game'], function(game) {
 
     });
 
-    return Actor;
+    return Chunk;
 
 });
