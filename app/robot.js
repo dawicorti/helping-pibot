@@ -2,7 +2,7 @@ define(function(require) {
 
     var game = require('game');
     var Chunk = require('chunk');
-    var robotPrint = require('text!svg/robot2.svg');
+    var robotPrint = require('text!svg/robot.svg');
 
     // Box2D aliases
     var b2BodyDef = Box2D.Dynamics.b2BodyDef;
