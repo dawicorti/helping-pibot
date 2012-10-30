@@ -11,6 +11,7 @@ define(['game'], function(game) {
             this.group.animate(camera.getRootPoint(pos), 1);
             group.push(this.group);
             this.camera = camera;
+            this.world = world;
             this.pos = pos;
             this.body = body;
             this.lastAngle = 0;
