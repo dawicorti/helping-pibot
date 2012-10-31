@@ -23,12 +23,12 @@ define(function(require) {
                 y: this.getRootDistance(this.target.y - worldPoint.y)
             }
             rootTargetPoint = {
-                x: game.navigator.width() / 2,
-                y: game.navigator.height() / 2
+                x: game.navigator.width() / 2.0,
+                y: game.navigator.height() / 2.0
             }
             return {
-                x: Math.floor(rootTargetPoint.x + targetOffset.x),
-                y: Math.floor(rootTargetPoint.y + targetOffset.y)
+                x: rootTargetPoint.x + targetOffset.x,
+                y: rootTargetPoint.y + targetOffset.y
             }
 
         },

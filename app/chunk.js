@@ -7,9 +7,8 @@ define(['game'], function(game) {
     _.extend(Chunk.prototype, {
 
         init: function(world, camera, pos, group, body) {
-            this.group = game.root.set();
-            this.group.animate(camera.getRootPoint(pos), 1);
-            group.push(this.group);
+            this.group = new fabric.Group();
+            group.add(this.group);
             this.camera = camera;
             this.world = world;
             this.pos = pos;
@@ -33,12 +32,11 @@ define(['game'], function(game) {
             return -(radAngle * 180 / Math.PI);
         },
 
+        render: function() {},
+
         update: function(delta) {
             this.pos = this.body.GetPosition();
-            var rootPoint = this.camera.getRootPoint(this.pos);
-            var angle = this.normalRelativeAngle(this.body.GetAngle());
-            var transform = 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y;
-            this.group.animate({transform: transform}, 1);
+            this.render();
         }
 
     });

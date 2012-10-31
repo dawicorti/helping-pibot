@@ -1,7 +1,5 @@
 define(function(game) {
 
-    var game = require('game');
-
     /*
         A mode is the current controller/view in the root window
         It can be a level, a menu, or any interface
@@ -14,15 +12,15 @@ define(function(game) {
     Mode.prototype = {
 
         init: function() {
-            this.group = game.root.set();
+            this.group = new fabric.Group();
         },
 
         load: function() {
-            this.group.show();
+            //this.group.show();
         },
 
         unload: function() {
-            this.group.hide();
+            //this.group.hide();
         }
 
     };

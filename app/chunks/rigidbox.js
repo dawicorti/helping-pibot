@@ -28,17 +28,16 @@ define(function(require) {
         },
 
         render: function() {
-            var rootPoint = this.camera.getRootPoint({
-                x: this.pos.x - 0.5,
-                y: this.pos.y + 0.5
+            var rootPoint = this.camera.getRootPoint(this.pos);
+            var rect = new fabric.Rect({
+                left: rootPoint.x,
+                top: rootPoint.y,
+                width: this.camera.getRootDistance(1),
+                height: this.camera.getRootDistance(1),
+                fill: '#ff6e49',
+                stroke: '#a63518'
             });
-            this.rect = game.root.rect(
-                rootPoint.x, rootPoint.y,
-                this.camera.getRootDistance(1),
-                this.camera.getRootDistance(1)
-            );
-            this.rect.attr('fill', '#ff6e49');
-            this.group.push(this.rect);
+            game.root.add(rect);
         },
 
         createBody: function(world, pos) {
@@ -57,19 +56,6 @@ define(function(require) {
             body.CreateFixture(fixtureDef);
             return body;
         },
-
-        update: function(delta) {
-            this.pos = this.body.GetPosition();
-            var rootPoint = this.camera.getRootPoint(this.pos);
-            var angle = this.normalRelativeAngle(this.body.GetAngle());
-            var config = this.camera.getRootPoint({
-                x: this.pos.x - 0.5,
-                y: this.pos.y + 0.5
-            });
-            config.transform = 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y;
-            this.group.animate(config, 1);
-
-        }
 
     });
 

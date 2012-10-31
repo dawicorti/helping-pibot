@@ -12,44 +12,43 @@ define(function(require) {
     var b2Fixture = Box2D.Dynamics.b2Fixture;
     var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 
-    var StaticBox = function(world, camera, pos, group, size) {
-        this.init(world, camera, pos, group, size)
+    var StaticBox = function(world, camera, pos, group, options) {
+        this.init(world, camera, pos, group, options)
     };
 
     _.extend(StaticBox.prototype, Chunk.prototype);
 
     _.extend(StaticBox.prototype, {
 
-        init: function(world, camera, pos, group, size) {
+        init: function(world, camera, pos, group, options) {
             Chunk.prototype.init.call(
                 this, world, camera,
-                pos, group, this.createBody(world, pos, size)
+                pos, group, this.createBody(world, pos, options)
             );
-            this.size = size;
+            this.options = options;
         },
 
         render: function() {
-            var rootPoint = this.camera.getRootPoint({
-                x: this.pos.x - this.size.width / 2.0,
-                y: this.pos.y + this.size.height / 2.0
+            var rootPoint = this.camera.getRootPoint(this.pos);
+            this.rect = new fabric.Rect({
+                left: rootPoint.x,
+                top: rootPoint.y,
+                width: this.camera.getRootDistance(this.options.width),
+                height: this.camera.getRootDistance(this.options.height),
+                fill: '#620e5d',
+                stroke: '#4a1a47'
             });
-            this.rect = game.root.rect(
-                rootPoint.x, rootPoint.y,
-                this.camera.getRootDistance(this.size.width),
-                this.camera.getRootDistance(this.size.height)
-            );
-            this.rect.attr('fill', '#620e5d');
-            this.group.push(this.rect);
+            game.root.add(this.rect);
         },
 
-        createBody: function(world, pos, size) {
+        createBody: function(world, pos, options) {
             var bodyDef = new b2BodyDef();
             bodyDef.position.Set(pos.x, pos.y);
             var body = world.CreateBody(bodyDef);
             var box = new b2PolygonShape()
             box.SetAsBox(
-                size.width / 2.0,
-                size.height / 2.0
+                options.width / 2.0,
+                options.height / 2.0
             );
             var fixtureDef = new b2FixtureDef();
             fixtureDef.shape = box;
@@ -58,7 +57,12 @@ define(function(require) {
             fixtureDef.restitution = 0.2;
             body.CreateFixture(fixtureDef);
             return body;
+        },
+
+        update: function() {
+            this.render();
         }
+
 
     });
 

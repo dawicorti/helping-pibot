@@ -45,39 +45,37 @@ define(function(require) {
         },
 
         render: function() {
-            /*
-            game.root.importSVG(robotPrint, this.group);
-            this.group.attr('transform', 'S0.5,0.5,0,0');
-            this.group.animate({transform: 't1000, 100,S0.5,0.5,0,0'}, 10000);
-            */
-            //this.group.attr('transform', 's0.5');
-            this.renderWheel();
             this.renderRigidBox();
+            this.renderWheel();
         },
 
         renderRigidBox: function() {
             var pos = this.boxBody.GetPosition();
-            var rootPoint = this.camera.getRootPoint(
-                pos.x - 0.5, pos.y + 0.5 
-            );
+            var rootPoint = this.camera.getRootPoint(pos);
             var rootSize = this.camera.getRootDistance(1);
-            this.boxPrint = game.root.rect(
-                rootPoint.x, rootPoint.y, rootSize, rootSize
-            );
-            this.boxPrint.attr('fill', '#ff6e49');
-            this.group.push(this.boxPrint);
+            var boxPrint = new fabric.Rect({
+                left: rootPoint.x,
+                top: rootPoint.y,
+                width: rootSize,
+                height: rootSize,
+                fill: '#ff6e49',
+                stroke: '#a63518'
+            });
+            game.root.add(boxPrint);
         },
 
         renderWheel: function() {
-            var rootPoint = this.camera.getRootPoint(
-                this.wheelBody.GetPosition()
-            );
+            var pos = this.wheelBody.GetPosition();
+            var rootPoint = this.camera.getRootPoint(pos);
             var rootRadius = this.camera.getRootDistance(0.5);
-            this.wheelPrint = game.root.circle(
-                rootPoint.x, rootPoint.y, rootRadius
-            );
-            this.wheelPrint.attr('fill', '#ff6e49');
-            this.group.push(this.wheelPrint);
+            var wheelPrint = new fabric.Circle({
+                left: rootPoint.x,
+                top: rootPoint.y,
+                radius: rootRadius,
+                fill: '#ff6e49',
+                stroke: '#a63518'
+            });
+            game.root.add(wheelPrint);
         },
 
         createWheelBody: function(world, pos) {
@@ -117,29 +115,6 @@ define(function(require) {
             return this.createWheelBody(world, pos);
         },
 
-        updateBox: function(delta) {
-            var pos = this.boxBody.GetPosition();
-            var rootPoint = this.camera.getRootPoint({
-                x: pos.x - 0.5, y: pos.y + 0.5 
-            });
-            this.boxPrint.animate(rootPoint, delta);
-        },
-
-        updateWheel: function(delta) {
-            var wheelPos = this.wheelBody.GetPosition();
-            var rootPoint = this.camera.getRootPoint(wheelPos);
-            var angle = this.normalRelativeAngle(this.wheelBody.GetAngle());
-            this.wheelPrint.animate({
-                cx: rootPoint.x,
-                cy: rootPoint.y,
-                transform: 'r' + angle + ',' + rootPoint.x + ',' + rootPoint.y
-            }, delta);
-        },
-
-        update: function(delta) {
-            this.updateWheel(delta);
-            this.updateBox(delta);
-        }
     });
 
     return Robot;

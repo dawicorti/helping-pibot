@@ -9,8 +9,7 @@ define(['game', 'level'], function(game, Level) {
 
         onDOMReady: function() {
             game.initialize();
-            var level1 = new Level();
-            game.navigator.setCurrentMode(level1);
+            game.navigator.setCurrentMode(new Level(1));
         },
         
         run: function() {
