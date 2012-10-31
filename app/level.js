@@ -22,6 +22,7 @@ define(function(require) {
         init: function (index) {
             _.bindAll(this);
             require(['levels/level' + index], this.render);
+            this.rendered = false;
         },
 
         render: function(config) {
@@ -38,6 +39,7 @@ define(function(require) {
                 );
             }, this);
             this.robot = new Robot(this.world, this.camera, {x: 2, y: 7}, this.group);
+            this.rendered = true;
         },
 
         onChunkCreated: function(chunk) {
@@ -46,11 +48,13 @@ define(function(require) {
         },
 
         update: function(delta) {
-            this.world.Step(delta / 1000.0, 8, 1);
-            _.each(this.chunks, function(box) {
-                box.update(delta);
-            });
-            this.robot.update();
+            if(this.rendered) {
+                this.world.Step(delta / 1000.0, 8, 1);
+                _.each(this.chunks, function(box) {
+                    box.update(delta);
+                });
+                this.robot.update();
+            }
         }
 
     });
