@@ -59,7 +59,11 @@ define(function(require) {
 
         updatePos: function(delta) {
             var rootPoint = this.camera.getRootPoint(this.body.GetPosition());
-            this.rect.set({left: rootPoint.x, top: rootPoint.y});
+            this.rect.set({
+                left: rootPoint.x,
+                top: rootPoint.y,
+                angle: this.normalRelativeAngle(this.body.GetAngle())
+            });
         }
 
     });

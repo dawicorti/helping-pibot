@@ -2,6 +2,43 @@ body {
     background-color: black;
 }
 
+header h1 .title {
+    display: none;
+}
+
+header h1 {
+    position: absolute;
+    right: 50px;
+    width: 728px;
+    height: 90px;
+    background-image: url('../svg/helpingpibot.svg');
+}
+
+header p {
+    position: absolute;
+    font-size: 18px;
+    font-family: 'Economica', sans-serif;
+    color: white;
+    right: 130px;
+}
+
+header a {
+    text-decoration: none;
+    color: #620e5d;
+}
+
+header .dev {
+    top: 105px;
+}
+
+header .music {
+    top: 130px;
+}
+
+header .gameoff {
+    font-weight: bold;
+}
+
 .canvas-container {
     position: absolute;
     margin: 0 0 0 0;

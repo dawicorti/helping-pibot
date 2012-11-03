@@ -15,6 +15,7 @@ define(function(require) {
             this.jukebox.playFromJamendo(settings.SOUNDTRACK);
             this.root = this.navigator.root;
             this.userInterface = new UserInterface();
+            this.root.observe('mouse:down', this.userInterface.onMouseDown);
             this.resetLoop();
         },
 

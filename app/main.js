@@ -4,8 +4,10 @@ require(
             svg: '../svg',
             text: '../lib/require-text'
         }
-    }, ['app'], function(App) {
-        var app = new App();
-        app.run();
+    }, ['game', 'level'], function(game, Level) {
+        DOMReady(function() {
+            game.initialize();
+            game.navigator.setCurrentMode(new Level(1));
+        });
     }
 );
