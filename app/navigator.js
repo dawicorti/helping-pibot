@@ -9,10 +9,6 @@ define(function(require) {
     _.extend(Navigator.prototype, {
         
         init: function() {
-            this.initRoot();
-        },
-
-        initRoot: function() {
             var node = document.createElement('canvas');
             node.setAttribute('width', settings.RESOLUTION[0]);
             node.setAttribute('height', settings.RESOLUTION[1]);

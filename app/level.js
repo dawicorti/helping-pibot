@@ -1,7 +1,6 @@
 define(function(require) {
 
     var settings = require('settings');
-    var Mode = require('mode');
     var game = require('game');
     var Camera = require('camera');
     var ChunkFactory = require('chunkfactory');
@@ -15,8 +14,6 @@ define(function(require) {
         this.init(index);
     };
 
-    _.extend(Level.prototype, Mode.prototype);
-
     _.extend(Level.prototype, {
         
         init: function (index) {
@@ -26,7 +23,6 @@ define(function(require) {
         },
 
         render: function(config) {
-            Mode.prototype.init.call(this);
             this.camera = new Camera(
                 settings.CAMERA_TARGET, settings.CAMERA_FIELD_WIDTH
             ); 
