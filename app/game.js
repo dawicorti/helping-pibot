@@ -3,6 +3,7 @@ define(function(require) {
     var Navigator = require('navigator');
     var settings = require('settings');
     var Jukebox = require('jukebox');
+    var UserInterface = require('userinterface');
 
     var Game = function() {};
     
@@ -13,6 +14,7 @@ define(function(require) {
             this.jukebox = new Jukebox();
             this.jukebox.playFromJamendo(settings.SOUNDTRACK);
             this.root = this.navigator.root;
+            this.userInterface = new UserInterface();
             this.resetLoop();
         },
 
@@ -24,8 +26,8 @@ define(function(require) {
         },
 
         onTick: function() {
-            this.root.clear();
             this.navigator.update(settings.GAME_LOOP_PERIOD);
+            this.userInterface.update(this.root);
             this.resetLoop();
         }
 

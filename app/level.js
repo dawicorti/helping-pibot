@@ -39,6 +39,8 @@ define(function(require) {
                 );
             }, this);
             this.robot = new Robot(this.world, this.camera, {x: 2, y: 7}, this.group);
+            this.robot.render();
+            this.camera.lock(this.robot);
             this.rendered = true;
         },
 
@@ -47,13 +49,14 @@ define(function(require) {
             this.chunks.push(chunk);
         },
 
-        update: function(delta) {
+        update: function(delta, root) {
             if(this.rendered) {
+                this.camera.update();
                 this.world.Step(delta / 1000.0, 8, 1);
                 _.each(this.chunks, function(box) {
-                    box.update(delta);
+                    box.update(delta, root);
                 });
-                this.robot.update();
+                this.robot.update(delta, root);
             }
         }
 

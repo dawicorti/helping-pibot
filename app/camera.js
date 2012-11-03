@@ -11,6 +11,11 @@ define(function(require) {
         init: function(target, fieldWidth) {
             this.target = target;
             this.fieldWidth = fieldWidth;
+            this.lockedChunk = null;
+        },
+
+        lock: function(chunk) {
+            this.lockedChunk = chunk;
         },
 
         getRootPoint: function(worldPoint) {
@@ -35,6 +40,18 @@ define(function(require) {
 
         getRootDistance: function(worldDistance) {
             return (worldDistance * game.navigator.width()) / this.fieldWidth
+        },
+
+        update: function() {
+            if(_.isObject(this.lockedChunk)) {
+                this.target = _.clone(this.lockedChunk.pos);
+            }
+            if (this.target.x - this.fieldWidth / 2 <= 0) {
+                this.target.x = this.fieldWidth / 2;
+            }
+            if (this.target.y <= 0) {
+                this.target.y = 0;
+            }
         }
 
     });

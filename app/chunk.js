@@ -1,4 +1,4 @@
-define(['game'], function(game) {
+define(function() {
 
     var Chunk = function(world, camera, pos, group, body) {
         this.init(world, camera, pos, group, body);
@@ -8,7 +8,6 @@ define(['game'], function(game) {
 
         init: function(world, camera, pos, group, body) {
             this.group = new fabric.Group();
-            group.add(this.group);
             this.camera = camera;
             this.world = world;
             this.pos = pos;
@@ -32,11 +31,11 @@ define(['game'], function(game) {
             return -(radAngle * 180 / Math.PI);
         },
 
-        render: function() {},
+        updatePos: function(delta) {},
 
-        update: function(delta) {
-            this.pos = this.body.GetPosition();
-            this.render();
+        update: function(delta, root) {
+            this.updatePos(delta);
+            root.add(this.group);
         }
 
     });

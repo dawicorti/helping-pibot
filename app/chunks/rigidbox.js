@@ -29,7 +29,7 @@ define(function(require) {
 
         render: function() {
             var rootPoint = this.camera.getRootPoint(this.pos);
-            var rect = new fabric.Rect({
+            this.rect = new fabric.Rect({
                 left: rootPoint.x,
                 top: rootPoint.y,
                 width: this.camera.getRootDistance(1),
@@ -37,7 +37,7 @@ define(function(require) {
                 fill: '#ff6e49',
                 stroke: '#a63518'
             });
-            game.root.add(rect);
+            this.group.add(this.rect);
         },
 
         createBody: function(world, pos) {
@@ -56,6 +56,11 @@ define(function(require) {
             body.CreateFixture(fixtureDef);
             return body;
         },
+
+        updatePos: function(delta) {
+            var rootPoint = this.camera.getRootPoint(this.body.GetPosition());
+            this.rect.set({left: rootPoint.x, top: rootPoint.y});
+        }
 
     });
 

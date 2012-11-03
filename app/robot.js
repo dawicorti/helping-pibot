@@ -30,18 +30,16 @@ define(function(require) {
                 pos, group, this.createBody(world, pos)
             );
             this.createJoint();
-            this.render();
         },
 
         createJoint: function() {
             var jointDef = new b2RevoluteJointDef();
-
             jointDef.bodyA = this.boxBody;
             jointDef.bodyB = this.wheelBody;
             jointDef.collideConnected = false;
             jointDef.localAnchorA.Set(0, -1);
             jointDef.localAnchorB.Set(0, 0);
-            this.world.CreateJoint(jointDef);            
+            this.joint = this.world.CreateJoint(jointDef);            
         },
 
         render: function() {
@@ -53,7 +51,7 @@ define(function(require) {
             var pos = this.boxBody.GetPosition();
             var rootPoint = this.camera.getRootPoint(pos);
             var rootSize = this.camera.getRootDistance(1);
-            var boxPrint = new fabric.Rect({
+            this.boxPrint = new fabric.Rect({
                 left: rootPoint.x,
                 top: rootPoint.y,
                 width: rootSize,
@@ -61,21 +59,21 @@ define(function(require) {
                 fill: '#ff6e49',
                 stroke: '#a63518'
             });
-            game.root.add(boxPrint);
+            this.group.add(this.boxPrint);
         },
 
         renderWheel: function() {
             var pos = this.wheelBody.GetPosition();
             var rootPoint = this.camera.getRootPoint(pos);
             var rootRadius = this.camera.getRootDistance(0.5);
-            var wheelPrint = new fabric.Circle({
+            this.wheelPrint = new fabric.Circle({
                 left: rootPoint.x,
                 top: rootPoint.y,
                 radius: rootRadius,
                 fill: '#ff6e49',
                 stroke: '#a63518'
             });
-            game.root.add(wheelPrint);
+            this.group.add(this.wheelPrint);
         },
 
         createWheelBody: function(world, pos) {
@@ -90,7 +88,6 @@ define(function(require) {
             fixtureDef.friction = 0.3;
             fixtureDef.restitution = 0.5
             this.wheelBody.CreateFixture(fixtureDef);
-            this.wheelBody.SetLinearVelocity(new b2Vec2(3, 0));
             return this.wheelBody;
         },
 
@@ -114,6 +111,15 @@ define(function(require) {
             this.createRigidBox(world, pos);
             return this.createWheelBody(world, pos);
         },
+
+        updatePos: function(delta) {
+            this.wheelBody.SetAngularVelocity(-10);
+            this.pos = this.boxBody.GetPosition();
+            var rootPoint = this.camera.getRootPoint(this.pos);
+            this.boxPrint.set({left: rootPoint.x, top: rootPoint.y});
+            rootPoint = this.camera.getRootPoint(this.wheelBody.GetPosition());
+            this.wheelPrint.set({left: rootPoint.x, top: rootPoint.y});
+        }
 
     });
 

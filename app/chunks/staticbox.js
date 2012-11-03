@@ -38,7 +38,7 @@ define(function(require) {
                 fill: '#620e5d',
                 stroke: '#4a1a47'
             });
-            game.root.add(this.rect);
+            this.group.add(this.rect);
         },
 
         createBody: function(world, pos, options) {
@@ -59,10 +59,10 @@ define(function(require) {
             return body;
         },
 
-        update: function() {
-            this.render();
+        updatePos: function(delta) {
+            var rootPoint = this.camera.getRootPoint(this.pos);
+            this.rect.set({left: rootPoint.x, top: rootPoint.y});
         }
-
 
     });
 

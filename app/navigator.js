@@ -35,7 +35,7 @@ define(function(require) {
         update: function(delta) {
             this.root.clear();
             if (_.isObject(this.currentMode)) {
-                this.currentMode.update(delta);
+                this.currentMode.update(delta, this.root);
             }
         },
 
