@@ -20,6 +20,7 @@ define(function(require) {
                 'height': settings.RESOLUTION[1]
             });
             this.root.backgroundColor = settings.BACKGROUND;
+            window.canvasRoot = this.root;
             _.each(body.childNodes, function(child) {
                 if (!_.isUndefined(child.getAttribute)
                          && child.getAttribute('class') == 'canvas-container') {

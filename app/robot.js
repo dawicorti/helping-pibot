@@ -2,7 +2,8 @@ define(function(require) {
 
     var game = require('game');
     var Chunk = require('chunk');
-    var robotPrint = require('text!svg/robot.svg');
+    var robotWheelPrint = require('text!svg/robot_wheel.svg');
+    var robotBoxPrint = require('text!svg/robot_box.svg');
 
     // Box2D aliases
     var b2BodyDef = Box2D.Dynamics.b2BodyDef;
@@ -49,31 +50,31 @@ define(function(require) {
 
         renderRigidBox: function() {
             var pos = this.boxBody.GetPosition();
-            var rootPoint = this.camera.getRootPoint(pos);
-            var rootSize = this.camera.getRootDistance(1);
-            this.boxPrint = new fabric.Rect({
-                left: rootPoint.x,
-                top: rootPoint.y,
-                width: rootSize,
-                height: rootSize,
-                fill: '#ff6e49',
-                stroke: '#a63518'
+            var rootPoint = this.camera.getRootPoint({
+                x: pos.x, y: pos.y - 0.5 
             });
-            this.group.add(this.boxPrint);
+            var rootSize = this.camera.getRootDistance(1);
+            var that = this;
+            fabric.loadSVGFromString(robotBoxPrint, function(objects, o) {
+                console.log('box print')
+                that.boxPrint = new fabric.PathGroup(objects, o);
+                that.boxPrint.set({left: rootPoint.x, top: rootPoint.y});
+                that.setPathGroupSize(that.boxPrint, rootSize, 2 * rootSize);
+                that.group.add(that.boxPrint);
+            });            
         },
 
         renderWheel: function() {
             var pos = this.wheelBody.GetPosition();
             var rootPoint = this.camera.getRootPoint(pos);
             var rootRadius = this.camera.getRootDistance(0.5);
-            this.wheelPrint = new fabric.Circle({
-                left: rootPoint.x,
-                top: rootPoint.y,
-                radius: rootRadius,
-                fill: '#ff6e49',
-                stroke: '#a63518'
-            });
-            this.group.add(this.wheelPrint);
+            var that = this;
+            fabric.loadSVGFromString(robotWheelPrint, function(objects, o) {
+                that.wheelPrint = new fabric.PathGroup(objects, o);
+                that.wheelPrint.set({left: rootPoint.x, top: rootPoint.y})
+                that.setPathGroupRadius(that.wheelPrint, rootRadius);
+                that.group.add(that.wheelPrint);
+            });            
         },
 
         createWheelBody: function(world, pos) {
@@ -115,10 +116,23 @@ define(function(require) {
         updatePos: function(delta) {
             this.wheelBody.SetAngularVelocity(-10);
             this.pos = this.boxBody.GetPosition();
-            var rootPoint = this.camera.getRootPoint(this.pos);
-            this.boxPrint.set({left: rootPoint.x, top: rootPoint.y});
+            var rootPoint = this.camera.getRootPoint({
+                x: this.pos.x, y: this.pos.y - 0.5
+            });
+            if(!_.isUndefined(this.boxPrint)) {
+                this.boxPrint.set({
+                    left: rootPoint.x,
+                    top: rootPoint.y,
+                });
+            }
             rootPoint = this.camera.getRootPoint(this.wheelBody.GetPosition());
-            this.wheelPrint.set({left: rootPoint.x, top: rootPoint.y});
+            if(!_.isUndefined(this.wheelPrint)) {
+                this.wheelPrint.set({
+                    left: rootPoint.x,
+                    top: rootPoint.y,
+                    angle: this.normalRelativeAngle(this.wheelBody.GetAngle())
+                });
+            }
         }
 
     });
