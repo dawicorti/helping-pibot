@@ -16,7 +16,7 @@ define(function(require) {
             this.jukebox.playFromJamendo(settings.SOUNDTRACK);
             this.root = this.navigator.root;
             this.userInterface = new UserInterface();
-            addEvent(elm('main'), 'click', this.onClick);
+            $('#main').click(this.onClick);
             this.resetLoop();
         },
 
