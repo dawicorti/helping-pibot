@@ -1,42 +1,35 @@
 define(function(require) {
 
-    var volumeOnPrint = require('text!svg/volume_on.svg');
+    var Volume = require('widgets/volume');
 
-    var Interface = function() {
+    var UserInterface = function() {
         this.init();
     };
 
-    _.extend(Interface.prototype, {
+    _.extend(UserInterface.prototype, {
 
         init: function() {
             _.bindAll(this);
-            this.widgets = [];
-            this.addWidget(volumeOnPrint, {
-                left: window.innerWidth - 10, top: 30, scaleX: 0.5, scaleY: 0.5
-            });
+            this.group = new fabric.Group();
+            this.widgets = [
+                new Volume(this.group)
+            ];
         },
 
-        onMouseDown: function() {
-            console.log('mouse down');
-        },
-
-        addWidget: function(widgetPrint, options) {
-            var that = this;
-            fabric.loadSVGFromString(widgetPrint, function(objects, o) {
-                var widget = new fabric.PathGroup(objects, o);
-                widget.set(options);
-                that.widgets.push(widget);
-            });
+        onClick: function(x, y) {
+            _.each(this.widgets, function(widget) {
+                if(widget.contains(x, y)) {
+                    widget.onClick();
+                }
+            }, this);
         },
 
         update: function(root) {
-            _.each(this.widgets, function(widget) {
-                root.add(widget);
-            });
+            root.add(this.group);
         }
 
     });
 
 
-    return Interface;
+    return UserInterface;
 });

@@ -10,13 +10,20 @@ define(function(require) {
     _.extend(Game.prototype, {
 
         initialize: function() {
+            _.bindAll(this);
             this.navigator = new Navigator();
             this.jukebox = new Jukebox();
             this.jukebox.playFromJamendo(settings.SOUNDTRACK);
             this.root = this.navigator.root;
             this.userInterface = new UserInterface();
-            //this.root.observe('object:selected', this.userInterface.onMouseDown);
+            addEvent(elm('main'), 'click', this.onClick);
             this.resetLoop();
+        },
+
+        onClick: function(event) {
+            if(_.isObject(this.root)) {
+                this.userInterface.onClick(event.x, (event.y - settings.CANVAS_TOP) * 2.0);
+            }
         },
 
         resetLoop: function() {

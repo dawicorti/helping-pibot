@@ -24,7 +24,10 @@ define(function(require) {
             _.each(body.childNodes, function(child) {
                 if (!_.isUndefined(child.getAttribute)
                          && child.getAttribute('class') == 'canvas-container') {
-                    child.setAttribute('style', 'position: absolute; left: 0; top: 200px');
+                    child.setAttribute(
+                        'style',
+                        'position: absolute; left: 0; top: ' + settings.CANVAS_TOP + 'px'
+                    );
                 }
             });
         },
@@ -41,7 +44,6 @@ define(function(require) {
                 this.currentMode.unload();
             }
             this.currentMode = mode;
-            this.currentMode.load();
         },
 
         width: function() {

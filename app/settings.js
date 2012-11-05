@@ -13,6 +13,8 @@ define(function() {
         
         CHUNK_SIZE : { width: 1, height: 1},
 
+        CANVAS_TOP: 200,
+
         // Game theme :
         // http://www.colourlovers.com/palette/1480885/A_Night_in_Havana
         BACKGROUND: '#2f1335',

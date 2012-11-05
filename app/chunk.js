@@ -1,4 +1,6 @@
-define(function() {
+define(function(require) {
+
+    var utils = require('utils');
 
     var Chunk = function(world, camera, pos, group, body) {
         this.init(world, camera, pos, group, body);
@@ -30,15 +32,11 @@ define(function() {
         },
 
         setPathGroupSize: function(pathGroup, width, height) {
-            pathGroup.set({
-                scaleX: width / (pathGroup.getBoundingRectWidth() * 1.0),
-                scaleY: height / (pathGroup.getBoundingRectHeight() * 1.0)
-            });
+            utils.setPathGroupSize(pathGroup, width, height);
         },
 
         setPathGroupRadius: function(pathGroup, radius) {
-            var scale = radius / (pathGroup.getBoundingRectWidth() / 2.0);
-            pathGroup.set({scaleX: scale, scaleY: scale});
+            utils.setPathGroupRadius(pathGroup, radius);
         },
 
         updatePos: function(delta) {},
