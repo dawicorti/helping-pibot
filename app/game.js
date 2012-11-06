@@ -16,6 +16,7 @@ define(function(require) {
             this.jukebox.playFromJamendo(settings.SOUNDTRACK);
             this.root = this.navigator.root;
             this.userInterface = new UserInterface();
+            console.log('Resolution : ' + settings.RESOLUTION[0] + 'x' + settings.RESOLUTION[1]);
             $('#main').click(this.onClick);
             this.resetLoop();
         },

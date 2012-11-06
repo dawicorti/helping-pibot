@@ -1,6 +1,7 @@
 define(function(require) {
 
     var utils = require('utils');
+    var settings = require('settings');
 
     var Widget = function(svgString, parent, options) {
         this.init(svgString, parent, options);
@@ -16,12 +17,26 @@ define(function(require) {
                 that.group = new fabric.PathGroup(objects, o);
                 if(_.isObject(options)) {
                     if(_.isObject(options.pos)) {
-                        that.pos = options.pos;
-                        that.group.set(options.pos);
+                        var left = options.pos.left;
+                        if(_.isString(left)) {
+                            left = that.getWidthPercentValue(left);                            
+                        }
+                        var top = options.pos.top;
+                        if(_.isString(top)) {
+                            top = that.getHeightPercentValue(top);                            
+                        }
+                        var pos = {left: left, top: top};
+                        console.log(pos);
+                        that.group.set(pos);
+                        that.pos = pos;
                     }
-                    if(_.isNumber(options.radius)) {
-                        utils.setPathGroupRadius(that.group, options.radius);
-                        that.size = {width: options.radius * 2 , height: options.radius * 2};
+                    if(_.isNumber(options.radius) || _.isString(options.radius)) {
+                        var radius = options.radius;
+                        if(_.isString(radius)) {
+                            radius = that.getWidthPercentValue(radius);
+                        }
+                        utils.setPathGroupRadius(that.group, radius);
+                        that.size = {width: radius * 2 , height: radius * 2};
                     } else if (_.isObject(options.size)) {
                         utils.setPathGroupSize(that.group, options.size.width, options.size.height);
                         that.size = options.size;
@@ -31,6 +46,14 @@ define(function(require) {
                     parent.add(that.group);
                 }
             });
+        },
+
+        getWidthPercentValue: function(value) {
+            return (value.replace('%', '') * 1.0) * settings.RESOLUTION[0] / 100.0;
+        },
+
+        getHeightPercentValue: function(value) {
+            return (value.replace('%', '') * 1.0) * settings.RESOLUTION[1] / 100.0;
         },
 
         setFromWidget: function(widget) {

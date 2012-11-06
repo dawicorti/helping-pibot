@@ -1,4 +1,6 @@
-define(function() {
+define(function(require) {
+
+    var dispatcher = require('dispatcher');
 
     var Jukebox = function() {
         this.init();
@@ -7,27 +9,46 @@ define(function() {
     _.extend(Jukebox.prototype, {
 
         init: function() {
+            _.bindAll(this);
             this.node = null;
+            var that = this;
+            dispatcher.on('volume:disable', this.mute);
+            dispatcher.on('volume:enable', this.unmute);
         },
 
         playFromJamendo: function(trackId) {
-            this.play(
+            this.play([
                 'http://api.jamendo.com'
                 + '/get2/stream/track/redirect/'
-                + '?id=' + trackId + '&streamencoding=mp31'
-            );
+                + '?id=' + trackId + '&streamencoding=ogg2'
+            ]);
         },
 
-        play: function(source) {
+        mute: function() {
+            if(!_.isNull(this.node)) {
+                this.node.muted = true;
+            }
+        },
+
+        unmute: function() {
+            if(!_.isNull(this.node)) {
+                this.node.muted = false;
+            }
+        },
+
+        play: function(sources) {
             if(!_.isNull(this.node)) {
                 this.node.parentNode.removeChild(this.node);
             }
             var audio = document.createElement('audio');
-            var sourceNode = document.createElement('source');
-            sourceNode.setAttribute('src', source);
+            _.each(sources, function(source) {
+                var sourceNode = document.createElement('source');
+                sourceNode.setAttribute('src', source);
+                audio.appendChild(sourceNode);
+            });
             audio.setAttribute('autoplay', 'autoplay');
-            audio.appendChild(sourceNode);
             document.getElementsByTagName('body')[0].appendChild(audio);
+            this.node = audio;
         }
 
     });
