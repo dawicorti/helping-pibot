@@ -27,7 +27,8 @@ define(function (require) {
                 'height': settings.resolution[1]
             });
             this.root.backgroundColor = settings.backgroundColor;
-            _.each($('body')[0].childNodes, function (child) {
+            _.each($('.canvas-container')[0].childNodes, function (child) {
+                console.log($(child));
                 $(child)
                     .css('position', 'absolute')
                     .css('left', '0')
