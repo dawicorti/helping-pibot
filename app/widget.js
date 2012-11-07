@@ -42,9 +42,15 @@ define(function (require) {
         },
 
         contains: function (x, y) {
-            var widgetX = this.pos.left - this.size.width / 2.0,
-                widgetY = this.pos.top - this.size.height / 2.0,
+            var widgetX = this.pos.left - this.size.width,
+                widgetY = this.pos.top - this.size.height,
                 contained = false;
+            console.log(y + ',' + widgetY + ',' + this.size.height);
+            var radius = this.options.radius;
+            if (_.isString(radius)) {
+                radius = this.getWidthPercentValue(radius);
+            }
+            console.log(radius);
             if (x >= widgetX && x <= widgetX + this.size.width
                     && y >= widgetY && y <= widgetY + this.size.height) {
                 contained = true;
@@ -78,7 +84,7 @@ define(function (require) {
                         radius = this.getWidthPercentValue(radius);
                     }
                     utils.setPathGroupRadius(this.group, radius);
-                    this.size = {width: radius * 2, height: radius * 2};
+                    this.size = {width: radius, height: radius};
                 } else if (_.isObject(options.size)) {
                     utils.setPathGroupSize(this.group, options.size.width, options.size.height);
                     this.size = options.size;
