@@ -1,4 +1,8 @@
-define(function() {
+/*global define,document*/
+/*jslint nomen: true*/
+
+define(function (require) {
+    "use strict";
 
     return {
         chunks: [

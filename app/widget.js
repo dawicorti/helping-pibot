@@ -1,79 +1,92 @@
-define(function(require) {
+/*global define,document*/
+/*jslint nomen: true*/
 
-    var utils = require('utils');
-    var settings = require('settings');
+define(function (require) {
+    "use strict";
 
-    var Widget = function(svgString, parent, options) {
+    var _ = require('underscore'),
+        fabric = require('fabric'),
+        utils = require('utils'),
+        settings = require('settings');
+
+    function Widget(svgString, parent, options) {
         this.init(svgString, parent, options);
-    };
+    }
 
     _.extend(Widget.prototype, {
 
-        init: function(svgString, parent, options) {
+        init: function (svgString, parent, options) {
+            _.bindAll(this);
             var that = this;
             this.pos = {left: 0, top: 0};
             this.size = {width: 1, height: 1};
-            fabric.loadSVGFromString(svgString, function(objects, o) {
+            this.options = options;
+            fabric.loadSVGFromString(svgString, function (objects, o) {
                 that.group = new fabric.PathGroup(objects, o);
-                if(_.isObject(options)) {
-                    if(_.isObject(options.pos)) {
-                        var left = options.pos.left;
-                        if(_.isString(left)) {
-                            left = that.getWidthPercentValue(left);                            
-                        }
-                        var top = options.pos.top;
-                        if(_.isString(top)) {
-                            top = that.getHeightPercentValue(top);                            
-                        }
-                        var pos = {left: left, top: top};
-                        console.log(pos);
-                        that.group.set(pos);
-                        that.pos = pos;
-                    }
-                    if(_.isNumber(options.radius) || _.isString(options.radius)) {
-                        var radius = options.radius;
-                        if(_.isString(radius)) {
-                            radius = that.getWidthPercentValue(radius);
-                        }
-                        utils.setPathGroupRadius(that.group, radius);
-                        that.size = {width: radius * 2 , height: radius * 2};
-                    } else if (_.isObject(options.size)) {
-                        utils.setPathGroupSize(that.group, options.size.width, options.size.height);
-                        that.size = options.size;
-                    }
-                }
-                if(_.isObject(parent)) {
+                if (_.isObject(parent)) {
                     parent.add(that.group);
                 }
             });
         },
 
-        getWidthPercentValue: function(value) {
-            return (value.replace('%', '') * 1.0) * settings.RESOLUTION[0] / 100.0;
+        getWidthPercentValue: function (value) {
+            return parseFloat(value.replace('%', '')) * settings.resolution[0] / 100.0;
         },
 
-        getHeightPercentValue: function(value) {
-            return (value.replace('%', '') * 1.0) * settings.RESOLUTION[1] / 100.0;
+        getHeightPercentValue: function (value) {
+            return parseFloat(value.replace('%', '')) * settings.resolution[1] / 100.0;
         },
 
-        setFromWidget: function(widget) {
-            this.pos = widget.pos;
-            this.size = widget.size;
+        setFromWidget: function (widget) {
             this.group = widget.group;
         },
 
-        contains: function(x, y) {
-            var widgetX = this.pos.left - this.size.width / 2.0;
-            var widgetY = this.pos.top - this.size.height / 2.0;
-            if(x >= widgetX && x <= widgetX + this.size.width
-                && y >= widgetY && y <= widgetY + this.size.height) {
-                return true;
-            } else {
-                return false;
+        contains: function (x, y) {
+            var widgetX = this.pos.left - this.size.width / 2.0,
+                widgetY = this.pos.top - this.size.height / 2.0,
+                contained = false;
+            if (x >= widgetX && x <= widgetX + this.size.width
+                    && y >= widgetY && y <= widgetY + this.size.height) {
+                contained = true;
+            }
+            return contained;
+        },
+
+        update: function () {
+            var options = this.options,
+                left = 0,
+                top = 0,
+                pos = {},
+                radius = 0;
+            if (_.isObject(options)) {
+                if (_.isObject(options.pos)) {
+                    left = options.pos.left;
+                    if (_.isString(left)) {
+                        left = this.getWidthPercentValue(left);
+                    }
+                    top = options.pos.top;
+                    if (_.isString(top)) {
+                        top = this.getHeightPercentValue(top);
+                    }
+                    pos = {left: left, top: top};
+                    this.group.set(pos);
+                    this.pos = pos;
+                }
+                if (_.isNumber(options.radius) || _.isString(options.radius)) {
+                    radius = options.radius;
+                    if (_.isString(radius)) {
+                        radius = this.getWidthPercentValue(radius);
+                    }
+                    utils.setPathGroupRadius(this.group, radius);
+                    this.size = {width: radius * 2, height: radius * 2};
+                } else if (_.isObject(options.size)) {
+                    utils.setPathGroupSize(this.group, options.size.width, options.size.height);
+                    this.size = options.size;
+                }
             }
         },
 
-        onClick: function() {}
+        onClick: function () {}
 
     });
 

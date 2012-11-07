@@ -1,14 +1,18 @@
-define(function() {
+/*global define,window*/
+/*jslint nomen: true*/
+
+define(function (require) {
+    "use strict";
 
     return {
-        setPathGroupSize: function(pathGroup, width, height) {
+        setPathGroupSize: function (pathGroup, width, height) {
             pathGroup.set({
-                scaleX: width / (pathGroup.getBoundingRectWidth() * 1.0),
-                scaleY: height / (pathGroup.getBoundingRectHeight() * 1.0)
+                scaleX: width / parseFloat(pathGroup.getBoundingRectWidth()),
+                scaleY: height / parseFloat(pathGroup.getBoundingRectHeight())
             });
         },
 
-        setPathGroupRadius: function(pathGroup, radius) {
+        setPathGroupRadius: function (pathGroup, radius) {
             var scale = radius / (pathGroup.getBoundingRectWidth() / 2.0);
             pathGroup.set({scaleX: scale, scaleY: scale});
         }

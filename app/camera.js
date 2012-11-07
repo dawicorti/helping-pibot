@@ -1,49 +1,53 @@
-define(function(require) {
+/*global define,document*/
+/*jslint nomen: true*/
 
-    var game = require('game');
+define(function (require) {
+    "use strict";
 
-    var Camera = function(target, fieldWidth) {
+    var _ = require('underscore'),
+        game = require('game');
+
+    function Camera(target, fieldWidth) {
         this.init(target, fieldWidth);
-    };
+    }
 
     _.extend(Camera.prototype, {
 
-        init: function(target, fieldWidth) {
+        init: function (target, fieldWidth) {
             this.target = target;
             this.fieldWidth = fieldWidth;
             this.lockedChunk = null;
         },
 
-        lock: function(chunk) {
+        lock: function (chunk) {
             this.lockedChunk = chunk;
         },
 
-        getRootPoint: function(worldPoint) {
+        getRootPoint: function (worldPoint) {
             /* 
                 Calculate the root graphics point equivalent
                 to the given world point
             */
-            targetOffset = {
-                x: this.getRootDistance(worldPoint.x - this.target.x),
-                y: this.getRootDistance(this.target.y - worldPoint.y)
-            }
-            rootTargetPoint = {
-                x: game.navigator.width() / 2.0,
-                y: game.navigator.height() / 2.0
-            }
+            var targetOffset = {
+                    x: this.getRootDistance(worldPoint.x - this.target.x),
+                    y: this.getRootDistance(this.target.y - worldPoint.y)
+                },
+                rootTargetPoint = {
+                    x: game.navigator.width() / 2.0,
+                    y: game.navigator.height() / 2.0
+                };
             return {
                 x: rootTargetPoint.x + targetOffset.x,
                 y: rootTargetPoint.y + targetOffset.y
-            }
-
+            };
         },
 
-        getRootDistance: function(worldDistance) {
-            return (worldDistance * game.navigator.width()) / this.fieldWidth
+        getRootDistance: function (worldDistance) {
+            return (worldDistance * game.navigator.width()) / this.fieldWidth;
         },
 
-        update: function() {
-            if(_.isObject(this.lockedChunk)) {
+        update: function () {
+            if (_.isObject(this.lockedChunk)) {
                 this.target = _.clone(this.lockedChunk.pos);
             }
             if (this.target.x - this.fieldWidth / 2 <= 0) {

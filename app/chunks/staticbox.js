@@ -1,34 +1,43 @@
-define(function(require) {
+/*global define*/
+/*jslint nomen: true*/
 
-    var game = require('game');
-    var Chunk = require('chunk');
+define(function (require) {
+    "use strict";
 
-    // Box2D aliases
-    var b2BodyDef = Box2D.Dynamics.b2BodyDef;
-    var b2Body = Box2D.Dynamics.b2Body;
-    var b2World = Box2D.Dynamics.b2World;
-    var b2Vec2 = Box2D.Common.Math.b2Vec2;
-    var b2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape;
-    var b2Fixture = Box2D.Dynamics.b2Fixture;
-    var b2FixtureDef = Box2D.Dynamics.b2FixtureDef;
+    var _ = require('underscore'),
+        game = require('game'),
+        Chunk = require('chunk'),
+        Box2D = require('box2d'),
+        fabric = require('fabric'),
+        B2BodyDef = Box2D.Dynamics.b2BodyDef,
+        B2Body = Box2D.Dynamics.b2Body,
+        B2World = Box2D.Dynamics.b2World,
+        B2Vec2 = Box2D.Common.Math.b2Vec2,
+        B2PolygonShape = Box2D.Collision.Shapes.b2PolygonShape,
+        B2Fixture = Box2D.Dynamics.b2Fixture,
+        B2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 
-    var StaticBox = function(world, camera, pos, group, options) {
-        this.init(world, camera, pos, group, options)
-    };
+    function StaticBox(world, camera, pos, group, options) {
+        this.init(world, camera, pos, group, options);
+    }
 
     _.extend(StaticBox.prototype, Chunk.prototype);
 
     _.extend(StaticBox.prototype, {
 
-        init: function(world, camera, pos, group, options) {
+        init: function (world, camera, pos, group, options) {
             Chunk.prototype.init.call(
-                this, world, camera,
-                pos, group, this.createBody(world, pos, options)
+                this,
+                world,
+                camera,
+                pos,
+                group,
+                this.createBody(world, pos, options)
             );
             this.options = options;
         },
 
-        render: function() {
+        render: function () {
             var rootPoint = this.camera.getRootPoint(this.pos);
             this.rect = new fabric.Rect({
                 left: rootPoint.x,
@@ -41,16 +50,19 @@ define(function(require) {
             this.group.add(this.rect);
         },
 
-        createBody: function(world, pos, options) {
-            var bodyDef = new b2BodyDef();
+        createBody: function (world, pos, options) {
+            var bodyDef = new B2BodyDef(),
+                body = {},
+                box = {},
+                fixtureDef = {};
             bodyDef.position.Set(pos.x, pos.y);
-            var body = world.CreateBody(bodyDef);
-            var box = new b2PolygonShape()
+            body = world.CreateBody(bodyDef);
+            box = new B2PolygonShape();
             box.SetAsBox(
                 options.width / 2.0,
                 options.height / 2.0
             );
-            var fixtureDef = new b2FixtureDef();
+            fixtureDef = new B2FixtureDef();
             fixtureDef.shape = box;
             fixtureDef.density = 1;
             fixtureDef.friction = 0.5;
@@ -59,9 +71,14 @@ define(function(require) {
             return body;
         },
 
-        updatePos: function(delta) {
+        updatePos: function (delta) {
             var rootPoint = this.camera.getRootPoint(this.pos);
-            this.rect.set({left: rootPoint.x, top: rootPoint.y});
+            this.rect.set({
+                left: rootPoint.x,
+                top: rootPoint.y,
+                width: this.camera.getRootDistance(this.options.width),
+                height: this.camera.getRootDistance(this.options.height)
+            });
         }
 
     });

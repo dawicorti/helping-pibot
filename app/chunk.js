@@ -1,14 +1,20 @@
-define(function(require) {
+/*global define,document*/
+/*jslint nomen: true*/
 
-    var utils = require('utils');
+define(function (require) {
+    "use strict";
 
-    var Chunk = function(world, camera, pos, group, body) {
+    var fabric = require('fabric'),
+        _ = require('underscore'),
+        utils = require('utils');
+
+    function Chunk(world, camera, pos, group, body) {
         this.init(world, camera, pos, group, body);
-    };
+    }
 
     _.extend(Chunk.prototype, {
 
-        init: function(world, camera, pos, group, body) {
+        init: function (world, camera, pos, group, body) {
             this.group = new fabric.Group();
             this.camera = camera;
             this.world = world;
@@ -19,29 +25,29 @@ define(function(require) {
             this.oldPoint = this.camera.getRootPoint(this.pos);
         },
 
-        show: function() {
+        show: function () {
             this.group.show();
         },
 
-        hide: function() {
+        hide: function () {
             this.group.hide();
         },
 
-        normalRelativeAngle: function(newAngle) {
+        normalRelativeAngle: function (newAngle) {
             return -newAngle * 180 / Math.PI % 360;
         },
 
-        setPathGroupSize: function(pathGroup, width, height) {
+        setPathGroupSize: function (pathGroup, width, height) {
             utils.setPathGroupSize(pathGroup, width, height);
         },
 
-        setPathGroupRadius: function(pathGroup, radius) {
+        setPathGroupRadius: function (pathGroup, radius) {
             utils.setPathGroupRadius(pathGroup, radius);
         },
 
-        updatePos: function(delta) {},
+        updatePos: function (delta) {},
 
-        update: function(delta, root) {
+        update: function (delta, root) {
             this.updatePos(delta);
             root.add(this.group);
         }

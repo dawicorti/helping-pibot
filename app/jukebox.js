@@ -1,14 +1,19 @@
-define(function(require) {
+/*global define,document*/
+/*jslint nomen: true*/
 
-    var dispatcher = require('dispatcher');
+define(function (require) {
+    "use strict";
 
-    var Jukebox = function() {
+    var _ = require('underscore'),
+        dispatcher = require('dispatcher');
+
+    function Jukebox() {
         this.init();
-    };
+    }
 
     _.extend(Jukebox.prototype, {
 
-        init: function() {
+        init: function () {
             _.bindAll(this);
             this.node = null;
             var that = this;
@@ -16,32 +21,32 @@ define(function(require) {
             dispatcher.on('volume:enable', this.unmute);
         },
 
-        playFromJamendo: function(trackId) {
+        playFromJamendo: function (trackId) {
             this.play([
                 'http://api.jamendo.com'
-                + '/get2/stream/track/redirect/'
-                + '?id=' + trackId + '&streamencoding=ogg2'
+                    + '/get2/stream/track/redirect/'
+                    + '?id=' + trackId + '&streamencoding=ogg2'
             ]);
         },
 
-        mute: function() {
-            if(!_.isNull(this.node)) {
+        mute: function () {
+            if (!_.isNull(this.node)) {
                 this.node.muted = true;
             }
         },
 
-        unmute: function() {
-            if(!_.isNull(this.node)) {
+        unmute: function () {
+            if (!_.isNull(this.node)) {
                 this.node.muted = false;
             }
         },
 
-        play: function(sources) {
-            if(!_.isNull(this.node)) {
+        play: function (sources) {
+            if (!_.isNull(this.node)) {
                 this.node.parentNode.removeChild(this.node);
             }
             var audio = document.createElement('audio');
-            _.each(sources, function(source) {
+            _.each(sources, function (source) {
                 var sourceNode = document.createElement('source');
                 sourceNode.setAttribute('src', source);
                 audio.appendChild(sourceNode);

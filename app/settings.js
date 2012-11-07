@@ -1,26 +1,26 @@
-define(function() {
+/*global define,window*/
+/*jslint nomen: true*/
+
+define(function (require) {
+    "use strict";
+
     return {
-        
-        RESOLUTION: [window.innerWidth, window.innerWidth / 3],
 
-        GAME_LOOP_PERIOD: 20, 
+        resolution: [window.innerWidth, window.innerWidth / 3],
 
-        GRAVITY: -9.8,
+        gameLoopPeriod: 40,
 
-        CAMERA_TARGET: { x: 20.0, y: 3.0 },
+        gravity: -9.8,
 
-        CAMERA_FIELD_WIDTH: 40.0,
-        
-        CHUNK_SIZE : { width: 1, height: 1},
+        cameraTarget: { x: 20.0, y: 3.0 },
 
-        CANVAS_TOP: 200,
+        cameraFieldWidth: 40.0,
 
-        // Game theme :
-        // http://www.colourlovers.com/palette/1480885/A_Night_in_Havana
-        BACKGROUND: '#2f1335',
-
+        canvasTop: 200,
+        // Game theme : http://www.colourlovers.com/palette/1480885/A_Night_in_Havana
+        backgroundColor: '#2f1335',
         // http://www.jamendo.com/fr/track/374975/midnight-blue?sid=album-a47898
-        SOUNDTRACK: '374975'
+        soundtrack: '374975'
 
     };
 });

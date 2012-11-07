@@ -1,29 +1,38 @@
-define(function(require) {
+/*global define*/
+/*jslint nomen: true*/
 
-    var StaticBox = require('chunks/staticbox');
-    var RigidBox = require('chunks/rigidbox');
+define(function (require) {
+    "use strict";
 
-    var CHUNK_TYPES = {
-        'staticbox': StaticBox,
-        'rigidbox': RigidBox
-    };
+    var _ = require('underscore'),
+        game = require('game'),
+        Chunk = require('chunk'),
+        StaticBox = require('chunks/staticbox'),
+        RigidBox = require('chunks/rigidbox'),
+        chunkTypes = {
+            'staticbox': StaticBox,
+            'rigidbox': RigidBox
+        };
 
-    var ChunkFactory = function(world, camera, group) {
+    function ChunkFactory(world, camera, group) {
         this.init(world, camera, group);
-    };
+    }
 
     _.extend(ChunkFactory.prototype, {
 
-        init: function(world, camera, group) {
+        init: function (world, camera, group) {
             this.world = world;
             this.camera = camera;
             this.group = group;
         },
 
-        newChunk: function(chunkName, pos, next, options) {
-            console.log('in factory : ' + pos.x)
-            var chunk = new CHUNK_TYPES[chunkName](
-                this.world, this.camera, pos, this.group, options
+        newChunk: function (chunkName, pos, next, options) {
+            var chunk = new chunkTypes[chunkName](
+                this.world,
+                this.camera,
+                pos,
+                this.group,
+                options
             );
             next(chunk);
         }

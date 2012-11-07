@@ -1,57 +1,60 @@
-define(function(require) {
+/*global define,document*/
+/*jslint nomen: true*/
 
-    var settings = require('settings');
+define(function (require) {
+    "use strict";
 
-    var Navigator = function() {
+    var $ = require('zepto'),
+        _ = require('underscore'),
+        fabric = require('fabric'),
+        settings = require('settings');
+
+    function Navigator() {
         this.init();
-    };
+    }
 
     _.extend(Navigator.prototype, {
-        
-        init: function() {
-            var node = document.createElement('canvas');
-            node.setAttribute('width', settings.RESOLUTION[0]);
-            node.setAttribute('height', settings.RESOLUTION[1]);
-            node.setAttribute('id', 'root');
-            var body = document.getElementsByTagName('body')[0];
-            body.appendChild(node);
+
+        init: function () {
+            $('body').append(
+                $('<canvas></canvas>')
+                    .attr('width', settings.resolution[0])
+                    .attr('height', settings.resolution[1])
+                    .attr('id', 'root')
+            );
             this.root = new fabric.Canvas('root', {
-                'width': settings.RESOLUTION[0],
-                'height': settings.RESOLUTION[1]
+                'width': settings.resolution[0],
+                'height': settings.resolution[1]
             });
-            this.root.backgroundColor = settings.BACKGROUND;
-            window.canvasRoot = this.root;
-            _.each(body.childNodes, function(child) {
-                if (!_.isUndefined(child.getAttribute)
-                         && child.getAttribute('class') == 'canvas-container') {
-                    child.setAttribute(
-                        'style',
-                        'position: absolute; left: 0; top: ' + settings.CANVAS_TOP + 'px'
-                    );
-                }
+            this.root.backgroundColor = settings.backgroundColor;
+            _.each($('body')[0].childNodes, function (child) {
+                $(child)
+                    .css('position', 'absolute')
+                    .css('left', '0')
+                    .css('top', settings.canvasTop + 'px');
             });
         },
 
-        update: function(delta) {
+        update: function (delta) {
             this.root.clear();
             if (_.isObject(this.currentMode)) {
                 this.currentMode.update(delta, this.root);
             }
         },
 
-        setCurrentMode: function(mode) {
+        setCurrentMode: function (mode) {
             if (_.isObject(this.currentMode)) {
                 this.currentMode.unload();
             }
             this.currentMode = mode;
         },
 
-        width: function() {
-            return settings.RESOLUTION[0];
+        width: function () {
+            return settings.resolution[0];
         },
 
-        height: function() {
-            return settings.RESOLUTION[1];
+        height: function () {
+            return settings.resolution[1];
         }
     });
 

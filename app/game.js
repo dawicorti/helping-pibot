@@ -1,43 +1,56 @@
-define(function(require) {
-    
-    var Navigator = require('navigator');
-    var settings = require('settings');
-    var Jukebox = require('jukebox');
-    var UserInterface = require('userinterface');
+/*global define,window*/
+/*jslint nomen: true*/
 
-    var Game = function() {};
-    
+define(function (require) {
+    "use strict";
+
+    var _ = require('underscore'),    
+        Navigator = require('navigator'),
+        settings = require('settings'),
+        Jukebox = require('jukebox'),
+        UserInterface = require('userinterface');
+
+    function Game() {}
+
     _.extend(Game.prototype, {
 
-        initialize: function() {
+        initialize: function () {
             _.bindAll(this);
             this.navigator = new Navigator();
             this.jukebox = new Jukebox();
-            this.jukebox.playFromJamendo(settings.SOUNDTRACK);
+            this.jukebox.playFromJamendo(settings.soundtrack);
             this.root = this.navigator.root;
             this.userInterface = new UserInterface();
-            console.log('Resolution : ' + settings.RESOLUTION[0] + 'x' + settings.RESOLUTION[1]);
-            $('#main').click(this.onClick);
+            $(window).resize(this.onResize);
+            $($('canvas')[1]).click(this.onClick);
             this.resetLoop();
         },
 
-        onClick: function(event) {
-            if(_.isObject(this.root)) {
-                this.userInterface.onClick(event.x, (event.y - settings.CANVAS_TOP) * 2.0);
+        onResize: function () {
+            settings.resolution = [window.innerWidth, window.innerWidth / 3];
+            this.root.setWidth(settings.resolution[0]);
+            this.root.setHeight(settings.resolution[1]);
+            this.root.calcOffset();
+        },
+
+        onClick: function (event) {
+            if (_.isObject(this.root)) {
+                console.log(event);
+                this.userInterface.onClick(event.offsetX, event.offsetY);
             }
         },
 
-        resetLoop: function() {
+        resetLoop: function () {
             var that = this;
-            _.delay(function() {
+            _.delay(function () {
                 that.onTick();
-            }, settings.GAME_LOOP_PERIOD);
+            }, settings.gameLoopPeriod);
         },
 
-        onTick: function() {
-            this.navigator.update(settings.GAME_LOOP_PERIOD);
-            this.userInterface.update(this.root);
+        onTick: function () {
             this.resetLoop();
+            this.navigator.update(settings.gameLoopPeriod);
+            this.userInterface.update(this.root);
         }
 
     });

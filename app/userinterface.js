@@ -1,14 +1,20 @@
-define(function(require) {
+/*global define*/
+/*jslint nomen: true*/
 
-    var Volume = require('widgets/volume');
+define(function (require) {
+    "use strict";
 
-    var UserInterface = function() {
+    var _ = require('underscore'),
+        fabric = require('fabric'),
+        Volume = require('widgets/volume');
+
+    function UserInterface() {
         this.init();
-    };
+    }
 
     _.extend(UserInterface.prototype, {
 
-        init: function() {
+        init: function () {
             _.bindAll(this);
             this.group = new fabric.Group();
             this.widgets = [
@@ -16,15 +22,18 @@ define(function(require) {
             ];
         },
 
-        onClick: function(x, y) {
-            _.each(this.widgets, function(widget) {
-                if(widget.contains(x, y)) {
+        onClick: function (x, y) {
+            _.each(this.widgets, function (widget) {
+                if (widget.contains(x, y)) {
                     widget.onClick();
                 }
             }, this);
         },
 
-        update: function(root) {
+        update: function (root) {
+            _.each(this.widgets, function (widget) {
+                widget.update();
+            });
             root.add(this.group);
         }
 
