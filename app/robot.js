@@ -48,7 +48,7 @@ define(function (require) {
             jointDef.bodyB = this.wheelBody;
             jointDef.collideConnected = false;
             jointDef.localAnchorA.Set(0, -1);
-            jointDef.localAnchorB.Set(0, 0);
+            jointDef.localAnchorB.Set(0, 0.01);
             this.joint = this.world.CreateJoint(jointDef);
         },
 
@@ -98,6 +98,7 @@ define(function (require) {
             fixtureDef.friction = 0.3;
             fixtureDef.restitution = 0.5;
             this.wheelBody.CreateFixture(fixtureDef);
+            this.wheelBody.ApplyTorque(-4000);
             return this.wheelBody;
         },
 
@@ -123,14 +124,13 @@ define(function (require) {
         },
 
         updatePos: function (delta) {
+            this.pos = this.wheelBody.GetPosition();
             var rootPoint = {},
                 rootSize = 0,
                 rootRadius = 0;
-            this.wheelBody.SetAngularVelocity(-10);
-            this.pos = this.boxBody.GetPosition();
             rootPoint = this.camera.getRootPoint({
-                x: this.pos.x,
-                y: this.pos.y - 0.5
+                x: this.boxBody.GetPosition().x,
+                y: this.boxBody.GetPosition().y - 0.5
             });
             rootSize = this.camera.getRootDistance(1);
             if (!_.isUndefined(this.boxPrint)) {

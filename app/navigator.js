@@ -27,13 +27,10 @@ define(function (require) {
                 'height': settings.resolution[1]
             });
             this.root.backgroundColor = settings.backgroundColor;
-            _.each($('.canvas-container')[0].childNodes, function (child) {
-                console.log($(child));
-                $(child)
-                    .css('position', 'absolute')
-                    .css('left', '0')
-                    .css('top', settings.canvasTop + 'px');
-            });
+            $('.canvas-container')
+                .css('position', 'absolute')
+                .css('left', '0px')
+                .css('top', settings.canvasTop + 'px');
         },
 
         update: function (delta) {

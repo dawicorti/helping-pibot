@@ -35,8 +35,7 @@ define(function (require) {
 
         onClick: function (event) {
             if (_.isObject(this.root)) {
-                console.log(event);
-                this.userInterface.onClick(event.offsetX, event.offsetY);
+                this.userInterface.onClick(event.layerX, event.layerY);
             }
         },
 
