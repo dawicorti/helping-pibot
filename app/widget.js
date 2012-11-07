@@ -21,6 +21,7 @@ define(function (require) {
             this.pos = {left: 0, top: 0};
             this.size = {width: 1, height: 1};
             this.options = options;
+            this.parent = parent;
             fabric.loadSVGFromString(svgString, function (objects, o) {
                 that.group = new fabric.PathGroup(objects, o);
                 if (_.isObject(parent)) {
@@ -42,8 +43,8 @@ define(function (require) {
         },
 
         contains: function (x, y) {
-            var widgetX = this.pos.left - this.size.width,
-                widgetY = this.pos.top - this.size.height,
+            var widgetX = this.pos.left - this.size.width / 2.0,
+                widgetY = this.pos.top - this.size.height / 2.0,
                 contained = false;
             if (x >= widgetX && x <= widgetX + this.size.width
                     && y >= widgetY && y <= widgetY + this.size.height) {
@@ -78,7 +79,7 @@ define(function (require) {
                         radius = this.getWidthPercentValue(radius);
                     }
                     utils.setPathGroupRadius(this.group, radius);
-                    this.size = {width: radius, height: radius};
+                    this.size = {width: radius * 2, height: radius * 2};
                 } else if (_.isObject(options.size)) {
                     utils.setPathGroupSize(this.group, options.size.width, options.size.height);
                     this.size = options.size;

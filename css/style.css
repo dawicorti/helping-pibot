@@ -41,6 +41,8 @@ header .gameoff {
 
 .canvas-container {
     position: absolute;
+    border-bottom: 1px solid #CE3762;
+    border-top: 1px solid #CE3762;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     left: 0;

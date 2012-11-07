@@ -8,6 +8,7 @@ define(function (require) {
         fabric = require('fabric'),
         Box2D = require('box2d'),
         game = require('game'),
+        dispatcher = require('dispatcher'),
         Chunk = require('chunk'),
         robotWheelPrint = require('text!svg/robot_wheel.svg'),
         robotBoxPrint = require('text!svg/robot_box.svg'),
@@ -31,6 +32,7 @@ define(function (require) {
     _.extend(Robot.prototype, {
 
         init: function (world, camera, pos, group) {
+            _.bindAll(this);
             Chunk.prototype.init.call(
                 this,
                 world,
@@ -40,6 +42,16 @@ define(function (require) {
                 this.createBody(world, pos)
             );
             this.createJoint();
+            dispatcher.on('button:play:enable', this.onPlay);
+            dispatcher.on('button:play:disable', this.onStop);
+        },
+
+        onPlay: function () {
+            this.wheelBody.ApplyTorque(-5000);
+        },
+
+        onStop: function () {
+            this.wheelBody.SetAwake(false);
         },
 
         createJoint: function () {
@@ -98,7 +110,6 @@ define(function (require) {
             fixtureDef.friction = 0.3;
             fixtureDef.restitution = 0.5;
             this.wheelBody.CreateFixture(fixtureDef);
-            this.wheelBody.ApplyTorque(-4000);
             return this.wheelBody;
         },
 

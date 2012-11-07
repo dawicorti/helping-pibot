@@ -6,6 +6,7 @@ define(function (require) {
 
     var _ = require('underscore'),
         fabric = require('fabric'),
+        ControlBoard = require('widgets/controlboard'),
         Volume = require('widgets/volume');
 
     function UserInterface() {
@@ -17,9 +18,14 @@ define(function (require) {
         init: function () {
             _.bindAll(this);
             this.group = new fabric.Group();
+            var controlBoard = new ControlBoard(this.group);
             this.widgets = [
-                new Volume(this.group)
+                new Volume(this.group),
+                controlBoard
             ];
+            _.each(controlBoard.buttons, function (button) {
+                this.widgets.push(button);
+            }, this);
         },
 
         onClick: function (x, y) {
