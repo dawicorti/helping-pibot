@@ -45,7 +45,6 @@ define(function (require) {
             var widgetX = this.pos.left - this.size.width,
                 widgetY = this.pos.top - this.size.height,
                 contained = false;
-            var radius = this.options.radius;
             if (x >= widgetX && x <= widgetX + this.size.width
                     && y >= widgetY && y <= widgetY + this.size.height) {
                 contained = true;

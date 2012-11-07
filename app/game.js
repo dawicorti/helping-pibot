@@ -4,7 +4,8 @@
 define(function (require) {
     "use strict";
 
-    var _ = require('underscore'),    
+    var _ = require('underscore'),
+        $ = require('zepto'),
         Navigator = require('navigator'),
         settings = require('settings'),
         Jukebox = require('jukebox'),
@@ -55,6 +56,5 @@ define(function (require) {
     });
 
     // Create and return the Game singleton
-    var game = new Game();
-    return game;
+    return new Game();
 });
