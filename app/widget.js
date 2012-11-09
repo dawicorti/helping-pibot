@@ -20,6 +20,10 @@ define(function (require) {
             var that = this;
             this.pos = {left: 0, top: 0};
             this.size = {width: 1, height: 1};
+            this.heightBox = 1.0;
+            if (_.isObject(options) && _.isNumber(options.heightBox)) {
+                this.heightBox = options.heightBox;
+            }
             this.options = options;
             this.parent = parent;
             fabric.loadSVGFromString(svgString, function (objects, o) {
@@ -40,14 +44,20 @@ define(function (require) {
 
         setFromWidget: function (widget) {
             this.group = widget.group;
+            this.heightBox = widget.heightBox;
         },
 
         contains: function (x, y) {
-            var widgetX = this.pos.left - this.size.width / 2.0,
-                widgetY = this.pos.top - this.size.height / 2.0,
+            if (!_.isNumber(this.heightBox)) {
+                this.heightBox = 1.0;
+            }
+            console.log(this.heightBox);
+            var height = this.size.height * this.heightBox,
+                widgetX = this.pos.left - this.size.width / 2.0,
+                widgetY = this.pos.top - height / 2.0,
                 contained = false;
             if (x >= widgetX && x <= widgetX + this.size.width
-                    && y >= widgetY && y <= widgetY + this.size.height) {
+                    && y >= widgetY && y <= widgetY + height) {
                 contained = true;
             }
             return contained;

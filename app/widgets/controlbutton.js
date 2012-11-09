@@ -35,8 +35,8 @@ define(function (require) {
         },
 
         onInitialize: function (buttonOnPrint, buttonOffPrint) {
-            this.buttonOn = new Widget(buttonOnPrint);
-            this.buttonOff = new Widget(buttonOffPrint);
+            this.buttonOn = new Widget(buttonOnPrint, null, this.options);
+            this.buttonOff = new Widget(buttonOffPrint, null, this.options);
             this.setFromWidget(this.buttonOff);
             this.parent.add(this.group);
             this.initialized = true;
