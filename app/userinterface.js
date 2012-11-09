@@ -7,7 +7,9 @@ define(function (require) {
     var _ = require('underscore'),
         fabric = require('fabric'),
         ControlBoard = require('widgets/controlboard'),
-        Volume = require('widgets/volume');
+        Volume = require('widgets/volume'),
+        dispatcher = require('dispatcher'),
+        DropDialog = require('dialogs/dropdialog');
 
     function UserInterface() {
         this.init();
@@ -26,6 +28,12 @@ define(function (require) {
             _.each(controlBoard.buttons, function (button) {
                 this.widgets.push(button);
             }, this);
+            dispatcher.on('button:drop:enable', this.onClickDrop);
+        },
+
+        onClickDrop: function () {
+            var dialog = new DropDialog();
+            dialog.show();
         },
 
         onClick: function (x, y) {

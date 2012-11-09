@@ -20,7 +20,6 @@ define(function (require) {
         init: function (parent, name, options) {
             _.bindAll(this);
             this.options = options;
-            console.log(this.options);
             this.initialized = false;
             this.enable = false;
             this.name = name;
@@ -32,6 +31,8 @@ define(function (require) {
                 ],
                 this.onInitialize
             );
+            dispatcher.on('button:' + name + ':force:enable', this.forceEnable);
+            dispatcher.on('button:' + name + ':force:disable', this.forceDisable);
         },
 
         onInitialize: function (buttonOnPrint, buttonOffPrint) {
@@ -42,19 +43,35 @@ define(function (require) {
             this.initialized = true;
         },
 
+        forceDisable: function () {
+            this.setEnable(false);
+        },
+
+        forceEnable: function () {
+            this.setEnable(true);
+        },
+
+        setEnable: function (status) {
+            this.parent.remove(this.group);
+            if (status === true) {
+                this.setFromWidget(this.buttonOn);
+                dispatcher.trigger('button:' + this.name + ':enable');
+                this.enable = true;
+            } else {
+                this.setFromWidget(this.buttonOff);
+                dispatcher.trigger('button:' + this.name + ':disable');
+                this.enable = false;
+            }
+            this.parent.add(this.group);
+        },
+
         onClick: function () {
             if (this.initialized) {
-                this.parent.remove(this.group);
                 if (this.enable) {
-                    this.setFromWidget(this.buttonOff);
-                    dispatcher.trigger('button:' + this.name + ':disable');
-                    this.enable = false;
+                    this.setEnable(false);
                 } else {
-                    this.setFromWidget(this.buttonOn);
-                    dispatcher.trigger('button:' + this.name + ':enable');
-                    this.enable = true;
+                    this.setEnable(true);
                 }
-                this.parent.add(this.group);
             }
         },
 
