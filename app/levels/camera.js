@@ -46,6 +46,26 @@ define(function (require) {
             return (worldDistance * game.navigator.width()) / this.fieldWidth;
         },
 
+
+        getWorldPoint: function (rootPoint) {
+            var rootTargetPoint = {
+                    x: game.navigator.width() / 2.0,
+                    y: game.navigator.height() / 2.0
+                },
+                targetOffset = {
+                    x: this.getWorldDistance(rootPoint.x - rootTargetPoint.x),
+                    y: this.getWorldDistance(rootTargetPoint.y - rootPoint.y)
+                };
+            return {
+                x: this.target.x + targetOffset.x,
+                y: this.target.y + targetOffset.y
+            };
+        },
+
+        getWorldDistance: function (rootDistance) {
+            return ((rootDistance * this.fieldWidth) / game.navigator.width());
+        },
+
         update: function () {
             if (_.isObject(this.lockedChunk)) {
                 this.target = _.clone(this.lockedChunk.pos);

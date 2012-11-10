@@ -7,10 +7,12 @@ define(function (require) {
     var _ = require('underscore'),
         Box2D = require('box2d'),
         settings = require('core/settings'),
+        dispatcher = require('core/dispatcher'),
         game = require('game/game'),
         Camera = require('levels/camera'),
         ChunkFactory = require('chunks/chunkfactory'),
         Robot = require('game/robot'),
+        Droper = require('levels/droper'),
         B2World = Box2D.Dynamics.b2World,
         B2Vec2 = Box2D.Common.Math.b2Vec2;
 
@@ -31,6 +33,7 @@ define(function (require) {
                 settings.cameraTarget,
                 settings.cameraFieldWidth
             );
+            this.droper = new Droper(this.camera);
             this.world = new B2World(new B2Vec2(0, settings.gravity), true);
             this.chunks = [];
             this.chunkFactory = new ChunkFactory(this.world, this.camera, this.group);
@@ -46,6 +49,15 @@ define(function (require) {
             this.robot.render();
             this.camera.lock(this.robot);
             this.rendered = true;
+            dispatcher.on('game:drop', this.onDrop);
+        },
+
+        onDrop: function (event) {
+            this.chunkFactory.newChunk(
+                event.data.type,
+                event.data.pos,
+                this.onChunkCreated
+            );
         },
 
         onChunkCreated: function (chunk) {
@@ -61,6 +73,7 @@ define(function (require) {
                     box.update(delta, root);
                 });
                 this.robot.update(delta, root);
+                this.droper.update(delta, root);
             }
         }
 

@@ -28,10 +28,19 @@ define(function (require) {
             this.resetLoop();
             this.chunks = ['rigidbox', 'rigidbox'];
             dispatcher.on('get:game:chunks', this.sendGameChunks);
+            dispatcher.on('droper:drop', this.onDroperDrop);
         },
 
         sendGameChunks: function () {
             dispatcher.trigger('send:game:chunks', _.clone(this.chunks));
+        },
+
+        onDroperDrop: function (event) {
+            dispatcher.trigger('game:drop', {
+                type: this.chunks[event.data.id],
+                pos: event.data.pos
+            });
+            this.chunks.splice(event.data.id, 1);
         },
 
         onResize: function () {

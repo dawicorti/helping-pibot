@@ -75,7 +75,9 @@ define(function (require) {
         },
 
         onClickDrop: function () {
-            dispatcher.trigger('chunk:drop', this.selectedChunk);
+            if (this.chunks.length > 0) {
+                dispatcher.trigger('chunk:drop', this.selectedChunk);
+            }
             this.close();
         },
 
