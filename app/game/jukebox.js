@@ -5,7 +5,7 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        dispatcher = require('dispatcher');
+        dispatcher = require('core/dispatcher');
 
     function Jukebox() {
         this.init();

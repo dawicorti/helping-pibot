@@ -6,7 +6,7 @@ define(function (require) {
 
     var fabric = require('fabric'),
         _ = require('underscore'),
-        utils = require('utils');
+        utils = require('core/utils');
 
     function Chunk(world, camera, pos, group, body) {
         this.init(world, camera, pos, group, body);

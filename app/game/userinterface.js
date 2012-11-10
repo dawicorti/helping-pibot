@@ -8,7 +8,7 @@ define(function (require) {
         fabric = require('fabric'),
         ControlBoard = require('widgets/controlboard'),
         Volume = require('widgets/volume'),
-        dispatcher = require('dispatcher'),
+        dispatcher = require('core/dispatcher'),
         DropDialog = require('dialogs/dropdialog');
 
     function UserInterface() {

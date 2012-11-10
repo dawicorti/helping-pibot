@@ -6,8 +6,8 @@ define(function (require) {
 
     var _ = require('underscore'),
         $ = require('zepto'),
-        Dialog = require('dialog'),
-        dispatcher = require('dispatcher');
+        Dialog = require('dialogs/dialog'),
+        dispatcher = require('core/dispatcher');
 
     function DropDialog() {
         this.init();

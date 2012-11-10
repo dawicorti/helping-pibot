@@ -5,10 +5,10 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        Widget = require('widget'),
+        Widget = require('widgets/widget'),
         ControlButton = require('widgets/controlbutton'),
         controlBoardPrint = require('text!svg/control_board.svg'),
-        dispatcher = require('dispatcher');
+        dispatcher = require('core/dispatcher');
 
 
     function ControlBoard(parent) {

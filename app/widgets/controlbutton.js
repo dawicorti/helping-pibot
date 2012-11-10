@@ -5,8 +5,8 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        Widget = require('widget'),
-        dispatcher = require('dispatcher');
+        Widget = require('widgets/widget'),
+        dispatcher = require('core/dispatcher');
 
 
     function ControlButton(parent, name, options) {

@@ -5,10 +5,10 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        Widget = require('widget'),
+        Widget = require('widgets/widget'),
         volumeOnPrint = require('text!svg/volume_on.svg'),
         volumeOffPrint = require('text!svg/volume_off.svg'),
-        dispatcher = require('dispatcher');
+        dispatcher = require('core/dispatcher');
 
 
     function Volume(parent) {

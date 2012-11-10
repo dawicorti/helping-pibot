@@ -5,7 +5,7 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        game = require('game');
+        game = require('game/game');
 
     function Camera(target, fieldWidth) {
         this.init(target, fieldWidth);

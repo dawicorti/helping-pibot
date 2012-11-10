@@ -6,11 +6,11 @@ define(function (require) {
 
     var _ = require('underscore'),
         Box2D = require('box2d'),
-        settings = require('settings'),
-        game = require('game'),
-        Camera = require('camera'),
-        ChunkFactory = require('chunkfactory'),
-        Robot = require('robot'),
+        settings = require('core/settings'),
+        game = require('game/game'),
+        Camera = require('levels/camera'),
+        ChunkFactory = require('chunks/chunkfactory'),
+        Robot = require('game/robot'),
         B2World = Box2D.Dynamics.b2World,
         B2Vec2 = Box2D.Common.Math.b2Vec2;
 

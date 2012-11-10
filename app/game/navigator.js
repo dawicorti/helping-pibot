@@ -7,7 +7,7 @@ define(function (require) {
     var $ = require('zepto'),
         _ = require('underscore'),
         fabric = require('fabric'),
-        settings = require('settings');
+        settings = require('core/settings');
 
     function Navigator() {
         this.init();

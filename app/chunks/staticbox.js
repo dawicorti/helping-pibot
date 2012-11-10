@@ -5,8 +5,8 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        game = require('game'),
-        Chunk = require('chunk'),
+        game = require('game/game'),
+        Chunk = require('chunks/chunk'),
         Box2D = require('box2d'),
         fabric = require('fabric'),
         B2BodyDef = Box2D.Dynamics.b2BodyDef,

@@ -27,8 +27,8 @@ require(
         }
     },
     [
-        'game',
-        'level'
+        'game/game',
+        'levels/level'
     ],
     function (game, Level) {
         "use strict";

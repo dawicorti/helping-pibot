@@ -6,8 +6,8 @@ define(function (require) {
 
     var _ = require('underscore'),
         fabric = require('fabric'),
-        utils = require('utils'),
-        settings = require('settings');
+        utils = require('core/utils'),
+        settings = require('core/settings');
 
     function Widget(svgString, parent, options) {
         this.init(svgString, parent, options);

@@ -5,8 +5,8 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        game = require('game'),
-        Chunk = require('chunk'),
+        game = require('game/game'),
+        Chunk = require('chunks/chunk'),
         StaticBox = require('chunks/staticbox'),
         RigidBox = require('chunks/rigidbox'),
         chunkTypes = {

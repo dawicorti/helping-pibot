@@ -6,11 +6,11 @@ define(function (require) {
 
     var _ = require('underscore'),
         $ = require('zepto'),
-        Navigator = require('navigator'),
-        settings = require('settings'),
-        Jukebox = require('jukebox'),
-        UserInterface = require('userinterface'),
-        dispatcher = require('dispatcher');
+        Navigator = require('game/navigator'),
+        settings = require('core/settings'),
+        Jukebox = require('game/jukebox'),
+        UserInterface = require('game/userinterface'),
+        dispatcher = require('core/dispatcher');
 
     function Game() {}
 

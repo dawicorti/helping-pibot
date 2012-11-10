@@ -6,7 +6,7 @@ define(function (require) {
 
     var _ = require('underscore'),
         $ = require('zepto'),
-        dispatcher = require('dispatcher');
+        dispatcher = require('core/dispatcher');
 
     function Dialog(options) {
         this.init(options);
