@@ -12,6 +12,10 @@ define(function (require) {
             $('#main').on(name, callback);
         },
 
+        one: function (name, callback) {
+            $('#main').one(name, callback);
+        },
+
         trigger: function (name, options) {
             $('#main').trigger(name, options);
         }

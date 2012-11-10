@@ -24,13 +24,13 @@ define(function (require) {
             );
             this.chunks = [];
             this.selectedChunk = 0;
-            dispatcher.on('send:game:chunks', this.onGameChunksReceived);
+            dispatcher.one('send:game:chunks', this.onGameChunksReceived);
         },
 
         onGameChunksReceived: function (event) {
-            var chunks = event.data,
-                chunkNode = {};
-            _.each(chunks, function (chunk) {
+            var chunkNode = {};
+            this.chunks = event.data;
+            _.each(this.chunks, function (chunk) {
                 chunkNode = $('<div></div>').addClass('chunk');
                 // temp hardcoded chunk part
                 chunkNode.append(
@@ -44,6 +44,39 @@ define(function (require) {
                 );
                 $('.chunk-list .wrapper').append(chunkNode);
             });
+            this.updateWrapper();
+        },
+
+        updateWrapper: function () {
+            $('.chunk-list .wrapper')
+                .animate(
+                    {left: 45 - (11 * this.selectedChunk) + '%'},
+                    {complete: this.updateSelection}
+                );
+        },
+
+        updateSelection: function () {
+            $('.wrapper .chunk.selected').removeClass('selected');
+            $($('.wrapper .chunk')[this.selectedChunk]).addClass('selected');
+        },
+
+        onClickRightArrow: function () {
+            if (this.selectedChunk < this.chunks.length - 1) {
+                this.selectedChunk += 1;
+                this.updateWrapper();
+            }
+        },
+
+        onClickLeftArrow: function () {
+            if (this.selectedChunk > 0) {
+                this.selectedChunk -= 1;
+                this.updateWrapper();
+            }
+        },
+
+        onClickDrop: function () {
+            dispatcher.trigger('chunk:drop', this.selectedChunk);
+            this.close();
         },
 
         fill: function () {
@@ -51,14 +84,13 @@ define(function (require) {
             this.node
                 .append($('<div></div>').addClass('chunk-list'))
                 .append($('<div></div>').addClass('left-arrow'))
-                .append($('<div></div>').addClass('right-arrow'));
+                .append($('<div></div>').addClass('right-arrow'))
+                .append($('<button></button>').html('drop'));
             $('.chunk-list')
-                .append(
-                    $('<div></div>')
-                        .addClass('wrapper')
-                        .css('left', '45%')
-                        .append($('<div></div>').addClass('selection'))
-                );
+                .append($('<div></div>').addClass('wrapper'));
+            $('.right-arrow').click(this.onClickRightArrow);
+            $('.left-arrow').click(this.onClickLeftArrow);
+            $('button', this.node).click(this.onClickDrop);
             dispatcher.trigger('get:game:chunks');
         }
 

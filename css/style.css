@@ -108,6 +108,17 @@ footer {
     border-bottom: 1px solid #ff6e49;
 }
 
+.dialog button {
+    position: absolute;
+    border-radius: 3px;
+    background-color: #ff6e49;
+    border: 1px solid #cc3b16;
+    bottom: 2%;
+    right: 2%;    
+    color: #2f1335;
+    font-size: 1.5em;
+}
+
 .dialog .close {
     position: absolute;
     right: 1%;
@@ -142,20 +153,16 @@ footer {
     overflow: hidden;
 }
 
-.wrapper .selection {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 0.1%;
-    background-color: #ae53c1;
-}
-
 .wrapper .chunk {
     position: relative;
     display: inline-block;
     border: 1px dotted #ce3762;
     width: 0.1%;
     height: 100%;
+}
+
+.wrapper .chunk.selected {
+    background-color: #ae53c1;
 }
 
 .drop.dialog .right-arrow {
