@@ -44,7 +44,7 @@ define(function (require) {
                     {
                         pos: {left: left, top: top},
                         radius: radius,
-                        heightBox: 0.2
+                        heightBox: 0.5
                     }
                 )
             );

@@ -9,7 +9,8 @@ define(function (require) {
         Navigator = require('navigator'),
         settings = require('settings'),
         Jukebox = require('jukebox'),
-        UserInterface = require('userinterface');
+        UserInterface = require('userinterface'),
+        dispatcher = require('dispatcher');
 
     function Game() {}
 
@@ -25,6 +26,12 @@ define(function (require) {
             $(window).resize(this.onResize);
             $($('canvas')[1]).click(this.onClick);
             this.resetLoop();
+            this.chunks = ['rigidbox', 'rigidbox'];
+            dispatcher.on('get:game:chunks', this.sendGameChunks);
+        },
+
+        sendGameChunks: function () {
+            dispatcher.trigger('send:game:chunks', _.clone(this.chunks));
         },
 
         onResize: function () {

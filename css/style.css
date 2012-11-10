@@ -122,3 +122,70 @@ footer {
 .dialog .close:hover {
     border: 1px solid white;   
 }
+
+.drop.dialog .chunk-list {
+    position: absolute;
+    overflow: hidden;
+    left: 10%;
+    right: 10%;
+    top: 40%;
+    bottom: 30%;
+    border: 1px solid #ce3762;
+    background-color: #ff977c;
+}
+
+.chunk-list .wrapper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 11000%;
+    overflow: hidden;
+}
+
+.wrapper .selection {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 0.1%;
+    background-color: #ae53c1;
+}
+
+.wrapper .chunk {
+    position: relative;
+    display: inline-block;
+    border: 1px dotted #ce3762;
+    width: 0.1%;
+    height: 100%;
+}
+
+.drop.dialog .right-arrow {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+    width: 3%;
+    bottom: 30%;
+    background-color: #ff6e49;
+    border: 1px solid #cc3b16;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+}
+
+.drop.dialog .right-arrow:hover {
+    border: 1px solid white;   
+}
+
+.drop.dialog .left-arrow {
+    position: absolute;
+    top: 40%;
+    left: 5%;
+    width: 3%;
+    bottom: 30%;
+    background-color: #ff6e49;
+    border: 1px solid #cc3b16;
+    border-top-left-radius: 50%;
+    border-bottom-left-radius: 50%;
+}
+
+.drop.dialog .left-arrow:hover {
+    border: 1px solid white;   
+}
