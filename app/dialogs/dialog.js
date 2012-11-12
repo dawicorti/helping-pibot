@@ -37,6 +37,21 @@ define(function (require) {
             );
         },
 
+        addChunk: function (parent, chunkDef) {
+            var chunkNode = $('<div></div>').addClass('chunk');
+            chunkNode.append(
+                $('<span></span>')
+                    .css('position', 'absolute')
+                    .css('width', '50%')
+                    .css('height', '50%')
+                    .css('left', '25%')
+                    .css('top', '25%')
+                    .css('background-color', '#ff6e49')
+            );
+            parent.append(chunkNode);
+            return chunkNode;
+        },
+
         close: function () {
             this.node.empty();
             dispatcher.trigger('button:' + this.options.name + ':force:disable');

@@ -134,7 +134,7 @@ footer {
     border: 1px solid white;   
 }
 
-.drop.dialog .chunk-list {
+.dialog .chunk-list {
     position: absolute;
     overflow: hidden;
     left: 10%;
@@ -165,7 +165,7 @@ footer {
     background-color: #ae53c1;
 }
 
-.drop.dialog .right-arrow {
+.dialog .right-arrow {
     position: absolute;
     top: 40%;
     right: 5%;
@@ -177,11 +177,11 @@ footer {
     border-bottom-right-radius: 50%;
 }
 
-.drop.dialog .right-arrow:hover {
+.dialog .right-arrow:hover {
     border: 1px solid white;   
 }
 
-.drop.dialog .left-arrow {
+.dialog .left-arrow {
     position: absolute;
     top: 40%;
     left: 5%;
@@ -193,6 +193,6 @@ footer {
     border-bottom-left-radius: 50%;
 }
 
-.drop.dialog .left-arrow:hover {
+.dialog .left-arrow:hover {
     border: 1px solid white;   
 }

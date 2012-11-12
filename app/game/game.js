@@ -29,6 +29,11 @@ define(function (require) {
             this.chunks = ['rigidbox', 'rigidbox'];
             dispatcher.on('get:game:chunks', this.sendGameChunks);
             dispatcher.on('droper:drop', this.onDroperDrop);
+            dispatcher.on('chunk:clone', this.onCloneChunk);
+        },
+
+        onCloneChunk: function (event) {
+            this.chunks.push(event.data);
         },
 
         sendGameChunks: function () {

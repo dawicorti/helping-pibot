@@ -9,7 +9,8 @@ define(function (require) {
         ControlBoard = require('widgets/controlboard'),
         Volume = require('widgets/volume'),
         dispatcher = require('core/dispatcher'),
-        DropDialog = require('dialogs/dropdialog');
+        DropDialog = require('dialogs/dropdialog'),
+        CloneDialog = require('dialogs/clonedialog');
 
     function UserInterface() {
         this.init();
@@ -29,10 +30,16 @@ define(function (require) {
                 this.widgets.push(button);
             }, this);
             dispatcher.on('button:drop:enable', this.onClickDrop);
+            dispatcher.on('button:clone:enable', this.onClickClone);
         },
 
         onClickDrop: function () {
             var dialog = new DropDialog();
+            dialog.show();
+        },
+
+        onClickClone: function () {
+            var dialog = new CloneDialog();
             dialog.show();
         },
 
