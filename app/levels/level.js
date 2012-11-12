@@ -47,9 +47,23 @@ define(function (require) {
             }, this);
             this.robot = new Robot(this.world, this.camera, {x: 2, y: 7}, this.group);
             this.robot.render();
-            this.camera.lock(this.robot);
             this.rendered = true;
             dispatcher.on('game:drop', this.onDrop);
+            dispatcher.on('button:play:enable', this.onPlay);
+            dispatcher.on('button:lock:disable', this.onUnlockCamera);
+            dispatcher.on('button:lock:enable', this.onLockCamera);
+        },
+
+        onPlay: function () {
+            dispatcher.trigger('button:lock:force:enable');
+        },
+
+        onUnlockCamera: function () {
+            this.camera.unlock();
+        },
+
+        onLockCamera: function () {
+            this.camera.lock(this.robot);
         },
 
         onDrop: function (event) {

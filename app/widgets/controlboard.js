@@ -31,6 +31,7 @@ define(function (require) {
             );
             this.buttons = [];
             this.newButton('play', '1%', '44%', '90%');
+            this.newButton('lock', '1%', '46%', '90%');
             this.newButton('clone', '2%', '51.3%', '91%');
             this.newButton('fork', '2%', '55.7%', '91%');
             this.newButton('drop', '2%', '53.5%', '95.5%');

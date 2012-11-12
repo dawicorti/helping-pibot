@@ -23,6 +23,10 @@ define(function (require) {
             this.lockedChunk = chunk;
         },
 
+        unlock: function () {
+            this.lockedChunk = null;
+        },
+
         getRootPoint: function (worldPoint) {
             /* 
                 Calculate the root graphics point equivalent
@@ -45,7 +49,6 @@ define(function (require) {
         getRootDistance: function (worldDistance) {
             return (worldDistance * game.navigator.width()) / this.fieldWidth;
         },
-
 
         getWorldPoint: function (rootPoint) {
             var rootTargetPoint = {
