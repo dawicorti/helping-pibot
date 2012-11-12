@@ -86,9 +86,9 @@ footer {
 
 .canvas-container .dialog {
     position: absolute;
-    width: 50%;
+    width: 30%;
     height: 0;
-    left: 25%;
+    left: 35%;
     bottom: 0;
     background-color: #81273f;
     border: 1px solid #ce3762;
@@ -100,6 +100,7 @@ footer {
 
 .dialog h1 {
     position: absolute;
+    font-size: 1.2em;
     margin: 0;
     padding: 0;
     top: 1%;
@@ -115,8 +116,8 @@ footer {
     border: 1px solid #cc3b16;
     bottom: 2%;
     right: 2%;    
-    color: #2f1335;
-    font-size: 1.5em;
+    color: #ffb99e;
+    font-size: 0.9em;
 }
 
 .dialog .close {

@@ -32,7 +32,7 @@ define(function (require) {
         show: function () {
             $('.canvas-container').append(this.node);
             this.node.animate(
-                {height: '50%', opacity: 1},
+                {height: '30%', opacity: 1},
                 {complete: this.fill}
             );
         },
