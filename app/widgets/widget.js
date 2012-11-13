@@ -18,6 +18,7 @@ define(function (require) {
         init: function (svgString, parent, options) {
             _.bindAll(this);
             var that = this;
+            this.visible = true;
             this.pos = {left: 0, top: 0};
             this.size = {width: 1, height: 1};
             this.heightBox = 1.0;
@@ -47,6 +48,10 @@ define(function (require) {
             this.heightBox = widget.heightBox;
         },
 
+        isVisible: function () {
+            return !(_.isBoolean(this.visible)) || this.visible;
+        },
+
         contains: function (x, y) {
             if (!_.isNumber(this.heightBox)) {
                 this.heightBox = 1.0;
@@ -57,7 +62,8 @@ define(function (require) {
                 widgetY = this.pos.top - height / 2.0,
                 contained = false;
             if (x >= widgetX && x <= widgetX + this.size.width
-                    && y >= widgetY && y <= widgetY + height) {
+                    && y >= widgetY && y <= widgetY + height
+                    && this.isVisible()) {
                 contained = true;
             }
             return contained;
@@ -97,7 +103,11 @@ define(function (require) {
             }
         },
 
-        onClick: function () {}
+        onClick: function () {},
+
+        onMouseDown: function () {},
+
+        onMouseUp: function () {}
 
     });
 

@@ -8,6 +8,8 @@ define(function (require) {
         fabric = require('fabric'),
         ControlBoard = require('widgets/controlboard'),
         Volume = require('widgets/volume'),
+        CameraLeft = require('widgets/cameraleft'),
+        CameraRight = require('widgets/cameraright'),
         dispatcher = require('core/dispatcher'),
         DropDialog = require('dialogs/dropdialog'),
         CloneDialog = require('dialogs/clonedialog');
@@ -24,6 +26,8 @@ define(function (require) {
             var controlBoard = new ControlBoard(this.group);
             this.widgets = [
                 new Volume(this.group),
+                new CameraLeft(this.group),
+                new CameraRight(this.group),
                 controlBoard
             ];
             _.each(controlBoard.buttons, function (button) {
@@ -43,6 +47,24 @@ define(function (require) {
             dialog.show();
         },
 
+        onMouseDown: function (x, y) {
+            _.each(this.widgets, function (widget) {
+                if (widget.contains(x, y)) {
+                    widget.onMouseDown();
+                }
+            }, this);
+        },
+
+        onMouseUp: function (x, y) {
+            var inWidget = false;
+            _.each(this.widgets, function (widget) {
+                if (widget.contains(x, y)) {
+                    inWidget = true;
+                }
+                widget.onMouseUp(inWidget);
+            }, this);
+        },
+
         onClick: function (x, y) {
             _.each(this.widgets, function (widget) {
                 if (widget.contains(x, y)) {
@@ -53,7 +75,9 @@ define(function (require) {
 
         update: function (root) {
             _.each(this.widgets, function (widget) {
-                widget.update();
+                if (!_.isBoolean(widget.visible) || widget.visible) {
+                    widget.update();
+                }
             });
             root.add(this.group);
         }

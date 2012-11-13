@@ -25,11 +25,31 @@ define(function (require) {
             this.userInterface = new UserInterface();
             $(window).resize(this.onResize);
             $($('canvas')[1]).click(this.onClick);
+            $($('canvas')[1]).mousedown(this.onMouseDown);
+            $($('canvas')[1]).mouseup(this.onMouseUp);
             this.resetLoop();
             this.chunks = ['rigidbox', 'rigidbox'];
             dispatcher.on('get:game:chunks', this.sendGameChunks);
             dispatcher.on('droper:drop', this.onDroperDrop);
             dispatcher.on('chunk:clone', this.onCloneChunk);
+        },
+
+        onClick: function (event) {
+            if (_.isObject(this.root)) {
+                this.userInterface.onClick(event.layerX, event.layerY);
+            }
+        },
+
+        onMouseDown: function (event) {
+            if (_.isObject(this.root)) {
+                this.userInterface.onMouseDown(event.layerX, event.layerY);
+            }
+        },
+
+        onMouseUp: function (event) {
+            if (_.isObject(this.root)) {
+                this.userInterface.onMouseUp(event.layerX, event.layerY);
+            }
         },
 
         onCloneChunk: function (event) {
@@ -53,12 +73,6 @@ define(function (require) {
             this.root.setWidth(settings.resolution[0]);
             this.root.setHeight(settings.resolution[1]);
             this.root.calcOffset();
-        },
-
-        onClick: function (event) {
-            if (_.isObject(this.root)) {
-                this.userInterface.onClick(event.layerX, event.layerY);
-            }
         },
 
         resetLoop: function () {

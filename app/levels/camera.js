@@ -5,7 +5,8 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        game = require('game/game');
+        game = require('game/game'),
+        dispatcher = require('core/dispatcher');
 
     function Camera(target, fieldWidth) {
         this.init(target, fieldWidth);
@@ -14,9 +15,12 @@ define(function (require) {
     _.extend(Camera.prototype, {
 
         init: function (target, fieldWidth) {
+            _.bindAll(this);
             this.target = target;
             this.fieldWidth = fieldWidth;
             this.lockedChunk = null;
+            dispatcher.on('camera:move:left', this.onCameraLeftRequest);
+            dispatcher.on('camera:move:right', this.onCameraRightRequest);
         },
 
         lock: function (chunk) {
@@ -25,6 +29,14 @@ define(function (require) {
 
         unlock: function () {
             this.lockedChunk = null;
+        },
+
+        onCameraLeftRequest: function () {
+            this.target.x -= 0.3;
+        },
+
+        onCameraRightRequest: function () {
+            this.target.x += 0.3;
         },
 
         getRootPoint: function (worldPoint) {
