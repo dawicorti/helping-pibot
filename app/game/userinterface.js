@@ -1,10 +1,11 @@
-/*global define*/
+/*global define,document*/
 /*jslint nomen: true*/
 
 define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
+        $ = require('zepto'),
         fabric = require('fabric'),
         ControlBoard = require('widgets/controlboard'),
         Volume = require('widgets/volume'),
@@ -23,18 +24,34 @@ define(function (require) {
         init: function () {
             _.bindAll(this);
             this.group = new fabric.Group();
-            var controlBoard = new ControlBoard(this.group);
-            this.widgets = [
-                new Volume(this.group),
-                new CameraLeft(this.group),
-                new CameraRight(this.group),
-                controlBoard
-            ];
-            _.each(controlBoard.buttons, function (button) {
-                this.widgets.push(button);
-            }, this);
+            this.widgets = {
+                volume: new Volume(this.group),
+                cameraLeft: new CameraLeft(this.group),
+                cameraRight: new CameraRight(this.group),
+                controlBoard: new ControlBoard(this.group)
+            };
             dispatcher.on('button:drop:enable', this.onClickDrop);
             dispatcher.on('button:clone:enable', this.onClickClone);
+            $(document).keydown(this.onKeyDown);
+            $(document).keyup(this.onKeyUp);
+        },
+
+        onKeyDown: function (event) {
+            if (event.keyCode === 39 && this.widgets.cameraRight.isVisible()) {
+                this.widgets.cameraRight.onMouseDown();
+            }
+            if (event.keyCode === 37 && this.widgets.cameraLeft.isVisible()) {
+                this.widgets.cameraLeft.onMouseDown();
+            }
+        },
+
+        onKeyUp: function (event) {
+            if (event.keyCode === 39) {
+                this.widgets.cameraRight.onMouseUp();
+            }
+            if (event.keyCode === 37) {
+                this.widgets.cameraLeft.onMouseUp();
+            }
         },
 
         onClickDrop: function () {
@@ -79,6 +96,10 @@ define(function (require) {
                     widget.update();
                 }
             });
+            _.each(this.widgets.controlBoard.buttons, function (button) {
+                button.update();
+            }, this);
+
             root.add(this.group);
         }
 
