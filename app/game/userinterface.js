@@ -22,6 +22,7 @@ define(function (require) {
     _.extend(UserInterface.prototype, {
 
         init: function () {
+            var index = 0;
             _.bindAll(this);
             this.group = new fabric.Group();
             this.widgets = {
@@ -30,6 +31,10 @@ define(function (require) {
                 cameraRight: new CameraRight(this.group),
                 controlBoard: new ControlBoard(this.group)
             };
+            _.each(this.widgets.controlBoard.buttons, function (button) {
+                this.widgets['button' + index] = button;
+                index += 1;
+            }, this);
             dispatcher.on('button:drop:enable', this.onClickDrop);
             dispatcher.on('button:clone:enable', this.onClickClone);
             $(document).keydown(this.onKeyDown);
@@ -96,9 +101,6 @@ define(function (require) {
                     widget.update();
                 }
             });
-            _.each(this.widgets.controlBoard.buttons, function (button) {
-                button.update();
-            }, this);
 
             root.add(this.group);
         }
