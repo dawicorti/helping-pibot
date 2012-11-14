@@ -26,8 +26,8 @@ define(function (require) {
                 cameraRightPrint,
                 {pos: {left: '95%', top: '50%'}, radius: '5%'}
             );
-            dispatcher.on('button:lock:disable', this.onDisableLock);
-            dispatcher.on('button:lock:enable', this.onEnableLock);
+            dispatcher.on('button:lock:disable', this.show);
+            dispatcher.on('button:lock:enable', this.hide);
             this.resetTimer();
         },
 
@@ -42,17 +42,7 @@ define(function (require) {
             this.resetTimer();
         },
 
-        onDisableLock: function () {
-            this.parent.add(this.group);
-            this.visible = true;
-        },
-
         onClick: function () {
-        },
-
-        onEnableLock: function () {
-            this.parent.remove(this.group);
-            this.visible = false;
         },
 
         onMouseDown: function () {

@@ -11,6 +11,7 @@ define(function (require) {
         CameraLeft = require('widgets/cameraleft'),
         CameraRight = require('widgets/cameraright'),
         Play = require('widgets/play'),
+        Lock = require('widgets/lock'),
         dispatcher = require('core/dispatcher');
 
     function UserInterface() {
@@ -28,6 +29,7 @@ define(function (require) {
                 cameraLeft: new CameraLeft(this.group),
                 cameraRight: new CameraRight(this.group),
                 play: new Play(this.group),
+                lock: new Lock(this.group)
             };
             dispatcher.on('button:drop:enable', this.onClickDrop);
             dispatcher.on('button:clone:enable', this.onClickClone);

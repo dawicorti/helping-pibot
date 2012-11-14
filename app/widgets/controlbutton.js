@@ -32,6 +32,17 @@ define(function (require) {
             dispatcher.on('button:' + name + ':force:disable', this.forceDisable);
         },
 
+        show: function () {
+            this.visible = true;
+            this.group.set({opacity: 0.2});
+        },
+
+        hide: function () {
+            this.visible = false;
+            this.group.set({opacity: 0});
+        },
+
+
         forceDisable: function () {
             this.setEnable(false);
         },
@@ -41,17 +52,17 @@ define(function (require) {
         },
 
         setEnable: function (status) {
-            this.parent.remove(this.group);
-            if (status === true) {
-                this.group.set({opacity: 0.6});
-                dispatcher.trigger('button:' + this.name + ':enable');
-                this.enable = true;
-            } else {
-                this.group.set({opacity: 0.2});
-                dispatcher.trigger('button:' + this.name + ':disable');
-                this.enable = false;
+            if (this.isVisible()) {
+                if (status === true) {
+                    this.group.set({opacity: 0.6});
+                    dispatcher.trigger('button:' + this.name + ':enable');
+                    this.enable = true;
+                } else {
+                    this.group.set({opacity: 0.2});
+                    dispatcher.trigger('button:' + this.name + ':disable');
+                    this.enable = false;
+                }
             }
-            this.parent.add(this.group);
         },
 
         onClick: function () {
