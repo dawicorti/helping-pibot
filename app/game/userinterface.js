@@ -7,13 +7,11 @@ define(function (require) {
     var _ = require('underscore'),
         $ = require('zepto'),
         fabric = require('fabric'),
-        ControlBoard = require('widgets/controlboard'),
         Volume = require('widgets/volume'),
         CameraLeft = require('widgets/cameraleft'),
         CameraRight = require('widgets/cameraright'),
-        dispatcher = require('core/dispatcher'),
-        DropDialog = require('dialogs/dropdialog'),
-        CloneDialog = require('dialogs/clonedialog');
+        Play = require('widgets/play'),
+        dispatcher = require('core/dispatcher');
 
     function UserInterface() {
         this.init();
@@ -29,12 +27,8 @@ define(function (require) {
                 volume: new Volume(this.group),
                 cameraLeft: new CameraLeft(this.group),
                 cameraRight: new CameraRight(this.group),
-                controlBoard: new ControlBoard(this.group)
+                play: new Play(this.group),
             };
-            _.each(this.widgets.controlBoard.buttons, function (button) {
-                this.widgets['button' + index] = button;
-                index += 1;
-            }, this);
             dispatcher.on('button:drop:enable', this.onClickDrop);
             dispatcher.on('button:clone:enable', this.onClickClone);
             $(document).keydown(this.onKeyDown);
@@ -57,16 +51,6 @@ define(function (require) {
             if (event.keyCode === 37) {
                 this.widgets.cameraLeft.onMouseUp();
             }
-        },
-
-        onClickDrop: function () {
-            var dialog = new DropDialog();
-            dialog.show();
-        },
-
-        onClickClone: function () {
-            var dialog = new CloneDialog();
-            dialog.show();
         },
 
         onMouseDown: function (x, y) {

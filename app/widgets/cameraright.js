@@ -5,7 +5,7 @@ define(function (require) {
     "use strict";
 
     var _ = require('underscore'),
-        Widget = require('widgets/widget'),
+        ControlButton = require('widgets/controlbutton'),
         cameraRightPrint = require('text!svg/camera_right.svg'),
         dispatcher = require('core/dispatcher');
 
@@ -14,19 +14,18 @@ define(function (require) {
         this.init(parent);
     }
 
-    _.extend(CameraRight.prototype, Widget.prototype);
+    _.extend(CameraRight.prototype, ControlButton.prototype);
 
     _.extend(CameraRight.prototype, {
 
         init: function (parent) {
-            Widget.prototype.init.call(
+            ControlButton.prototype.init.call(
                 this,
-                cameraRightPrint,
+                'right',
                 parent,
+                cameraRightPrint,
                 {pos: {left: '95%', top: '50%'}, radius: '5%'}
             );
-            this.activated = false;
-            this.group.set({opacity: 0.2});
             dispatcher.on('button:lock:disable', this.onDisableLock);
             dispatcher.on('button:lock:enable', this.onEnableLock);
             this.resetTimer();
@@ -37,7 +36,7 @@ define(function (require) {
         },
 
         onTick: function () {
-            if (this.activated) {
+            if (this.enable) {
                 dispatcher.trigger('camera:move:right');
             }
             this.resetTimer();
@@ -48,19 +47,20 @@ define(function (require) {
             this.visible = true;
         },
 
+        onClick: function () {
+        },
+
         onEnableLock: function () {
             this.parent.remove(this.group);
             this.visible = false;
         },
 
         onMouseDown: function () {
-            this.group.set({opacity: 0.6});
-            this.activated = true;
+            this.setEnable(true);
         },
 
         onMouseUp: function () {
-            this.group.set({opacity: 0.2});
-            this.activated = false;
+            this.setEnable(false);
         }
 
     });
