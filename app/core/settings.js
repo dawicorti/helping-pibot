@@ -14,7 +14,7 @@ define(function (require) {
 
         cameraTarget: { x: 20.0, y: 3.0 },
 
-        cameraFieldWidth: 40.0,
+        cameraFieldWidth: 50.0,
 
         canvasTop: 200,
         // Game theme : http://www.colourlovers.com/palette/1480885/A_Night_in_Havana

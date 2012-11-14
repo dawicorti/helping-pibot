@@ -17,6 +17,11 @@ define(function (require) {
 
     _.extend(ControlButton.prototype, {
 
+        opacity: {
+            enable: 0.7,
+            disable: 0.1
+        },
+
         init: function (name, parent, print, options) {
             _.bindAll(this);
             Widget.prototype.init.call(
@@ -27,7 +32,7 @@ define(function (require) {
             );
             this.name = name;
             this.enable = false;
-            this.group.set({opacity: 0.2});
+            this.group.set({opacity: this.opacity.disable});
             dispatcher.on('button:' + name + ':force:enable', this.forceEnable);
             dispatcher.on('button:' + name + ':force:disable', this.forceDisable);
             dispatcher.on('button:all:reset', this.forceDisable);
@@ -35,7 +40,7 @@ define(function (require) {
 
         show: function () {
             this.visible = true;
-            this.group.set({opacity: 0.2});
+            this.group.set({opacity: this.opacity.disable});
         },
 
         hide: function () {
@@ -55,11 +60,11 @@ define(function (require) {
         setEnable: function (status) {
             if (this.isVisible()) {
                 if (status === true) {
-                    this.group.set({opacity: 0.6});
+                    this.group.set({opacity: this.opacity.enable});
                     dispatcher.trigger('button:' + this.name + ':enable');
                     this.enable = true;
                 } else {
-                    this.group.set({opacity: 0.2});
+                    this.group.set({opacity: this.opacity.disable});
                     dispatcher.trigger('button:' + this.name + ':disable');
                     this.enable = false;
                 }

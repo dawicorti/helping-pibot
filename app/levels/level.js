@@ -40,7 +40,7 @@ define(function (require) {
 
         render: function (config) {
             this.camera = new Camera(
-                settings.cameraTarget,
+                _.clone(settings.cameraTarget),
                 settings.cameraFieldWidth
             );
             this.droper = new Droper(this.camera);

@@ -31,6 +31,9 @@ define(function (require) {
         onClick: function () {
         },
 
+        forceDisable: function () {
+        },
+
         onMouseDown: function () {
             this.setEnable(true);
         },

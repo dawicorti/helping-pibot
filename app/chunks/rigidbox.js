@@ -9,6 +9,8 @@ define(function (require) {
         Chunk = require('chunks/chunk'),
         Box2D = require('box2d'),
         fabric = require('fabric'),
+        print = require('text!svg/rigid_box.svg'),
+        utils = require('core/utils'),
         B2BodyDef = Box2D.Dynamics.b2BodyDef,
         B2Body = Box2D.Dynamics.b2Body,
         B2World = Box2D.Dynamics.b2World,
@@ -37,16 +39,11 @@ define(function (require) {
         },
 
         render: function () {
-            var rootPoint = this.camera.getRootPoint(this.pos);
-            this.rect = new fabric.Rect({
-                left: rootPoint.x,
-                top: rootPoint.y,
-                width: this.camera.getRootDistance(1),
-                height: this.camera.getRootDistance(1),
-                fill: '#ff6e49',
-                stroke: '#a63518'
+            var that = this;
+            fabric.loadSVGFromString(print, function (objects, o) {
+                that.rect = new fabric.PathGroup(objects, o);
+                that.group.add(that.rect);
             });
-            this.group.add(this.rect);
         },
 
         createBody: function (world, pos) {
@@ -73,10 +70,9 @@ define(function (require) {
             this.rect.set({
                 left: rootPoint.x,
                 top: rootPoint.y,
-                width: this.camera.getRootDistance(1),
-                height: this.camera.getRootDistance(1),
                 angle: this.normalRelativeAngle(this.body.GetAngle())
             });
+            utils.setPathGroupRadius(this.rect, this.camera.getRootDistance(0.5));
         }
 
     });

@@ -14,7 +14,7 @@
    id="svg3604"
    version="1.1"
    inkscape:version="0.47 r22583"
-   sodipodi:docname="Nouveau document 3">
+   sodipodi:docname="helpingpibot.svg">
   <defs
      id="defs3606">
     <inkscape:perspective
@@ -39,9 +39,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.5"
-     inkscape:cx="247.40082"
-     inkscape:cy="88.921489"
+     inkscape:zoom="32"
+     inkscape:cx="508.14072"
+     inkscape:cy="30.768971"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="true"
@@ -62,7 +62,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -176,5 +176,9 @@
        d="m 560,20 0,60 30,0 0,-10 -20,0 0,-30 10,0 0,-10 -10,0 0,-10 -10,0 z"
        id="path3691"
        transform="translate(58,0)" />
+    <path
+       style="fill:#620e5d;stroke:#620e5d;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="m 527,61 0,-2 -28,0 0,2 28,0 z"
+       id="path2922" />
   </g>
 </svg>
