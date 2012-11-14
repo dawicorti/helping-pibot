@@ -14,6 +14,8 @@ define(function (require) {
 
     _.extend(Camera.prototype, {
 
+        velocity: 0.6,
+
         init: function (target, fieldWidth) {
             _.bindAll(this);
             this.target = target;
@@ -82,8 +84,25 @@ define(function (require) {
         },
 
         update: function () {
+            var sign = 1,
+                distance = {};
             if (_.isObject(this.lockedChunk)) {
-                this.target = _.clone(this.lockedChunk.pos);
+                distance = {
+                    x: this.lockedChunk.pos.x - this.target.x,
+                    y: this.lockedChunk.pos.y - this.target.y
+                };
+                if (Math.abs(distance.x) > this.velocity) {
+                    sign = (distance.x && distance.x / Math.abs(distance.x));
+                    distance.x = sign * this.velocity;
+                }
+                if (Math.abs(distance.y) > this.velocity) {
+                    sign = (distance.y && distance.y / Math.abs(distance.y));
+                    distance.y = sign * this.velocity;
+                }
+                this.target = {
+                    x: this.target.x + distance.x,
+                    y: this.target.y + distance.y
+                };
             }
             if (this.target.x - this.fieldWidth / 2 <= 0) {
                 this.target.x = this.fieldWidth / 2;

@@ -9,15 +9,14 @@ define(function (require) {
         utils = require('core/utils'),
         settings = require('core/settings');
 
-    function Widget(svgString, parent, options) {
-        this.init(svgString, parent, options);
+    function Widget(print, parent, options) {
+        this.init(print, parent, options);
     }
 
     _.extend(Widget.prototype, {
 
-        init: function (svgString, parent, options) {
+        init: function (print, parent, options) {
             _.bindAll(this);
-            var that = this;
             this.visible = true;
             this.pos = {left: 0, top: 0};
             this.size = {width: 1, height: 1};
@@ -27,12 +26,19 @@ define(function (require) {
             }
             this.options = options;
             this.parent = parent;
-            fabric.loadSVGFromString(svgString, function (objects, o) {
-                that.group = new fabric.PathGroup(objects, o);
-                if (_.isObject(parent)) {
-                    parent.add(that.group);
-                }
-            });
+            if (_.isString(print)) {
+                fabric.loadSVGFromString(print, this.onSVGLoaded);
+            } else {
+                this.group = new fabric.Group();
+                parent.add(this.group);
+            }
+        },
+
+        onSVGLoaded: function (objects, o) {
+            this.group = new fabric.PathGroup(objects, o);
+            if (_.isObject(this.parent)) {
+                this.parent.add(this.group);
+            }
         },
 
         getWidthPercentValue: function (value) {
