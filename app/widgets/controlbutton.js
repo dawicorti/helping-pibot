@@ -30,6 +30,7 @@ define(function (require) {
             this.group.set({opacity: 0.2});
             dispatcher.on('button:' + name + ':force:enable', this.forceEnable);
             dispatcher.on('button:' + name + ':force:disable', this.forceDisable);
+            dispatcher.on('button:all:reset', this.forceDisable);
         },
 
         show: function () {

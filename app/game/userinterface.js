@@ -12,6 +12,7 @@ define(function (require) {
         CameraRight = require('widgets/cameraright'),
         Play = require('widgets/play'),
         Lock = require('widgets/lock'),
+        Reload = require('widgets/reload'),
         dispatcher = require('core/dispatcher');
 
     function UserInterface() {
@@ -29,6 +30,7 @@ define(function (require) {
                 cameraLeft: new CameraLeft(this.group),
                 cameraRight: new CameraRight(this.group),
                 play: new Play(this.group),
+                reload: new Reload(this.group),
                 lock: new Lock(this.group)
             };
             dispatcher.on('button:drop:enable', this.onClickDrop);

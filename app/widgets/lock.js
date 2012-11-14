@@ -24,7 +24,7 @@ define(function (require) {
                 'lock',
                 parent,
                 lockPrint,
-                {pos: {left: '45%', top: '92%'}, radius: '2%'}
+                {pos: {left: '43%', top: '92%'}, radius: '2%'}
             );
         },
 

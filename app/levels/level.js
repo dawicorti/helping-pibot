@@ -24,8 +24,18 @@ define(function (require) {
 
         init: function (index) {
             _.bindAll(this);
+            this.index = index;
             require(['levels/level' + index], this.render);
             this.rendered = false;
+            this.loaded = true;
+        },
+
+        unload: function () {
+            this.loaded = false;
+        },
+
+        newMe: function () {
+            return new Level(this.index);
         },
 
         render: function (config) {
@@ -55,28 +65,38 @@ define(function (require) {
         },
 
         onPlay: function () {
-            dispatcher.trigger('button:lock:force:enable');
+            if (this.loaded) {
+                dispatcher.trigger('button:lock:force:enable');
+            }
         },
 
         onUnlockCamera: function () {
-            this.camera.unlock();
+            if (this.loaded) {
+                this.camera.unlock();
+            }
         },
 
         onLockCamera: function () {
-            this.camera.lock(this.robot);
+            if (this.loaded) {
+                this.camera.lock(this.robot);
+            }
         },
 
         onDrop: function (event) {
-            this.chunkFactory.newChunk(
-                event.data.type,
-                event.data.pos,
-                this.onChunkCreated
-            );
+            if (this.loaded) {
+                this.chunkFactory.newChunk(
+                    event.data.type,
+                    event.data.pos,
+                    this.onChunkCreated
+                );
+            }
         },
 
         onChunkCreated: function (chunk) {
-            chunk.render();
-            this.chunks.push(chunk);
+            if (this.loaded) {
+                chunk.render();
+                this.chunks.push(chunk);
+            }
         },
 
         update: function (delta, root) {

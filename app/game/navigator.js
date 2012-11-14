@@ -7,7 +7,8 @@ define(function (require) {
     var $ = require('zepto'),
         _ = require('underscore'),
         fabric = require('fabric'),
-        settings = require('core/settings');
+        settings = require('core/settings'),
+        dispatcher = require('core/dispatcher');
 
     function Navigator() {
         this.init();
@@ -16,6 +17,7 @@ define(function (require) {
     _.extend(Navigator.prototype, {
 
         init: function () {
+            _.bindAll(this);
             $('body').append(
                 $('<canvas></canvas>')
                     .attr('width', settings.resolution[0])
@@ -31,6 +33,11 @@ define(function (require) {
                 .css('position', 'absolute')
                 .css('left', '0px')
                 .css('top', settings.canvasTop + 'px');
+            dispatcher.on('button:reload:enable', this.onReload);
+        },
+
+        onReload: function () {
+            this.setCurrentMode(this.currentMode.newMe());
         },
 
         update: function (delta) {
@@ -41,6 +48,7 @@ define(function (require) {
         },
 
         setCurrentMode: function (mode) {
+            dispatcher.trigger('button:all:reset');
             if (_.isObject(this.currentMode)) {
                 this.currentMode.unload();
             }
