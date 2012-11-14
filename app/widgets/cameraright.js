@@ -26,7 +26,7 @@ define(function (require) {
                 {pos: {left: '95%', top: '50%'}, radius: '5%'}
             );
             this.activated = false;
-            this.group.set({opacity: 0.5});
+            this.group.set({opacity: 0.2});
             dispatcher.on('button:lock:disable', this.onDisableLock);
             dispatcher.on('button:lock:enable', this.onEnableLock);
             this.resetTimer();
@@ -54,12 +54,12 @@ define(function (require) {
         },
 
         onMouseDown: function () {
-            this.group.set({opacity: 1});
+            this.group.set({opacity: 0.6});
             this.activated = true;
         },
 
         onMouseUp: function () {
-            this.group.set({opacity: 0.5});
+            this.group.set({opacity: 0.2});
             this.activated = false;
         }
 
