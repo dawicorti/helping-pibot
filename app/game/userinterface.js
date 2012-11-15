@@ -13,6 +13,7 @@ define(function (require) {
         Play = require('widgets/play'),
         Lock = require('widgets/lock'),
         Reload = require('widgets/reload'),
+        ChunkItem = require('widgets/chunkitem'),
         dispatcher = require('core/dispatcher');
 
     function UserInterface() {
@@ -33,6 +34,17 @@ define(function (require) {
                 reload: new Reload(this.group),
                 lock: new Lock(this.group)
             };
+            this.wrapper = {
+                offset: 50
+            };
+            for (index = 0; index < 10; index += 1) {
+                this.widgets['item' + index] = new ChunkItem(
+                    this.group,
+                    index,
+                    'rigidbox',
+                    this.wrapper
+                );
+            }
             dispatcher.on('button:drop:enable', this.onClickDrop);
             dispatcher.on('button:clone:enable', this.onClickClone);
             $(document).keydown(this.onKeyDown);
@@ -85,10 +97,10 @@ define(function (require) {
 
         update: function (root) {
             _.each(this.widgets, function (widget) {
-                if (!_.isBoolean(widget.visible) || widget.visible) {
+                if (widget.isVisible()) {
                     widget.update();
                 }
-            });
+            }, this);
 
             root.add(this.group);
         }

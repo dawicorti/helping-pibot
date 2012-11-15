@@ -36,9 +36,10 @@ define(function (require) {
 
         onMouseDown: function () {
             this.setEnable(true);
+            _.delay(this.autoDisable, 200);
         },
 
-        onMouseUp: function () {
+        autoDisable: function () {
             this.setEnable(false);
         }
 

@@ -62,7 +62,6 @@ define(function (require) {
             if (!_.isNumber(this.heightBox)) {
                 this.heightBox = 1.0;
             }
-            console.log(this.heightBox);
             var height = this.size.height * this.heightBox,
                 widgetX = this.pos.left - this.size.width / 2.0,
                 widgetY = this.pos.top - height / 2.0,

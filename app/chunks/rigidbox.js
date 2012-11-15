@@ -9,7 +9,7 @@ define(function (require) {
         Chunk = require('chunks/chunk'),
         Box2D = require('box2d'),
         fabric = require('fabric'),
-        print = require('text!svg/rigid_box.svg'),
+        print = require('text!svg/rigidbox.svg'),
         utils = require('core/utils'),
         B2BodyDef = Box2D.Dynamics.b2BodyDef,
         B2Body = Box2D.Dynamics.b2Body,
