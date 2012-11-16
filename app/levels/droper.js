@@ -21,15 +21,22 @@ define(function (require) {
             dispatcher.on('chunk:drop', this.onDropRequest);
             this.pos = {x: 0, y: 0};
             this.activated = false;
+            this.enable = true;
             this.area = new fabric.Rect({fill: '#ce3762', opacity: 0.5});
             $($('canvas')[1]).on('mousemove', this.onMouseMove);
         },
 
+        disable: function () {
+            this.enable = false;
+        },
+
         onDropRequest: function (event) {
-            var chunkId = event.data;
-            this.currentChunkId = chunkId;
-            this.activated = true;
-            $($('canvas')[1]).one('click', this.onDrop);
+            if (this.enable) {
+                var chunkId = event.data;
+                this.currentChunkId = chunkId;
+                this.activated = true;
+                $($('canvas')[1]).one('click', this.onDrop);
+            }
         },
 
         onMouseMove: function (event) {

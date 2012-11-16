@@ -32,6 +32,7 @@ define(function (require) {
 
         unload: function () {
             this.loaded = false;
+            this.droper.disable();
         },
 
         newMe: function () {
