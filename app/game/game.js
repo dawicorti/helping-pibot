@@ -17,18 +17,22 @@ define(function (require) {
     _.extend(Game.prototype, {
 
         initialize: function () {
+            var index = 0;
             _.bindAll(this);
             this.navigator = new Navigator();
             this.jukebox = new Jukebox();
             this.jukebox.playFromJamendo(settings.soundtrack);
             this.root = this.navigator.root;
-            this.userInterface = new UserInterface();
+            this.chunks = [];
+            for (index = 0; index < 10; index += 1) {
+                this.chunks.push('rigidbox');
+            }
+            this.userInterface = new UserInterface(this.chunks);
             $(window).resize(this.onResize);
             $($('canvas')[1]).click(this.onClick);
             $($('canvas')[1]).mousedown(this.onMouseDown);
             $($('canvas')[1]).mouseup(this.onMouseUp);
             this.resetLoop();
-            this.chunks = ['rigidbox', 'rigidbox'];
             dispatcher.on('get:game:chunks', this.sendGameChunks);
             dispatcher.on('droper:drop', this.onDroperDrop);
             dispatcher.on('chunk:clone', this.onCloneChunk);
@@ -66,6 +70,7 @@ define(function (require) {
                 pos: event.data.pos
             });
             this.chunks.splice(event.data.id, 1);
+            this.userInterface.removeChunk(event.data.id);
         },
 
         onResize: function () {

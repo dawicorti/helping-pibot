@@ -16,13 +16,13 @@ define(function (require) {
         ChunkItem = require('widgets/chunkitem'),
         dispatcher = require('core/dispatcher');
 
-    function UserInterface() {
-        this.init();
+    function UserInterface(chunks) {
+        this.init(chunks);
     }
 
     _.extend(UserInterface.prototype, {
 
-        init: function () {
+        init: function (chunks) {
             var index = 0;
             _.bindAll(this);
             this.group = new fabric.Group();
@@ -37,18 +37,39 @@ define(function (require) {
             this.wrapper = {
                 offset: 50
             };
-            for (index = 0; index < 10; index += 1) {
-                this.widgets['item' + index] = new ChunkItem(
-                    this.group,
-                    index,
-                    'rigidbox',
-                    this.wrapper
-                );
-            }
             dispatcher.on('button:drop:enable', this.onClickDrop);
             dispatcher.on('button:clone:enable', this.onClickClone);
             $(document).keydown(this.onKeyDown);
             $(document).keyup(this.onKeyUp);
+            _.each(chunks, function (def) {
+                this.widgets['item' + index] = new ChunkItem(
+                    this.group,
+                    index,
+                    def,
+                    this.wrapper
+                );
+                index += 1;
+            }, this);
+        },
+
+        removeChunk: function (chunkId) {
+            var lastChunkReached = false,
+                index = chunkId,
+                currentKey = 'item' + index,
+                nextKey = 'item' + (index + 1);
+            this.group.remove(this.widgets[currentKey].mainGroup);
+            while (!lastChunkReached) {
+                if (_.has(this.widgets, nextKey)) {
+                    this.widgets[nextKey].setIndex(index);
+                    this.widgets[currentKey] = this.widgets[nextKey];
+                    index += 1;
+                    currentKey = 'item' + index;
+                    nextKey = 'item' + (index + 1);
+                } else {
+                    this.widgets = _.omit(this.widgets, currentKey);
+                    lastChunkReached = true;
+                }
+            }
         },
 
         onKeyDown: function (event) {
