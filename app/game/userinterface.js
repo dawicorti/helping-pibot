@@ -14,6 +14,7 @@ define(function (require) {
         Lock = require('widgets/lock'),
         Reload = require('widgets/reload'),
         ChunkItem = require('widgets/chunkitem'),
+        Selector = require('widgets/selector'),
         dispatcher = require('core/dispatcher');
 
     function UserInterface(chunks) {
@@ -32,8 +33,12 @@ define(function (require) {
                 cameraRight: new CameraRight(this.group),
                 play: new Play(this.group),
                 reload: new Reload(this.group),
-                lock: new Lock(this.group)
+                lock: new Lock(this.group),
+                drop: new Selector(this.group, 'drop', {left: '5%', top: '5%'}),
+                clone: new Selector(this.group, 'clone', {left: '8%', top: '5%'}),
+                fork: new Selector(this.group, 'fork', {left: '11%', top: '5%'})
             };
+            this.widgets.drop.onClick();
             this.wrapper = {
                 offset: 50
             };
@@ -48,8 +53,27 @@ define(function (require) {
                     def,
                     this.wrapper
                 );
+                this.widgets['item' + index].setSelector('drop');
                 index += 1;
             }, this);
+            this.selector = 'drop';
+            dispatcher.on('selector:select', this.onSelectSelector);
+        },
+
+        cloneChunk: function (fromIndex, toIndex) {
+            var newChunk = new ChunkItem(
+                this.group,
+                toIndex,
+                this.widgets['item' + fromIndex].def,
+                this.wrapper
+            );
+            newChunk.leftPos = this.widgets['item' + fromIndex].leftPos;
+            newChunk.setSelector(this.selector);
+            this.widgets['item' + toIndex] = newChunk;
+        },
+
+        onSelectSelector: function (event) {
+            this.selector = event.data;
         },
 
         removeChunk: function (chunkId) {
@@ -117,6 +141,9 @@ define(function (require) {
         },
 
         update: function (root) {
+            if (_.isArray(this.chunks)) {
+                this.wrapper.offset = 50 - this.chunks.length * 2.5 / 2;
+            }
             _.each(this.widgets, function (widget) {
                 if (widget.isVisible()) {
                     widget.update();

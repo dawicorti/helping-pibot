@@ -20,12 +20,12 @@ define(function (require) {
     _.extend(ChunkItem.prototype, {
 
         init: function (parent, index, def, wrapper) {
+            _.bindAll(this);
             this.index = index;
             this.wrapper = wrapper;
             this.def = def;
             this.subWidgets = [];
             this.leftPos = 50;
-            this.updatedIndex = index;
             this.mainGroup = new fabric.Group();
             parent.add(this.mainGroup);
             Widget.prototype.init.call(
@@ -34,10 +34,20 @@ define(function (require) {
                 this.mainGroup
             );
             this.selected = false;
+            this.selector = 'drop';
+            dispatcher.on('selector:select', this.onSelectSelector);
+        },
+
+        onSelectSelector: function (event) {
+            this.selector = event.data;
+        },
+
+        setSelector: function (selector) {
+            this.selector = selector;
         },
 
         setIndex: function (index) {
-            this.updatedIndex = index;
+            this.index = index;
         },
 
         onSVGLoaded: function (objects, o) {
@@ -56,7 +66,7 @@ define(function (require) {
         },
 
         onClick: function () {
-            dispatcher.trigger('chunk:drop', this.index);
+            dispatcher.trigger('chunk:' + this.selector, this.index);
             this.selected = true;
             _.delay(this.unselect, 200);
         },
@@ -69,12 +79,11 @@ define(function (require) {
             var newLeftPos = this.wrapper.offset + (2.5 * this.index),
                 left = this.leftPos + '%',
                 distance = newLeftPos - this.leftPos;
-            if (distance > 0.5) {
-                distance = 0.5;
+            if (distance > 0.7) {
+                distance = 0.7;
             }
             this.leftPos += distance;
             left = this.leftPos + '%';
-            this.index = this.updatedIndex;
             this.options = {
                 radius: '1%',
                 pos: {left: left, top: '5%'}

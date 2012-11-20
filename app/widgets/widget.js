@@ -28,9 +28,6 @@ define(function (require) {
             this.parent = parent;
             if (_.isString(print)) {
                 fabric.loadSVGFromString(print, this.onSVGLoaded);
-            } else {
-                this.group = new fabric.Group();
-                parent.add(this.group);
             }
         },
 

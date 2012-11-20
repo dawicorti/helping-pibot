@@ -21,7 +21,7 @@ define(function (require) {
             _.bindAll(this);
             this.navigator = new Navigator();
             this.jukebox = new Jukebox();
-            this.jukebox.playFromJamendo(settings.soundtrack);
+            //this.jukebox.playFromJamendo(settings.soundtrack);
             this.root = this.navigator.root;
             this.chunks = [];
             for (index = 0; index < 10; index += 1) {
@@ -57,7 +57,9 @@ define(function (require) {
         },
 
         onCloneChunk: function (event) {
-            this.chunks.push(event.data);
+            var chunkDef = _.clone(this.chunks[event.data]);
+            this.userInterface.cloneChunk(event.data, this.chunks.length, chunkDef);
+            this.chunks.push(chunkDef);
         },
 
         sendGameChunks: function () {
