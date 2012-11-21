@@ -57,12 +57,45 @@ define(function (require) {
                 require(['text!svg/' + this.def + '.svg'], function (print) {
                     subwidget = new Widget(print, this.mainGroup);
                     subwidget.relative = {
-                        radius: 0.8,
+                        radius: 1.0,
                         pos: {left: 0, top: 0}
                     };
                     this.subWidgets.push(subwidget);
                 }.bind(this));
+            } else if (_.isObject(this.def)) {
+                this.addMultiChunk();
             }
+        },
+
+        getSize: function () {
+            var size = 0;
+            _.each(this.def.slots, function (slot) {
+                if (Math.abs(slot.x) * 2 + 1 > size) {
+                    size = Math.abs(slot.x) * 2 + 1;
+                }
+                if (Math.abs(slot.y) * 2 + 1 > size) {
+                    size = Math.abs(slot.y) * 2 + 1;
+                }
+            }, this);
+            return size;
+        },
+
+        addMultiChunk: function () {
+            var size = this.getSize(),
+                subwidget = {};
+            require(['text!svg/' + this.def.name + '.svg'], function (print) {
+                _.each(this.def.slots, function (slot) {
+                    subwidget = new Widget(print, this.mainGroup);
+                    subwidget.relative = {
+                        radius: 1.0 / size,
+                        pos: {
+                            left: slot.x * (2.0 / size),
+                            top: slot.y * (6.0 / size)
+                        }
+                    };
+                    this.subWidgets.push(subwidget);
+                }, this);
+            }.bind(this));
         },
 
         onClick: function () {
@@ -95,8 +128,11 @@ define(function (require) {
             }
             _.each(this.subWidgets, function (subWidget) {
                 subWidget.options = {
-                    pos: this.options.pos,
-                    radius: this.options.radius.replace('%', '') * subWidget.relative.radius + '%'
+                    pos: {
+                        left: this.leftPos + subWidget.relative.pos.left + '%',
+                        top: 5 + subWidget.relative.pos.top + '%'
+                    },
+                    radius: subWidget.relative.radius + '%'
                 };
                 subWidget.update();
             }, this);

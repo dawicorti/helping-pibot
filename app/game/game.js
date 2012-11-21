@@ -24,9 +24,19 @@ define(function (require) {
             //this.jukebox.playFromJamendo(settings.soundtrack);
             this.root = this.navigator.root;
             this.chunks = [];
-            for (index = 0; index < 10; index += 1) {
+            for (index = 0; index < 5; index += 1) {
                 this.chunks.push('rigidbox');
             }
+            this.chunks.push({
+                name: 'rigidbox',
+                slots: [
+                    {x: 1, y: -2},
+                    {x: 1, y: -1},
+                    {x: 1, y: 0},
+                    {x: 1, y: 1},
+                    {x: 1, y: 2}
+                ]
+            });
             this.userInterface = new UserInterface(this.chunks);
             $(window).resize(this.onResize);
             $($('canvas')[1]).click(this.onClick);
