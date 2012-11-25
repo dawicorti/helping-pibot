@@ -7,6 +7,7 @@ define(function (require) {
     var _ = require('underscore'),
         game = require('game/game'),
         Chunk = require('chunks/chunk'),
+        MultiChunk = require('chunks/multichunk'),
         StaticBox = require('chunks/staticbox'),
         RigidBox = require('chunks/rigidbox'),
         chunkTypes = {
@@ -26,14 +27,26 @@ define(function (require) {
             this.group = group;
         },
 
-        newChunk: function (chunkName, pos, next, options) {
-            var chunk = new chunkTypes[chunkName](
-                this.world,
-                this.camera,
-                pos,
-                this.group,
-                options
-            );
+        newChunk: function (chunkDef, pos, next, options) {
+            var chunk = null;
+            if (_.isString(chunkDef)) {
+                chunk = new chunkTypes[chunkDef](
+                    this.world,
+                    this.camera,
+                    pos,
+                    this.group,
+                    options
+                );
+            } else if (_.isObject(chunkDef)) {
+                chunk = new MultiChunk(
+                    this.world,
+                    this.camera,
+                    pos,
+                    this.group,
+                    chunkTypes[chunkDef.name],
+                    chunkDef.slots
+                );
+            }
             next(chunk);
         }
 

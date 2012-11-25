@@ -21,7 +21,7 @@ define(function (require) {
             _.bindAll(this);
             this.navigator = new Navigator();
             this.jukebox = new Jukebox();
-            //this.jukebox.playFromJamendo(settings.soundtrack);
+            this.jukebox.playFromJamendo(settings.soundtrack);
             this.root = this.navigator.root;
             this.chunks = [];
             for (index = 0; index < 5; index += 1) {
@@ -30,11 +30,11 @@ define(function (require) {
             this.chunks.push({
                 name: 'rigidbox',
                 slots: [
-                    {x: 1, y: -2},
-                    {x: 1, y: -1},
+                    {x: -2, y: 0},
+                    {x: -1, y: 0},
+                    {x: 0, y: 0},
                     {x: 1, y: 0},
-                    {x: 1, y: 1},
-                    {x: 1, y: 2}
+                    {x: 2, y: 0}
                 ]
             });
             this.userInterface = new UserInterface(this.chunks);
