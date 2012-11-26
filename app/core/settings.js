@@ -8,6 +8,8 @@ define(function (require) {
 
         resolution: [window.innerWidth, window.innerWidth / 3],
 
+        forkMaxSize: 9,
+
         gameLoopPeriod: 40,
 
         gravity: -9.8,

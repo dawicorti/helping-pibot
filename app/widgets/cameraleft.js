@@ -24,7 +24,7 @@ define(function (require) {
                 'left',
                 parent,
                 cameraLeftPrint,
-                {pos: {left: '5%', top: '50%'}, radius: '5%'}
+                {pos: {left: '5%', top: '90%'}, radius: '3%'}
             );
             dispatcher.on('button:lock:disable', this.show);
             dispatcher.on('button:lock:enable', this.hide);

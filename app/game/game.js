@@ -46,6 +46,14 @@ define(function (require) {
             dispatcher.on('get:game:chunks', this.sendGameChunks);
             dispatcher.on('droper:drop', this.onDroperDrop);
             dispatcher.on('chunk:clone', this.onCloneChunk);
+            dispatcher.on('chunk:fork', this.onForkRequest);
+        },
+
+        onForkRequest: function (event) {
+            dispatcher.trigger('game:fork', {
+                id: event.data,
+                def: this.chunks[event.data]
+            });
         },
 
         onClick: function (event) {

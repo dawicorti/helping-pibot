@@ -15,6 +15,7 @@ define(function (require) {
         Reload = require('widgets/reload'),
         ChunkItem = require('widgets/chunkitem'),
         Selector = require('widgets/selector'),
+        Forker = require('widgets/forker'),
         dispatcher = require('core/dispatcher');
 
     function UserInterface(chunks) {
@@ -58,6 +59,13 @@ define(function (require) {
             }, this);
             this.selector = 'drop';
             dispatcher.on('selector:select', this.onSelectSelector);
+            dispatcher.on('game:fork', this.onGameForkRequest);
+        },
+
+        onGameForkRequest: function (event) {
+            if (!_.has(this.widgets, 'forker')) {
+                this.widgets.forker = new Forker(this.group, event.data);
+            }
         },
 
         cloneChunk: function (fromIndex, toIndex) {
@@ -117,7 +125,7 @@ define(function (require) {
         onMouseDown: function (x, y) {
             _.each(this.widgets, function (widget) {
                 if (widget.contains(x, y)) {
-                    widget.onMouseDown();
+                    widget.onMouseDown(x, y);
                 }
             }, this);
         },
@@ -135,7 +143,7 @@ define(function (require) {
         onClick: function (x, y) {
             _.each(this.widgets, function (widget) {
                 if (widget.contains(x, y)) {
-                    widget.onClick();
+                    widget.onClick(x, y);
                 }
             }, this);
         },
