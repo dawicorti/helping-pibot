@@ -35,7 +35,10 @@ define(function (require) {
             );
             this.selected = false;
             this.selector = 'drop';
+            this.clickEnable = true;
             dispatcher.on('selector:select', this.onSelectSelector);
+            dispatcher.on('items:enable', this.onItemsEnable);
+            dispatcher.on('items:disable', this.onItemsDisable);
         },
 
         onSelectSelector: function (event) {
@@ -98,10 +101,26 @@ define(function (require) {
             }.bind(this));
         },
 
+        onItemsEnable: function () {
+            this.clickEnable = true;
+        },
+
+        onItemsDisable: function () {
+            this.clickEnable = false;
+        },
+
         onClick: function () {
-            dispatcher.trigger('chunk:' + this.selector, this.index);
-            this.selected = true;
-            _.delay(this.unselect, 200);
+            if (this.clickEnable) {
+                dispatcher.trigger('chunk:' + this.selector, this.index);
+                this.selected = true;
+                _.delay(this.unselect, 200);
+                dispatcher.trigger('items:disable');
+                _.delay(this.enableItems, 500);
+            }
+        },
+
+        enableItems: function () {
+            dispatcher.trigger('items:enable');
         },
 
         unselect: function () {
