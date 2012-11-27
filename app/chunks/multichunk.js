@@ -46,40 +46,38 @@ define(function (require) {
         findChunkAndGlue: function (chunk) {
             var joint = null;
             _.each(this.chunks, function (other) {
-                if (_.isNull(joint)) {
-                    if (other.pos.x === chunk.pos.x && other.pos.y - 1 === chunk.pos.y) {
-                        // Other is up
-                        joint = this.joinChunks(
-                            chunk,
-                            other,
-                            {x: 0, y: -0.5},
-                            {x: 0, y: 0.5}
-                        );
-                    } else if (other.pos.x === chunk.pos.x && other.pos.y + 1 === chunk.pos.y) {
-                        // Other is down
-                        joint = this.joinChunks(
-                            chunk,
-                            other,
-                            {x: 0, y: 0.5},
-                            {x: 0, y: -0.5}
-                        );
-                    } else if (other.pos.y === chunk.pos.y && other.pos.x + 1 === chunk.pos.x) {
-                        // Other is left
-                        joint = this.joinChunks(
-                            chunk,
-                            other,
-                            {x: -0.5, y: 0},
-                            {x: 0.5, y: 0}
-                        );
-                    } else if (other.pos.y === chunk.pos.y && other.pos.x - 1 === chunk.pos.x) {
-                        // Other is left
-                        joint = this.joinChunks(
-                            chunk,
-                            other,
-                            {x: 0.5, y: 0},
-                            {x: -0.5, y: 0}
-                        );
-                    }
+                if (other.pos.x === chunk.pos.x && other.pos.y - 1 === chunk.pos.y) {
+                    // Other is up
+                    joint = this.joinChunks(
+                        chunk,
+                        other,
+                        {x: 0, y: -0.5},
+                        {x: 0, y: 0.5}
+                    );
+                } else if (other.pos.x === chunk.pos.x && other.pos.y + 1 === chunk.pos.y) {
+                    // Other is down
+                    joint = this.joinChunks(
+                        chunk,
+                        other,
+                        {x: 0, y: 0.5},
+                        {x: 0, y: -0.5}
+                    );
+                } else if (other.pos.y === chunk.pos.y && other.pos.x + 1 === chunk.pos.x) {
+                    // Other is left
+                    joint = this.joinChunks(
+                        chunk,
+                        other,
+                        {x: -0.5, y: 0},
+                        {x: 0.5, y: 0}
+                    );
+                } else if (other.pos.y === chunk.pos.y && other.pos.x - 1 === chunk.pos.x) {
+                    // Other is left
+                    joint = this.joinChunks(
+                        chunk,
+                        other,
+                        {x: 0.5, y: 0},
+                        {x: -0.5, y: 0}
+                    );
                 }
             }, this);
         },

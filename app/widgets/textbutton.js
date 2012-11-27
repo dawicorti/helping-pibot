@@ -10,13 +10,13 @@ define(function (require) {
         dispatcher = require('core/dispatcher');
 
 
-    function Selector(parent, text, pos) {
+    function TextButton(parent, text, pos) {
         this.init(parent, text, pos);
     }
 
-    _.extend(Selector.prototype, Widget.prototype);
+    _.extend(TextButton.prototype, Widget.prototype);
 
-    _.extend(Selector.prototype, {
+    _.extend(TextButton.prototype, {
 
         init: function (parent, text, pos) {
             _.bindAll(this);
@@ -33,22 +33,20 @@ define(function (require) {
             this.text = text;
             parent.add(this.group);
             this.group.set({opacity: 0.2});
-            dispatcher.on('selector:select', this.onSelectOther);
         },
 
-        onSelectOther: function (event) {
-            if (event.data !== this.text) {
-                this.group.set({opacity: 0.2});
-            }
-        },
-
-        onClick: function () {
-            dispatcher.trigger('selector:select', this.text);
+        onMouseDown: function () {
             this.group.set({opacity: 0.6});
+            _.delay(this.unSelect, 300);
+        },
+
+        unSelect: function () {
+            this.group.set({opacity: 0.2});
+            dispatcher.trigger('button:' + this.text + ':click');
         },
 
         update: function () {
-            var fontSize = window.innerWidth * 0.014;
+            var fontSize = window.innerWidth * 0.05;
             Widget.prototype.update.call(this);
             this.group.setFontsize(fontSize);
             this.size = {
@@ -63,7 +61,7 @@ define(function (require) {
 
     });
 
-    return Selector;
+    return TextButton;
 
 });
 

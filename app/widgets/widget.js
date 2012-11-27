@@ -33,6 +33,7 @@ define(function (require) {
 
         onSVGLoaded: function (objects, o) {
             this.group = new fabric.PathGroup(objects, o);
+            this.group.set({left: -1000});
             if (_.isObject(this.parent)) {
                 this.parent.add(this.group);
             }

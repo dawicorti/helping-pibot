@@ -13,6 +13,7 @@ define(function (require) {
         Play = require('widgets/play'),
         Lock = require('widgets/lock'),
         Reload = require('widgets/reload'),
+        TextButton = require('widgets/textbutton'),
         ChunkItem = require('widgets/chunkitem'),
         Selector = require('widgets/selector'),
         Forker = require('widgets/forker'),
@@ -60,6 +61,38 @@ define(function (require) {
             this.selector = 'drop';
             dispatcher.on('selector:select', this.onSelectSelector);
             dispatcher.on('game:fork', this.onGameForkRequest);
+            dispatcher.on('enable:fork!', this.onEnableForkIt);
+            dispatcher.on('button:fork!:click', this.onFork);
+        },
+
+        addChunk: function (index, def) {
+            this.widgets['item' + index] = new ChunkItem(
+                this.group,
+                index,
+                def,
+                this.wrapper
+            );
+            this.widgets['item' + index].setSelector(this.selector);
+        },
+
+        onFork: function () {
+            this.widgets.forker.fork();
+            this.onDisableForkIt();
+            this.widgets.forker.remove();
+            this.widgets = _.omit(this.widgets, 'forker');
+        },
+
+        onEnableForkIt: function () {
+            this.widgets.forkit = new TextButton(
+                this.group,
+                'fork!',
+                {left: '70%', top: '50%'}
+            );
+        },
+
+        onDisableForkIt: function () {
+            this.group.remove(this.widgets.forkit.group);
+            this.widgets = _.omit(this.widgets, 'forkit');
         },
 
         onGameForkRequest: function (event) {

@@ -32,6 +32,12 @@ define(function (require) {
             this.chunkId = base.id;
             this.slots = [];
             this.chunks = [];
+            this.addingSlot = false;
+            this.forkDef = {name: this.chunkDef, slots: [], base: 1};
+            if (_.isObject(this.chunkDef)) {
+                this.forkDef.name = this.chunkDef.name;
+                this.forkDef.base = this.chunkDef.slots.length;
+            }
             dispatcher.on('forker:slot:click', this.onClickSlot);
         },
 
@@ -61,6 +67,21 @@ define(function (require) {
             }
         },
 
+        remove: function () {
+            this.hide();
+            this.parent.remove(this.group);
+            _.each(this.slots, function (slot) {
+                this.parent.remove(slot.group);
+            }, this);
+            _.each(this.chunks, function (chunk) {
+                this.parent.remove(chunk.group);
+            }, this);
+        },
+
+        fork: function () {
+            dispatcher.trigger('forker:fork', this.forkDef);
+        },
+
         onSVGLoaded: function (objects, o) {
             Widget.prototype.onSVGLoaded.call(this, objects, o);
             this.group.set({opacity: 0.4});
@@ -86,10 +107,7 @@ define(function (require) {
 
         addChunkAt: function (row, col) {
             var middle = (settings.forkMaxSize / 2.0) - 0.5,
-                name = this.chunkDef;
-            if (_.isObject(this.chunkDef)) {
-                name = this.chunkDef.name;
-            }
+                name = this.forkDef.name;
             require(['text!svg/' + name + '.svg'], function (print) {
                 this.chunks.push(new Widget(
                     print,
@@ -104,6 +122,13 @@ define(function (require) {
                         col: col
                     }
                 ));
+                this.forkDef.slots.push({
+                    x: (col - middle),
+                    y: (row - middle)
+                });
+                if (this.forkDef.slots.length === this.forkDef.base + 1) {
+                    dispatcher.trigger('enable:fork!');
+                }
             }.bind(this));
         },
 

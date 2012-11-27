@@ -47,6 +47,13 @@ define(function (require) {
             dispatcher.on('droper:drop', this.onDroperDrop);
             dispatcher.on('chunk:clone', this.onCloneChunk);
             dispatcher.on('chunk:fork', this.onForkRequest);
+            dispatcher.on('forker:fork', this.onForkerFork);
+        },
+
+        onForkerFork: function (event) {
+            var chunkDef = event.data;
+            this.userInterface.addChunk(this.chunks.length, chunkDef);
+            this.chunks.push(chunkDef);
         },
 
         onForkRequest: function (event) {

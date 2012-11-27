@@ -8,7 +8,7 @@ define(function (require) {
 
         resolution: [window.innerWidth, window.innerWidth / 3],
 
-        forkMaxSize: 9,
+        forkMaxSize: 5,
 
         gameLoopPeriod: 40,
 
