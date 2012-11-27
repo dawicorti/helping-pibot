@@ -110,8 +110,15 @@ define(function (require) {
             fixtureDef.friction = 0.3;
             fixtureDef.restitution = 0.5;
             this.wheelBody.CreateFixture(fixtureDef);
+            this.wheelBody.SetUserData(this);
             return this.wheelBody;
         },
+
+        getName: function () {
+            return 'robot';
+        },
+
+        onCollision: function () {},
 
         createRigidBox: function (world, pos) {
             var bodyDef = new B2BodyDef(),

@@ -32,7 +32,7 @@ define(function (require) {
             });
             this.text = text;
             parent.add(this.group);
-            this.group.set({opacity: 0.2});
+            this.group.set({left: -1000, opacity: 0.2});
         },
 
         onMouseDown: function () {

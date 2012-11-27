@@ -28,7 +28,32 @@ define(function (require) {
             require(['levels/level' + index], this.render);
             this.rendered = false;
             this.loaded = true;
+            this.contactListener = {
+                PreSolve: this.preSolveContact,
+                PostSolve: this.postSolveContact,
+                BeginContact: this.beginContact,
+                EndContact: this.endContact
+            };
         },
+
+        preSolveContact: function (contact, manifold) {
+            var chunkA = contact.GetFixtureA().GetBody().GetUserData(),
+                chunkB = contact.GetFixtureB().GetBody().GetUserData();
+            if (_.isObject(chunkA)) {
+                chunkA.onCollision(chunkB);
+            }
+            if (_.isObject(chunkB)) {
+                chunkB.onCollision(chunkA);
+            }
+        },
+
+        next: function () {
+            return new Level(this.index + 1);
+        },
+
+        beginContact: function () {},
+        endContact: function () {},
+        postSolveContact: function () {},
 
         unload: function () {
             this.loaded = false;
@@ -39,6 +64,7 @@ define(function (require) {
             return new Level(this.index);
         },
 
+
         render: function (config) {
             this.camera = new Camera(
                 _.clone(settings.cameraTarget),
@@ -46,6 +72,7 @@ define(function (require) {
             );
             this.droper = new Droper(this.camera);
             this.world = new B2World(new B2Vec2(0, settings.gravity), true);
+            this.world.SetContactListener(this.contactListener);
             this.chunks = [];
             this.chunkFactory = new ChunkFactory(this.world, this.camera, this.group);
             _.each(config.chunks, function (chunk) {

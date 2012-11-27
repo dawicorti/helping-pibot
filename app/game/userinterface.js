@@ -63,6 +63,7 @@ define(function (require) {
             dispatcher.on('game:fork', this.onGameForkRequest);
             dispatcher.on('enable:fork!', this.onEnableForkIt);
             dispatcher.on('button:fork!:click', this.onFork);
+            dispatcher.on('button:cancel:click', this.onCancelFork);
         },
 
         addChunk: function (index, def) {
@@ -75,29 +76,47 @@ define(function (require) {
             this.widgets['item' + index].setSelector(this.selector);
         },
 
+        onCancelFork: function () {
+            this.onDisableForkIt();
+            this.widgets.forker.remove();
+            this.widgets = _.omit(this.widgets, 'forker');
+            this.group.remove(this.widgets.cancel.group);
+            this.widgets = _.omit(this.widgets, 'cancel');
+        },
+
         onFork: function () {
             this.widgets.forker.fork();
             this.onDisableForkIt();
             this.widgets.forker.remove();
             this.widgets = _.omit(this.widgets, 'forker');
+            this.group.remove(this.widgets.cancel.group);
+            this.widgets = _.omit(this.widgets, 'cancel');
         },
 
         onEnableForkIt: function () {
             this.widgets.forkit = new TextButton(
                 this.group,
                 'fork!',
-                {left: '70%', top: '50%'}
+                {left: '70%', top: '70%'}
             );
         },
 
         onDisableForkIt: function () {
-            this.group.remove(this.widgets.forkit.group);
-            this.widgets = _.omit(this.widgets, 'forkit');
+            if (_.has(this.widgets, 'forkit')) {
+                this.group.remove(this.widgets.forkit.group);
+                this.widgets = _.omit(this.widgets, 'forkit');
+            }
         },
 
         onGameForkRequest: function (event) {
             if (!_.has(this.widgets, 'forker')) {
                 this.widgets.forker = new Forker(this.group, event.data);
+                this.widgets.cancel = new TextButton(
+                    this.group,
+                    'cancel',
+                    {left: '70%', top: '30%'}
+                );
+
             }
         },
 

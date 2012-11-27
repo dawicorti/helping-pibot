@@ -31,10 +31,15 @@ define(function (require) {
                 .css('left', '0px')
                 .css('top', settings.canvasTop + 'px');
             dispatcher.on('button:reload:enable', this.onReload);
+            dispatcher.on('level:next', this.onNextLevel);
         },
 
         onReload: function () {
             this.setCurrentMode(this.currentMode.newMe());
+        },
+
+        onNextLevel: function () {
+            this.setCurrentMode(this.currentMode.next());
         },
 
         update: function (delta) {

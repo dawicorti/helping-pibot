@@ -25,6 +25,12 @@ define(function (require) {
             this.oldPoint = this.camera.getRootPoint(this.pos);
         },
 
+        getName: function () {
+            return 'chunk';
+        },
+
+        onCollision: function (other) {},
+
         show: function () {
             this.group.show();
         },
