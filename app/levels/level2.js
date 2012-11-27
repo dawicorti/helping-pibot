@@ -15,7 +15,8 @@ define(function (require) {
             {"pos": {"y": -2.0000003750000004, "x": 17.275000000000002}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
             {"pos": {"y": -2.750000375000001, "x": 18.525000000000002}, "name": "staticbox", "options": {"width": 1.5, "height": 0.5}},
             {"pos": {"y": -1.5, "x": 20.525000000000002}, "name": "staticbox", "options": {"width": 2.5, "height": 3.0}},
-            {"pos": {"y": -2.0000003750000004, "x": 18.525000000000002}, "name": "teleporter", "options": {"width": 1.0, "height": 1.0}}
+            {"pos": {"y": -2.0000003750000004, "x": 18.525000000000002}, "name": "teleporter", "options": {"width": 1.0, "height": 1.0}},
+            {"pos": {"y": -1.9995273749999996, "x": 14.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}}
         ]
     };
 

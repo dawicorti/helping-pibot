@@ -99,15 +99,21 @@ define(function (require) {
 
         resetLoop: function () {
             var that = this;
-            _.delay(function () {
-                that.onTick();
-            }, settings.gameLoopPeriod);
+            window.webkitRequestAnimationFrame(this.onTick);
         },
 
         onTick: function () {
-            this.resetLoop();
-            this.navigator.update(settings.gameLoopPeriod);
+            var period = settings.gameLoopPeriod,
+                currentTime = Date.now();
+            if (_.isUndefined(this.lastTime)) {
+                this.lastTime = currentTime;
+            } else {
+                period = currentTime - this.lastTime;
+                this.lastTime = currentTime;
+            }
+            this.navigator.update(period);
             this.userInterface.update(this.root);
+            this.resetLoop();
         }
 
     });

@@ -64,9 +64,9 @@ define(function (require) {
             );
             fixtureDef = new B2FixtureDef();
             fixtureDef.shape = box;
-            fixtureDef.density = 1;
+            fixtureDef.density = 10000;
             fixtureDef.friction = 0.5;
-            fixtureDef.restitution = 0.2;
+            fixtureDef.restitution = 0.01;
             body.CreateFixture(fixtureDef);
             return body;
         },
