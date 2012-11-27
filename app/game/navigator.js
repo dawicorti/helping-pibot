@@ -18,12 +18,9 @@ define(function (require) {
 
         init: function () {
             _.bindAll(this);
-            $('body').append(
-                $('<canvas></canvas>')
-                    .attr('width', settings.resolution[0])
-                    .attr('height', settings.resolution[1])
-                    .attr('id', 'root')
-            );
+            $('#root')
+                .attr('width', settings.resolution[0])
+                .attr('height', settings.resolution[1]);
             this.root = new fabric.Canvas('root', {
                 'width': settings.resolution[0],
                 'height': settings.resolution[1]

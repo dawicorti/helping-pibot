@@ -197,3 +197,27 @@ footer {
 .dialog .left-arrow:hover {
     border: 1px solid white;   
 }
+
+.chrome-only {
+    position: absolute;
+    color: white;
+    font-size: 2em;
+    top: 400px;
+    left: 5em;
+}
+
+.chrome-only .sorry {
+    color: #B15dad;
+    margin-right: 0.5em;
+}
+
+.chrome-only a {
+    text-decoration: none;
+}
+
+.chrome-only .chrome {
+    color: #ff6e49;
+    margin-left: 0.5em;
+    text-decoration: none;
+    border-bottom: 2px dashed #ff6e49;
+}

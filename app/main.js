@@ -1,3 +1,6 @@
+/*global navigator,document*/
+/*jslint nomen: true*/
+
 require(
     {
         paths: {
@@ -35,8 +38,32 @@ require(
 
         var $ = require('zepto');
         $(function () {
-            game.initialize();
-            game.navigator.setCurrentMode(new Level(1));
+            var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+            if (isChrome) {
+                game.initialize();
+                game.navigator.setCurrentMode(new Level(1));
+            } else {
+                $('body').append(
+                    $('<p></p>')
+                        .addClass('chrome-only')
+                        .append(
+                            $('<span></span>')
+                                .addClass('sorry')
+                                .html('Sorry.')
+                        )
+                        .append('for the moment this game is only available on')
+
+                        .append(
+                            $('<a></a>')
+                                .attr('href', 'https://www.google.com/chrome')
+                                .append(
+                                    $('<span></span>')
+                                        .addClass('chrome')
+                                        .html('Chrome browser')
+                                )
+                        )
+                );
+            }
         });
     }
 );
