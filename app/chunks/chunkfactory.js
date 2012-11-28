@@ -11,10 +11,12 @@ define(function (require) {
         StaticBox = require('chunks/staticbox'),
         RigidBox = require('chunks/rigidbox'),
         Teleporter = require('chunks/teleporter'),
+        Platform = require('chunks/platform'),
         chunkTypes = {
             'staticbox': StaticBox,
             'rigidbox': RigidBox,
-            'teleporter': Teleporter
+            'teleporter': Teleporter,
+            'platform': Platform
         };
 
     function ChunkFactory(world, camera, group) {

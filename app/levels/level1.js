@@ -7,7 +7,7 @@ define(function (require) {
     return {
         chunks: [
             {"pos": {"y": 0.0, "x": 0.0}, "name": "staticbox", "options": {"width": 6.0, "height": 1.0}},
-            {"pos": {"y": -0.9999999999999987, "x": 3.75}, "name": "staticbox", "options": {"width": 1.5, "height": 1.0}},
+            {"pos": {"y": -0.9999999999999987, "x": 3.75}, "name": "platform", "options": {"width": 1.5, "height": 1.0, "identity": 0, "target": {"y": -0.9999999999999987, "x": 5.0}, "velocity": 1.0}},
             {"pos": {"y": 0.0, "x": 11.0}, "name": "staticbox", "options": {"width": 13.0, "height": 1.0}},
             {"pos": {"y": -1.0178568749999983, "x": 18.25}, "name": "staticbox", "options": {"width": 1.5, "height": 0.96428575}},
             {"pos": {"y": 0.0, "x": 22.75}, "name": "staticbox", "options": {"width": 7.5, "height": 1.0}},
