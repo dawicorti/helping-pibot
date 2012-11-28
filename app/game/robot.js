@@ -41,17 +41,19 @@ define(function (require) {
                 group,
                 this.createBody(world, pos)
             );
+            this.moving = false;
             this.createJoint();
             dispatcher.on('button:play:enable', this.onPlay);
             dispatcher.on('button:play:disable', this.onStop);
         },
 
         onPlay: function () {
-            this.wheelBody.ApplyTorque(-5000);
+            this.moving = true;
         },
 
         onStop: function () {
-            this.wheelBody.SetAwake(false);
+            this.moving = false;
+            this.wheelBody.SetAngularVelocity(0);
         },
 
         createJoint: function () {
@@ -108,7 +110,7 @@ define(function (require) {
             fixtureDef.shape = wheel;
             fixtureDef.density = 8000;
             fixtureDef.friction = 1.0;
-            fixtureDef.restitution = 0.5;
+            fixtureDef.restitution = 0.1;
             this.wheelBody.CreateFixture(fixtureDef);
             this.wheelBody.SetUserData(this);
             return this.wheelBody;
@@ -142,6 +144,10 @@ define(function (require) {
         },
 
         updatePos: function (delta) {
+            if (this.moving) {
+                this.wheelBody.SetAwake(true);
+                this.wheelBody.SetAngularVelocity(-5);
+            }
             this.pos = this.wheelBody.GetPosition();
             var rootPoint = {},
                 rootSize = 0,

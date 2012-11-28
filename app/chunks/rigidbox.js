@@ -59,7 +59,7 @@ define(function (require) {
             fixtureDef = new B2FixtureDef();
             fixtureDef.shape = dynamicBox;
             fixtureDef.density = 10000;
-            fixtureDef.friction = 0.5;
+            fixtureDef.friction = 1.0;
             fixtureDef.restitution = 0.2;
             body.CreateFixture(fixtureDef);
             body.SetUserData(this);

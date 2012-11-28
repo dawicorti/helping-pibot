@@ -130,7 +130,7 @@ define(function (require) {
         update: function (delta, root) {
             if (this.rendered) {
                 this.camera.update();
-                this.world.Step(delta / 1000.0, 8, 1);
+                this.world.Step(delta / 1000.0, 2, 1);
                 _.each(this.chunks, function (box) {
                     box.update(delta, root);
                 });
