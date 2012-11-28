@@ -9,8 +9,9 @@ define(function (require) {
         Chunk = require('chunks/chunk'),
         Box2D = require('box2d'),
         fabric = require('fabric'),
-        print = require('text!svg/rigidbox.svg'),
+        print = require('text!svg/switch.svg'),
         utils = require('core/utils'),
+        dispatcher = require('core/dispatcher'),
         B2BodyDef = Box2D.Dynamics.b2BodyDef,
         B2Body = Box2D.Dynamics.b2Body,
         B2World = Box2D.Dynamics.b2World,
@@ -19,15 +20,15 @@ define(function (require) {
         B2Fixture = Box2D.Dynamics.b2Fixture,
         B2FixtureDef = Box2D.Dynamics.b2FixtureDef;
 
-    function RigidBox(world, camera, pos, group) {
-        this.init(world, camera, pos, group);
+    function Switch(world, camera, pos, group, options) {
+        this.init(world, camera, pos, group, options);
     }
 
-    _.extend(RigidBox.prototype, Chunk.prototype);
+    _.extend(Switch.prototype, Chunk.prototype);
 
-    _.extend(RigidBox.prototype, {
+    _.extend(Switch.prototype, {
 
-        init: function (world, camera, pos, group) {
+        init: function (world, camera, pos, group, options) {
             Chunk.prototype.init.call(
                 this,
                 world,
@@ -36,6 +37,21 @@ define(function (require) {
                 group,
                 this.createBody(world, pos)
             );
+            this.identity = options.identity;
+            this.used = false;
+        },
+
+        getName: function () {
+            return 'switch';
+        },
+
+        onCollision: function (other) {
+            if (!_.isNull(other) && this.used === false) {
+                console.log('switch on');
+                this.group.set({opacity: 0.9});
+                this.used = true;
+                dispatcher.trigger('platform:move', this.identity);
+            }
         },
 
         render: function () {
@@ -43,6 +59,7 @@ define(function (require) {
             fabric.loadSVGFromString(print, function (objects, o) {
                 that.rect = new fabric.PathGroup(objects, o);
                 that.group.add(that.rect);
+                that.group.set({opacity: 0.3});
             });
         },
 
@@ -78,5 +95,5 @@ define(function (require) {
 
     });
 
-    return RigidBox;
+    return Switch;
 });

@@ -65,7 +65,7 @@ define(function (require) {
             return (this.pos.x > this.targetRect.x
                 && this.pos.x < this.targetRect.x + this.targetRect.width
                 && this.pos.y < this.targetRect.y
-                && this.pos.y > this.targetRect.y + this.targetRect.height);
+                && this.pos.y > this.targetRect.y - this.targetRect.height);
         },
 
         render: function () {
@@ -102,13 +102,12 @@ define(function (require) {
         },
 
         move: function () {
+            this.body.SetAwake(true);
             this.body.SetLinearVelocity(new B2Vec2(this.incX, this.incY));
-            /*
             if (this.destinationReached()) {
                 this.moving = false;
-                this.body.SetLinearVelocity(new B2Vec2 (0, 0));
+                this.body.SetLinearVelocity(new B2Vec2(0, 0));
             }
-            */
         },
 
         updatePos: function (delta) {

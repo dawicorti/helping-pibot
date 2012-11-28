@@ -107,7 +107,7 @@ define(function (require) {
             this.wheelBody = world.CreateBody(bodyDef);
             fixtureDef.shape = wheel;
             fixtureDef.density = 8000;
-            fixtureDef.friction = 0.3;
+            fixtureDef.friction = 1.0;
             fixtureDef.restitution = 0.5;
             this.wheelBody.CreateFixture(fixtureDef);
             this.wheelBody.SetUserData(this);

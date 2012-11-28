@@ -97,6 +97,7 @@ define(function (require) {
             var jointDef = new B2WeldJointDef();
             jointDef.bodyA = chunkA.body;
             jointDef.bodyB = chunkB.body;
+            jointDef.collideConnected = false;
             jointDef.localAnchorA.Set(anchorA.x, anchorA.y);
             jointDef.localAnchorB.Set(anchorB.x, anchorB.y);
             return this.world.CreateJoint(jointDef);
