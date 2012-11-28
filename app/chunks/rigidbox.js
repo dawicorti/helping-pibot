@@ -60,7 +60,7 @@ define(function (require) {
             fixtureDef.shape = dynamicBox;
             fixtureDef.density = 10000;
             fixtureDef.friction = 0.3;
-            fixtureDef.restitution = 0;
+            fixtureDef.restitution = 0.2;
             body.CreateFixture(fixtureDef);
             return body;
         },
