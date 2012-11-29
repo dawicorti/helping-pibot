@@ -6,6 +6,7 @@ define(function (require) {
 
     var _ = require('underscore'),
         Box2D = require('box2d'),
+        jukebox = require('game/jukebox'),
         settings = require('core/settings'),
         dispatcher = require('core/dispatcher'),
         game = require('game/game'),
@@ -24,6 +25,11 @@ define(function (require) {
 
         init: function (index) {
             _.bindAll(this);
+            if (index < 6) {
+                jukebox.playFromJamendo(settings.firstSoundtrack);
+            } else {
+                jukebox.playFromJamendo(settings.secondSoundTrack);
+            }
             this.index = index;
             require(['levels/level' + index], this.render);
             this.rendered = false;

@@ -16,17 +16,18 @@ define(function (require) {
         init: function () {
             _.bindAll(this);
             this.node = null;
+            this.lastSource = null;
             var that = this;
             dispatcher.on('volume:disable', this.mute);
             dispatcher.on('volume:enable', this.unmute);
         },
 
         playFromJamendo: function (trackId) {
-            this.play([
+            this.play(
                 'http://api.jamendo.com'
                     + '/get2/stream/track/redirect/'
                     + '?id=' + trackId + '&streamencoding=ogg2'
-            ]);
+            );
         },
 
         mute: function () {
@@ -41,22 +42,23 @@ define(function (require) {
             }
         },
 
-        play: function (sources) {
-            if (!_.isNull(this.node)) {
-                this.node.parentNode.removeChild(this.node);
-            }
-            var audio = document.createElement('audio');
-            _.each(sources, function (source) {
-                var sourceNode = document.createElement('source');
+        play: function (source) {
+            if (this.lastSource !== source) {
+                if (!_.isNull(this.node)) {
+                    this.node.parentNode.removeChild(this.node);
+                }
+                var audio = document.createElement('audio'),
+                    sourceNode = document.createElement('source');
                 sourceNode.setAttribute('src', source);
                 audio.appendChild(sourceNode);
-            });
-            audio.setAttribute('autoplay', 'autoplay');
-            document.getElementsByTagName('body')[0].appendChild(audio);
-            this.node = audio;
+                audio.setAttribute('autoplay', 'autoplay');
+                document.getElementsByTagName('body')[0].appendChild(audio);
+                this.node = audio;
+            }
+            this.lastSource = source;
         }
 
     });
 
-    return Jukebox;
+    return new Jukebox();
 });

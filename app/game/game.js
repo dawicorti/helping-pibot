@@ -8,7 +8,6 @@ define(function (require) {
         $ = require('zepto'),
         Navigator = require('game/navigator'),
         settings = require('core/settings'),
-        Jukebox = require('game/jukebox'),
         UserInterface = require('game/userinterface'),
         dispatcher = require('core/dispatcher');
 
@@ -20,8 +19,6 @@ define(function (require) {
             var index = 0;
             _.bindAll(this);
             this.navigator = new Navigator();
-            this.jukebox = new Jukebox();
-            this.jukebox.playFromJamendo(settings.soundtrack);
             this.root = this.navigator.root;
             this.chunks = [];
             for (index = 0; index < 4; index += 1) {
