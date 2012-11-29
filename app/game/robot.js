@@ -146,7 +146,7 @@ define(function (require) {
         updatePos: function (delta) {
             if (this.moving) {
                 this.wheelBody.SetAwake(true);
-                this.wheelBody.SetAngularVelocity(-5);
+                this.wheelBody.SetAngularVelocity(-3.5);
             }
             this.pos = this.wheelBody.GetPosition();
             var rootPoint = {},
