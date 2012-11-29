@@ -10,7 +10,7 @@ define(function (require) {
 
         forkMaxSize: 5,
 
-        gameLoopPeriod: 20,
+        gameLoopPeriod: 100.0,
 
         gravity: -9.8,
 

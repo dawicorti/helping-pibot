@@ -99,19 +99,16 @@ define(function (require) {
 
         resetLoop: function () {
             var that = this;
-            window.webkitRequestAnimationFrame(this.onTick);
+            window.webkitRequestAnimationFrame(
+                _.throttle(
+                    this.onTick,
+                    settings.gameLoopPeriod
+                )
+            );
         },
 
         onTick: function () {
-            var period = settings.gameLoopPeriod,
-                currentTime = Date.now();
-            if (_.isUndefined(this.lastTime)) {
-                this.lastTime = currentTime;
-            } else {
-                period = currentTime - this.lastTime;
-                this.lastTime = currentTime;
-            }
-            this.navigator.update(period);
+            this.navigator.update(settings.gameLoopPeriod);
             this.userInterface.update(this.root);
             this.resetLoop();
         }
