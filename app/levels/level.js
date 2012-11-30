@@ -54,7 +54,13 @@ define(function (require) {
         },
 
         next: function () {
-            return new Level(this.index + 1);
+            var newLevel = this;
+            if (this.index + 1 <= settings.levelsCount) {
+                newLevel = new Level(this.index + 1);
+            } else {
+                dispatcher.trigger('game:over');
+            }
+            return newLevel;
         },
 
         beginContact: function () {},
@@ -69,7 +75,6 @@ define(function (require) {
         newMe: function () {
             return new Level(this.index);
         },
-
 
         render: function (config) {
             this.camera = new Camera(

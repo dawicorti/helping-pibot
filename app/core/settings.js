@@ -20,6 +20,8 @@ define(function (require) {
 
         canvasTop: 200,
 
+        levelsCount: 6,
+
         backgroundColor: '#2f1335',
 
         firstSoundtrack: '374975',

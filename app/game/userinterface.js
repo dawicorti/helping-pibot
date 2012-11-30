@@ -7,6 +7,7 @@ define(function (require) {
     var _ = require('underscore'),
         $ = require('zepto'),
         fabric = require('fabric'),
+        settings = require('core/settings'),
         Volume = require('widgets/volume'),
         CameraLeft = require('widgets/cameraleft'),
         CameraRight = require('widgets/cameraright'),
@@ -16,6 +17,7 @@ define(function (require) {
         TextButton = require('widgets/textbutton'),
         ChunkItem = require('widgets/chunkitem'),
         Selector = require('widgets/selector'),
+        Label = require('widgets/label'),
         Forker = require('widgets/forker'),
         dispatcher = require('core/dispatcher');
 
@@ -38,8 +40,11 @@ define(function (require) {
                 lock: new Lock(this.group),
                 drop: new Selector(this.group, 'drop', {left: '5%', top: '5%'}),
                 clone: new Selector(this.group, 'clone', {left: '8%', top: '5%'}),
-                fork: new Selector(this.group, 'fork', {left: '11%', top: '5%'})
+                fork: new Selector(this.group, 'fork', {left: '11%', top: '5%'}),
+                actionsLabel: new Label(this.group, 'actions :', {left: '80%', top: '5%'}),
+                actionsValue: new Label(this.group, '0', {left: '85%', top: '5%'}),
             };
+            this.actionsCount = 0;
             this.widgets.drop.onClick();
             this.wrapper = {
                 offset: 50
@@ -64,6 +69,38 @@ define(function (require) {
             dispatcher.on('enable:fork!', this.onEnableForkIt);
             dispatcher.on('button:fork!:click', this.onFork);
             dispatcher.on('button:cancel:click', this.onCancelFork);
+            dispatcher.on('droper:drop', this.increaseActionsCount);
+            dispatcher.on('game:over', this.onGameOver);
+        },
+
+        onGameOver: function () {
+            this.widgets.thanksMessage = new Label(
+                this.group,
+                'Thanks for playing to Helping PiBot',
+                {left: '50%', top: '20%'}
+            );
+            this.widgets.score = new Label(
+                this.group,
+                'Your score : ' + this.getScore(),
+                {left: '50%', top: '30%'}
+            );
+        },
+
+        getScore: function () {
+            var score = ((2000 * settings.levelsCount) - (this.actionsCount * 100));
+            if (score < 0) {
+                score = 0;
+            }
+            return score;
+        },
+
+        increaseActionsCount: function () {
+            this.actionsCount += 1;
+            this.updateActionsValue();
+        },
+
+        updateActionsValue: function () {
+            this.widgets.actionsValue.setText((this.actionsCount).toString());
         },
 
         addChunk: function (index, def) {
@@ -85,6 +122,7 @@ define(function (require) {
         },
 
         onFork: function () {
+            this.increaseActionsCount();
             this.widgets.forker.fork();
             this.onDisableForkIt();
             this.widgets.forker.remove();
@@ -116,11 +154,11 @@ define(function (require) {
                     'cancel',
                     {left: '70%', top: '30%'}
                 );
-
             }
         },
 
         cloneChunk: function (fromIndex, toIndex) {
+            this.increaseActionsCount();
             var newChunk = new ChunkItem(
                 this.group,
                 toIndex,
