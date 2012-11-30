@@ -41,7 +41,7 @@ require(
             var isChrome = navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
             if (isChrome) {
                 game.initialize();
-                game.navigator.setCurrentMode(new Level(1));
+                game.navigator.setCurrentMode(new Level(7));
             } else {
                 $('body').append(
                     $('<p></p>')

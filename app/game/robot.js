@@ -132,7 +132,7 @@ define(function (require) {
             dynamicBox.SetAsBox(0.5, 0.5);
             fixtureDef.shape = dynamicBox;
             fixtureDef.density = 10000;
-            fixtureDef.friction = 0;
+            fixtureDef.friction = 0.1;
             fixtureDef.restitution = 0.2;
             this.boxBody.CreateFixture(fixtureDef);
             this.boxBody.SetFixedRotation(true);
@@ -146,7 +146,7 @@ define(function (require) {
         updatePos: function (delta) {
             if (this.moving) {
                 this.wheelBody.SetAwake(true);
-                this.wheelBody.SetAngularVelocity(-3.5);
+                this.wheelBody.SetAngularVelocity(-5.0);
             }
             this.pos = this.wheelBody.GetPosition();
             var rootPoint = {},

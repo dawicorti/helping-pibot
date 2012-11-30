@@ -20,7 +20,7 @@ define(function (require) {
 
         canvasTop: 200,
 
-        levelsCount: 6,
+        levelsCount: 7,
 
         backgroundColor: '#2f1335',
 
