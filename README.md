@@ -7,13 +7,13 @@ http://games.dawisplace.org/helping-pibot
 
 ![PiBot](http://blog.dawisplace.org/wp-content/uploads/2012/11/hp_cameraleft1.png)
 
-PiBot is "robot" I built, really proud of it
+__PiBot__ is a robot I built, really proud of it
 
 ... 
 
 OK in fact this is just a head on wheel. But in my defense, I did not have much time to build it with my poor materials and tools.
 
-Howerver.
+However.
 
 Can you please help me ?
 
