@@ -27,7 +27,7 @@
      id="namedview2953"
      showgrid="true"
      inkscape:zoom="0.30694421"
-     inkscape:cx="5560.8838"
+     inkscape:cx="6030.3656"
      inkscape:cy="843.91129"
      inkscape:window-x="1438"
      inkscape:window-y="-3"
@@ -313,164 +313,24 @@
      y="-147.63782" />
   <rect
      style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2970"
-     width="80"
-     height="120"
+     id="rect3038"
+     width="800"
+     height="80"
      x="5600"
-     y="-67.637817" />
+     y="-147.63782" />
   <rect
      style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2974"
-     width="80"
-     height="400"
-     x="5360"
-     y="-67.637817" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2976"
-     width="160"
-     height="80"
-     x="5440"
-     y="52.362183" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2978"
-     width="80"
-     height="120"
-     x="5720"
-     y="212.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2980"
-     width="80"
-     height="80"
-     x="5720"
-     y="52.362183" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2982"
-     width="80"
+     id="rect3040"
+     width="200"
      height="440"
-     x="5880"
-     y="132.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2984"
-     width="120"
-     height="80"
-     x="5960"
-     y="492.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2994"
-     width="80"
-     height="80"
-     x="5960"
-     y="132.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2996"
-     width="80"
-     height="80"
-     x="6040"
-     y="212.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect2998"
-     width="80"
-     height="80"
-     x="5960"
-     y="292.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3000"
-     width="80"
-     height="80"
-     x="6040"
-     y="372.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3004"
-     width="40"
-     height="120"
-     x="6080"
-     y="452.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3014"
-     width="80"
-     height="240"
-     x="6200"
-     y="332.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3016"
-     width="120"
-     height="40"
-     x="6280"
-     y="532.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3018"
-     width="80"
-     height="240"
      x="6400"
-     y="332.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3020"
-     width="80"
-     height="200"
-     x="6560"
-     y="412.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3022"
-     width="40"
-     height="40"
-     x="6600"
-     y="612.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3024"
-     width="160"
-     height="40"
-     x="6640"
-     y="652.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3026"
-     width="80"
-     height="40"
-     x="6640"
-     y="452.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3030"
-     width="80"
-     height="80"
-     x="6560"
-     y="612.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3032"
-     width="840"
-     height="80"
-     x="6800"
-     y="732.36218" />
-  <rect
-     style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
-     id="rect3034"
-     width="160"
-     height="640"
-     x="7640"
-     y="172.36218" />
+     y="-507.63782" />
   <rect
      style="fill:#eb23c0;fill-opacity:1;fill-rule:evenodd;stroke:none"
      id="teleporter"
      width="80"
      height="80"
-     x="7400"
-     y="532.36218"
-     inkscape:label="#rect3036" />
+     x="6160"
+     y="-307.63782"
+     inkscape:label="#rect3042" />
 </svg>

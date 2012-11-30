@@ -39,29 +39,9 @@ define(function (require) {
             {"pos": {"y": 8.500472625, "x": 70.0}, "name": "staticbox", "options": {"width": 3.0, "height": 1.0}},
             {"pos": {"y": 6.5004726250000004, "x": 72.0}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
             {"pos": {"y": 6.5004726250000004, "x": 76.0}, "name": "staticbox", "options": {"width": 3.0, "height": 1.0}},
-            {"pos": {"y": 5.2504725875, "x": 78.0}, "name": "staticbox", "options": {"width": 1.0, "height": 1.5}},
-            {"pos": {"y": 3.5004725875, "x": 75.0}, "name": "staticbox", "options": {"width": 1.0, "height": 5.0}},
-            {"pos": {"y": 4.0004725875, "x": 76.5}, "name": "staticbox", "options": {"width": 2.0, "height": 1.0}},
-            {"pos": {"y": 1.7504726250000004, "x": 79.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.5}},
-            {"pos": {"y": 4.0004725875, "x": 79.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
-            {"pos": {"y": 0.7504726250000004, "x": 81.5}, "name": "staticbox", "options": {"width": 1.0, "height": 5.5}},
-            {"pos": {"y": -1.499527375000001, "x": 82.75}, "name": "staticbox", "options": {"width": 1.5, "height": 1.0}},
-            {"pos": {"y": 3.0004726250000004, "x": 82.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
-            {"pos": {"y": 2.000472625, "x": 83.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
-            {"pos": {"y": 1.0004726249999998, "x": 82.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
-            {"pos": {"y": 0.00047262499999973785, "x": 83.5}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
-            {"pos": {"y": -1.249527375000001, "x": 83.75}, "name": "staticbox", "options": {"width": 0.5, "height": 1.5}},
-            {"pos": {"y": -0.4995273750000003, "x": 85.5}, "name": "staticbox", "options": {"width": 1.0, "height": 3.0}},
-            {"pos": {"y": -1.7495273749999996, "x": 86.75}, "name": "staticbox", "options": {"width": 1.5, "height": 0.5}},
-            {"pos": {"y": -0.4995273750000003, "x": 88.0}, "name": "staticbox", "options": {"width": 1.0, "height": 3.0}},
-            {"pos": {"y": -1.249527375000001, "x": 90.0}, "name": "staticbox", "options": {"width": 1.0, "height": 2.5}},
-            {"pos": {"y": -2.7495273749999996, "x": 90.25}, "name": "staticbox", "options": {"width": 0.5, "height": 0.5}},
-            {"pos": {"y": -3.2495273749999996, "x": 91.5}, "name": "staticbox", "options": {"width": 2.0, "height": 0.5}},
-            {"pos": {"y": -0.7495273750000003, "x": 91.0}, "name": "staticbox", "options": {"width": 1.0, "height": 0.5}},
-            {"pos": {"y": -2.9995273749999996, "x": 90.0}, "name": "staticbox", "options": {"width": 1.0, "height": 1.0}},
-            {"pos": {"y": -4.4995273749999996, "x": 97.75}, "name": "staticbox", "options": {"width": 10.5, "height": 1.0}},
-            {"pos": {"y": -0.9995273749999996, "x": 104.0}, "name": "staticbox", "options": {"width": 2.0, "height": 8.0}},
-            {"pos": {"y": -1.9995273749999996, "x": 100.5}, "name": "teleporter", "options": {"width": 1.0, "height": 1.0}}
+            {"pos": {"y": 6.5004726250000004, "x": 82.5}, "name": "staticbox", "options": {"width": 10.0, "height": 1.0}},
+            {"pos": {"y": 8.750472625, "x": 88.75}, "name": "staticbox", "options": {"width": 2.5, "height": 5.5}},
+            {"pos": {"y": 8.500472625, "x": 85.0}, "name": "teleporter", "options": {"width": 1.0, "height": 1.0}}
         ]
     };
 
